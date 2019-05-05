@@ -4,13 +4,11 @@ https://go-e.co/en/
 to the Homey Athom
 https://athom.homey.com
 
-#DEVICES
-##home
-https://go-e.co/en/go-echarger-home/
-#Manual
-https://go-e.co/wp-content/uploads/2019/04/Handbuch-B2C-Charger_EN-1.0-003-1.pdf
-#API description
-https://go-e.co/app/api.pdf
+# DEVICES
+Go-e Charger Home+:
+https://go-e.co/en/go-echarger-home/ (homepage)
+https://go-e.co/wp-content/uploads/2019/04/Handbuch-B2C-Charger_EN-1.0-003-1.pdf (manual)
+https://go-e.co/app/api.pdf (api reference)
 
-##pro
-https://go-e.co/en/go-echarger-pro/
+Go-e Charger Pro (not yet available)
+https://go-e.co/en/go-echarger-pro/ (homepage)
