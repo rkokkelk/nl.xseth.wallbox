@@ -1,0 +1,68 @@
+{
+  "id": "com.athom.goecharger",
+  "version": "0.0.1",
+  "compatibility": ">=1.5.0",
+  "sdk": 2,
+  "name": {
+    "en": "Go-e Charger"
+  },
+  "description": {
+    "en": "Adds support for the Go-e car Charger"
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Tim Willemsen",
+    "email": "tim.willemsen@gmail.com"
+  },
+  "drivers": [
+    {
+      "id": "go-e_charger_home_plus",
+      "name": {
+        "en": "go-e_charger_home_plus"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_battery",
+        "measure_power",
+        "measure_temperature",
+        "locked",
+        "meter_power",
+        "measure_current",
+        "measure_voltage"
+      ],
+      "images": {
+        "large": "/drivers/go-e_charger_home_plus/assets/images/large.png",
+        "small": "/drivers/go-e_charger_home_plus/assets/images/small.png"
+      }
+    },
+    {
+      "id": "go-e_charger_pro",
+      "name": {
+        "en": "go-e_charger_pro"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_battery",
+        "measure_power",
+        "measure_temperature",
+        "locked",
+        "meter_power",
+        "measure_current",
+        "measure_voltage"
+      ],
+      "images": {
+        "large": "/drivers/go-e_charger_pro/assets/images/large.png",
+        "small": "/drivers/go-e_charger_pro/assets/images/small.png"
+      }
+    }
+  ]
+}
