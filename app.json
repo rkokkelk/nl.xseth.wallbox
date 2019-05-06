@@ -21,6 +21,13 @@
     "name": "Tim Willemsen",
     "email": "tim.willemsen@gmail.com"
   },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "abaretta@gmail.com"
+      }
+    }
+  },
   "drivers": [
     {
       "id": "go-e_charger_home_plus",
