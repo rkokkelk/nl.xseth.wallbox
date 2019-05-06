@@ -68,7 +68,7 @@
       },
       "pair": [
         {
-          "id": "list_devices",
+          "id": "list_devices", //hier zit nog een probleem
           "template": "list_devices",
           "navigation": {
             "next": "add_devices"
@@ -86,27 +86,6 @@
           "template": "done"
         }
       ]
-    },
-    {
-      "id": "go-e_charger_pro",
-      "name": {
-        "en": "go-e_charger_pro"
-      },
-      "class": "socket",
-      "capabilities": [
-        "onoff",
-        "measure_battery",
-        "measure_power",
-        "measure_temperature",
-        "locked",
-        "meter_power",
-        "measure_current",
-        "measure_voltage"
-      ],
-      "images": {
-        "large": "/drivers/go-e_charger_pro/assets/images/large.png",
-        "small": "/drivers/go-e_charger_pro/assets/images/small.png"
-      }
     }
   ]
 }
