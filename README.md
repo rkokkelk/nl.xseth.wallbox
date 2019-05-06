@@ -14,8 +14,10 @@ Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom
 #### Go-e Charger Pro (not yet available):
 * [homepage](https://go-e.co/en/go-echarger-pro/)
 
-#### Special thanks to:
+
+### Special thanks to:
 * [abaretta](https://github.com/abaretta),
 * [biemond](https://github.com/biemond), and
 * [StefanSimon](https://gitlab.com/StefanSimon)
+
 ...for being able to view their app code and learning from it.
