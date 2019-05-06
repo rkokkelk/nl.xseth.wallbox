@@ -2,12 +2,12 @@
 
 const Homey = require('homey');
 
-class MyDevice extends Homey.Device {
-	
+class goe_charger_pro_device extends Homey.Device {
+
 	onInit() {
 		this.log('MyDevice has been inited');
 	}
-	
+
 }
 
-module.exports = MyDevice;
+module.exports = goe_charger_pro_device;

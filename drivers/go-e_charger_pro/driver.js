@@ -2,12 +2,12 @@
 
 const Homey = require('homey');
 
-class MyDriver extends Homey.Driver {
-	
+class goe_charger_pro extends Homey.Driver {
+
 	onInit() {
-		this.log('MyDriver has been inited');
+		this.log('goe_charger_pro has been inited');
 	}
-	
+
 }
 
-module.exports = MyDriver;
+module.exports = goe_charger_pro;
