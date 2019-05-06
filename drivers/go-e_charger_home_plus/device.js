@@ -10,8 +10,8 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 	async onInit() {
 			this.log('device init');
-			let settings = this.getSettings();
-			let name = this.getName() + '_' + this.getData().id;
+			//let settings = this.getSettings();
+			//let name = this.getName() + '_' + this.getData().id;
 			} // end onInit
 
 			onAdded() {
@@ -23,7 +23,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 	    onDeleted() {
 
 	        let id = this.getData().id;
-	        clearInterval(this.pollingIntervalCurrent);
+	        //clearInterval(this.pollingIntervalCurrent);
 	        this.log('device deleted:', id);
 
 	    } // end onDeleted

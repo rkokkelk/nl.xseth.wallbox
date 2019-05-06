@@ -10,18 +10,6 @@ class goe_charger_home_plus extends Homey.Driver {
 
 	onPair(socket) {
 
-			let devices = [
-					{
-							"name": "My Device",
-							"data": { "id": "abcd" },
-							"settings": {
-									"APIKey": 'APIKey',
-									"IPaddress": '192.168.1.45'
-							}
-					}
-			]
-
-			// this is called when the user presses save settings button in pair.html
 			socket.on('get_devices', (device_data, callback) => {
 					devices = device_data;
 					callback(null, devices);
