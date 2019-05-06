@@ -29,7 +29,7 @@ class goe_charger_home_plus extends Homey.Driver {
 
 			// this happens when user clicks away the pairing windows
 			socket.on('disconnect', () => {
-					this.log("OpenWeatherMap - Pairing is finished (done or aborted) ");
+					this.log("go-e_charger_home_plus - Pairing is finished (done or aborted) ");
 			})
 
 	} // end onPair

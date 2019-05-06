@@ -24,8 +24,25 @@
   "contributing": {
     "donate": {
       "paypal": {
-        "username": "abaretta@gmail.com"
+        "username": "paypal@tim-w.com"
       }
+    }
+  },
+  "capabilities": {
+    "measure_power": {
+      "type": "number",
+      "title": {
+        "en": "Current Power Supplied"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "kW"
+      },
+      "min": 0,
+      "max": 22,
+      "icon": "/assets/images/e-go_charging.svg",
+      "insights": false
     }
   },
   "drivers": [
@@ -48,7 +65,20 @@
       "images": {
         "large": "/drivers/go-e_charger_home_plus/assets/images/large.png",
         "small": "/drivers/go-e_charger_home_plus/assets/images/small.png"
-      }
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ]
     },
     {
       "id": "go-e_charger_pro",
