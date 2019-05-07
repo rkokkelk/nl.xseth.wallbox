@@ -68,10 +68,13 @@
       },
       "pair": [
         {
-          "id": "list_devices", //hier zit nog een probleem
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
             "next": "add_devices"
+          },
+          "options": {
+            "singular": true
           }
         },
         {
