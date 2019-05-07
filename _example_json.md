@@ -17,7 +17,8 @@ amp = Ampere setting
 err = Error; 0 = no error, any other value = error
 ===========================================================
 sse = DEVICE_ID
-car = 1,4 = OFF; 2,3 = ON ("onoff")
+car = 1,4 = OFF; 2,3 = ON
+alw = ("onoff")
 ast = 0 = UNLOCKED; 1 = LOCKED ("locked")
 nrg[11] = POWER ("measure_power")/100 = kWh
 nrg[7+8+9] = CURRENT ("measure_current")/10 = A

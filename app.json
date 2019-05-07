@@ -21,6 +21,22 @@
     "name": "Tim Willemsen",
     "email": "tim.willemsen@gmail.com"
   },
+  "contributors": {
+    "developers": [
+      {
+        "name": "abaretta",
+        "github": "https://github.com/abaretta"
+      },
+      {
+        "name": "biemond",
+        "github": "https://github.com/biemond"
+      },
+      {
+        "name": "Stefan Simon",
+        "gitlab": "https://gitlab.com/StefanSimon"
+      }
+    ]
+  },
   "contributing": {
     "donate": {
       "paypal": {
@@ -29,6 +45,26 @@
     }
   },
   "capabilities": {
+    "onoff": {
+      "type": "boolean",
+      "title": {
+        "en": "Allow charging"
+      },
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
+    "locked": {
+      "type": "boolean",
+      "title": {
+        "en": "Locked"
+      },
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
     "measure_power": {
       "type": "number",
       "title": {
@@ -41,8 +77,66 @@
       },
       "min": 0,
       "max": 22,
-      "icon": "/assets/images/e-go_charging.svg",
+      "icon": "/assets/icon.svg",
       "insights": false
+    },
+    "measure_current": {
+      "type": "number",
+      "title": {
+        "en": "Current Supplied"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "A"
+      },
+      "min": 0,
+      "max": 100,
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
+    "measure_voltage": {
+      "type": "number",
+      "title": {
+        "en": "Voltage Supplied"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "V"
+      },
+      "min": 0,
+      "max": 750,
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
+    "measure_temperature": {
+      "type": "number",
+      "title": {
+        "en": "Temperature"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "C"
+      },
+      "min": -50,
+      "max": 50,
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
+    "meter_power": {
+      "type": "number",
+      "title": {
+        "en": "Power supplied in this session"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "kWh"
+      },
+      "icon": "/assets/icon.svg",
+      "insights": true
     }
   },
   "drivers": [
@@ -54,13 +148,12 @@
       "class": "socket",
       "capabilities": [
         "onoff",
-        "measure_battery",
-        "measure_power",
-        "measure_temperature",
         "locked",
-        "meter_power",
+        "measure_power",
         "measure_current",
-        "measure_voltage"
+        "measure_voltage",
+        "measure_temperature",
+        "meter_power"
       ],
       "images": {
         "large": "/drivers/go-e_charger_home_plus/assets/images/large.png",
