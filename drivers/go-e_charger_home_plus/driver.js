@@ -11,7 +11,7 @@ class goe_charger_home_plus extends Homey.Driver {
 	onPair( socket ) {
     const devices = [
       {
-        'name': 'goe_charger_home_plus',
+        'name': 'go-e charger home plus',
         'data': {
           'id': 'abcd',
         }
