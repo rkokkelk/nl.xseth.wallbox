@@ -1,0 +1,81 @@
+<script>
+    Homey.setTitle( __('pair.start.title') );
+    let data = null;
+    const saveButton = $('#saveDevice');
+    const testIpButton = $('#testIp');
+    saveButton.prop('disabled', true);
+    testIpButton.prop('disabled', false);
+    function testDevice() {
+        testIpButton.prop('disabled', true);
+        $('#result').html(`
+            <br>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        `);
+        const ip = $('#ipaddress').val();
+        if (ip !== '') {
+            Homey.emit('testConnection', ip, (error, result) => {
+                if (error) {
+                    $('#result').html(`<p>Something went wrong. Please navigate using your browser to
+                                        <a href="http://${ip}/status">http://${ip}/status</a>
+                                        and see if you get any results. If so, please create an issue on the GitLab page of the Go-e Charger device with the data you received.
+                                        If you didn't get any results, your Go-e Charger is not accessable for Homey</p>`);
+                    saveButton.prop('disabled', true);
+                    testIpButton.prop('disabled', false);
+                } else {
+                    data = result;
+                    $('#result').html(`
+                        <br>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">${data.ip}</li>
+                        </ul>
+                    `);
+                    saveButton.prop('disabled', false);
+                    testIpButton.prop('disabled', false);
+                }
+            });
+        } else {
+            Homey.alert(__('pair.start.required'), 'error');
+            testIpButton.prop('disabled', false);
+        }
+    }
+
+    function saveDevice() {
+        testIpButton.prop('disabled', true);
+        saveButton.prop('disabled', true);
+        Homey.addDevice({
+            name: data.name,
+            data: {
+                serial: data.serialNumber
+            },
+            settings: {
+                ip: data.ip,
+            },
+            store: {}
+        }, (err, result) => {
+            if (err) {
+                return Homey.alert(err);
+            }
+            Homey.done();
+        });
+    }
+</script>
+
+<div class="container-fluid">
+    <p class="lead" data-i18n="pair.start.intro.instructions"></p>
+    <hr class="my-4">
+    <p data-i18n="pair.start.intro.hint"></p>
+
+    <div class="form-group">
+        <label for="ipaddress" data-i18n="pair.start.ipaddress">IP:</label>
+        <input id="ipaddress" type="text" placeholder="192.168.1.45">
+    </div>
+
+    <button class="btn btn-primary" type="button" id="testIp" data-i18n="pair.start.testDevice" onclick="testDevice()">Test</button>
+    <div id="result"></div>
+    <br><br>
+    <button class="btn btn-primary" type="button" id="saveDevice" data-i18n="pair.start.saveDevice" onclick="saveDevice()">Save</button>
+</div>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">

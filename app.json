@@ -143,7 +143,7 @@
     {
       "id": "go-e_charger_home_plus",
       "name": {
-        "en": "go-e_charger_home_plus"
+        "en": "Go-e Charger Home Plus"
       },
       "class": "socket",
       "capabilities": [
@@ -161,25 +161,7 @@
       },
       "pair": [
         {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          },
-          "options": {
-            "singular": true
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices",
-          "navigation": {
-            "next": "done"
-          }
-        },
-        {
-          "id": "done",
-          "template": "done"
+          "id": "start"
         }
       ]
     }
