@@ -3,7 +3,7 @@
     "start": {
       "title": "Go-e Charger Setup",
       "intro": {
-        "instructions": "Enter the Ip address of the Go-e Charger.",
+        "instructions": "Enter the IP address of the Go-e Charger.",
         "hint": "To make sure Homey stays connected, make sure the device has a static IP address."
       },
       "ipaddress": "IP address",

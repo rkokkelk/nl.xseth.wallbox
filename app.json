@@ -55,16 +55,6 @@
       "icon": "/assets/icon.svg",
       "insights": false
     },
-    "locked": {
-      "type": "boolean",
-      "title": {
-        "en": "Locked"
-      },
-      "getable": true,
-      "setable": true,
-      "icon": "/assets/icon.svg",
-      "insights": false
-    },
     "measure_power": {
       "type": "number",
       "title": {
@@ -83,7 +73,7 @@
     "measure_current": {
       "type": "number",
       "title": {
-        "en": "Current Supplied"
+        "en": "Current Amperage Supplied"
       },
       "getable": true,
       "setable": false,
@@ -98,7 +88,7 @@
     "measure_voltage": {
       "type": "number",
       "title": {
-        "en": "Voltage Supplied"
+        "en": "Current Voltage Supplied"
       },
       "getable": true,
       "setable": false,
@@ -143,12 +133,11 @@
     {
       "id": "go-e_charger_home_plus",
       "name": {
-        "en": "Go-e Charger Home Plus"
+        "en": "Go-e Charger Home+"
       },
       "class": "socket",
       "capabilities": [
         "onoff",
-        "locked",
         "measure_power",
         "measure_current",
         "measure_voltage",
@@ -159,6 +148,7 @@
         "large": "/drivers/go-e_charger_home_plus/assets/images/large.png",
         "small": "/drivers/go-e_charger_home_plus/assets/images/small.png"
       },
+      "icon":"/drivers/go-e_charger_home_plus/assets/icon.svg",
       "pair": [
         {
           "id": "start"

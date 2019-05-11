@@ -28,7 +28,7 @@
                     $('#result').html(`
                         <br>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">${data.ip}</li>
+                            <li class="list-group-item">A device with Serial Number <b>${data.serialNumber}</b> was found at IP address <I>${data.ip}</i>.<br />If this Serial Number matches your Go-e Charger Home+, please click 'save' below.</li>
                         </ul>
                     `);
                     saveButton.prop('disabled', false);
@@ -47,7 +47,8 @@
         Homey.addDevice({
             name: data.name,
             data: {
-                serial: data.serialNumber
+                serial: data.serialNumber,
+                dataContainer: data.dataContainer
             },
             settings: {
                 ip: data.ip,
@@ -69,7 +70,7 @@
 
     <div class="form-group">
         <label for="ipaddress" data-i18n="pair.start.ipaddress">IP:</label>
-        <input id="ipaddress" type="text" placeholder="192.168.1.45">
+        <input id="ipaddress" type="text" placeholder="192.168.1.1">
     </div>
 
     <button class="btn btn-primary" type="button" id="testIp" data-i18n="pair.start.testDevice" onclick="testDevice()">Test</button>
