@@ -29,7 +29,8 @@
                         <br>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">A device with Serial Number <b>${data.serialNumber}</b> was found at IP address <I>${data.ip}</i>.<br />If this Serial Number matches your Go-e Charger Home+, please click 'save' below.</li>
-                        </ul>
+                        </ul><br><br>
+                        <button class="btn btn-primary" type="button" id="saveDevice" data-i18n="pair.start.saveDevice" onclick="saveDevice()">Save</button>
                     `);
                     saveButton.prop('disabled', false);
                     testIpButton.prop('disabled', false);
@@ -47,7 +48,7 @@
         Homey.addDevice({
             name: data.name,
             data: {
-                serial: data.serialNumber,
+                id: data.serialNumber,
                 dataContainer: data.dataContainer
             },
             settings: {
@@ -75,8 +76,6 @@
 
     <button class="btn btn-primary" type="button" id="testIp" data-i18n="pair.start.testDevice" onclick="testDevice()">Test</button>
     <div id="result"></div>
-    <br><br>
-    <button class="btn btn-primary" type="button" id="saveDevice" data-i18n="pair.start.saveDevice" onclick="saveDevice()">Save</button>
 </div>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">

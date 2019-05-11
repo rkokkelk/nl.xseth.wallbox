@@ -51,7 +51,7 @@
         "en": "Allow charging"
       },
       "getable": true,
-      "setable": true,
+      "setable": false,
       "icon": "/assets/icon.svg",
       "insights": false
     },
