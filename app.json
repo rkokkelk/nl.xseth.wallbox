@@ -48,7 +48,8 @@
     "onoff": {
       "type": "boolean",
       "title": {
-        "en": "Allow charging"
+        "en": "Allow charging",
+        "nl": "Laden toegestaan"
       },
       "getable": true,
       "setable": false,
@@ -58,7 +59,8 @@
     "measure_power": {
       "type": "number",
       "title": {
-        "en": "Current Power Supplied"
+        "en": "Current Power Supplied",
+        "nl": "Actueel wattage"
       },
       "getable": true,
       "setable": false,
@@ -73,7 +75,8 @@
     "measure_current": {
       "type": "number",
       "title": {
-        "en": "Current Amperage Supplied"
+        "en": "Current Amperage Supplied",
+        "nl": "Actueel amperage"
       },
       "getable": true,
       "setable": false,
@@ -88,7 +91,8 @@
     "measure_voltage": {
       "type": "number",
       "title": {
-        "en": "Current Voltage Supplied"
+        "en": "Current Voltage Supplied",
+        "nl": "Actueel voltage"
       },
       "getable": true,
       "setable": false,
@@ -103,7 +107,8 @@
     "measure_temperature": {
       "type": "number",
       "title": {
-        "en": "Temperature"
+        "en": "Temperature",
+        "nl": "Temperatuur"
       },
       "getable": true,
       "setable": false,
@@ -118,7 +123,8 @@
     "meter_power": {
       "type": "number",
       "title": {
-        "en": "Power supplied in this session"
+        "en": "Power supplied in this session",
+        "nl": "Vermogen in deze laadsessie geleverd"
       },
       "getable": true,
       "setable": false,

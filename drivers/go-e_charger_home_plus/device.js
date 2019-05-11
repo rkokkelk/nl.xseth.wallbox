@@ -38,23 +38,6 @@ class goe_charger_home_plus_device extends Homey.Device {
 					this.available = false;
 	    } // end onDeleted
 
-			/**_registerCapabilities() {
-			const capabilitySetMap = new Map([
-					["onoff", 0]//this._onoff],
-	        ["measure_power", 0]//this._nrg[11]/100],
-	        ["measure_current", 0]//(this._nrg[7]+this._nrg[8]+this._nrg[9])/10],
-	        ["measure_voltage", 0]//this._nrg[0]+this._nrg[1]+this._nrg[2]],
-	        ["measure_temperature", 0]//this._tmp],
-	        ["meter_power", 0]//this._dws*0.00000277]
-					]);
-					this.getCapabilities().forEach(capability =>
-					this.registerCapabilityListener(capability, (value) => {
-							return capabilitySetMap.get(capability).call(this, value)
-									.catch(err => {
-											return Promise.reject(err);
-									});
-					}))
-			} // end _registerCapabilities**/
 
 			async _pollChargerState() {
 			        try {
