@@ -52,7 +52,7 @@
         "nl": "Laden toegestaan"
       },
       "getable": true,
-      "setable": false,
+      "setable": true,
       "icon": "/assets/icon.svg",
       "insights": false
     },
@@ -133,6 +133,95 @@
       },
       "icon": "/assets/icon.svg",
       "insights": true
+    },
+    "charge_amp": {
+      "type": "number",
+      "title": {
+        "en": "Maximum power from source available for charging",
+        "nl": "Maximaal bronvermogen beschikbaar voor laden"
+      },
+      "getable": true,
+      "setable": true,
+      "units": {
+        "en": "A"
+      },
+      "min": 6,
+      "max": 32,
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
+    "charge_amp_limit": {
+      "type": "number",
+      "title": {
+        "en": "Maximum power as set in the device's app",
+        "nl": "Maximaal vermogen zoals ingesteld in de app van het apparaat"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "A"
+      },
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
+    "status": {
+      "type": "enum",
+      "title": {
+        "en": "Device status",
+        "nl": "Status van het apparaat"
+      },
+      "desc": {
+        "en": "Device status",
+        "nl": "Status van het apparaat"
+      },
+      "values": [
+        {
+          "id": "Ready to connect car",
+          "title": {
+            "en": "Ready to connect car",
+            "nl": "Klaar om auto te koppelen"
+          }
+        },
+        {
+          "id": "Charging car",
+          "title": {
+            "en": "Charging car",
+            "nl": "Auto laden"
+          }
+        },
+        {
+          "id": "Car connected, waiting for car",
+          "title": {
+            "en": "Car connected, waiting for car",
+            "nl": "Auto verbonden, wacht op auto"
+          }
+        },
+        {
+          "id": "Charging finished",
+          "title": {
+            "en": "Charging finished",
+            "nl": "Klaar met laden"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "A"
+      },
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
+    "error": {
+      "type": "boolean",
+      "title": {
+        "en": "Allow charging",
+        "nl": "Laden toegestaan"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "insights": false
     }
   },
   "drivers": [
@@ -148,7 +237,11 @@
         "measure_current",
         "measure_voltage",
         "measure_temperature",
-        "meter_power"
+        "meter_power",
+        "status",
+        "error",
+        "charge_amp",
+        "charge_amp_limit"
       ],
       "images": {
         "large": "/drivers/go-e_charger_home_plus/assets/images/large.png",

@@ -3,6 +3,7 @@
 const Homey = require('homey');
 const goechargerApi = require("../../api/api.js");
 
+
 class goe_charger_home_plus extends Homey.Driver {
 
 	onInit() {

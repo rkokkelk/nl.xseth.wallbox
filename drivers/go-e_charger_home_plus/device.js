@@ -14,10 +14,8 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 			setInterval(() => {
 				try {
-                this._pollChargerState();
+            this._pollChargerState();
 				} catch (e) {
-						this.setUnavailable(e);
-						console.log(e);
 						return e;
 				}}, POLL_INTERVAL)
 			} // end onInit
@@ -33,7 +31,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 	    onDeleted() {
 	        let id = this.getData().id;
-	        //clearInterval(this.pollingIntervalCurrent);
+	        clearInterval(this.pollingIntervalCurrent);
 	        this.log('device deleted:', id);
 					this.available = false;
 	    } // end onDeleted
@@ -41,17 +39,19 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 			async _pollChargerState() {
 			        try {
-			            //this.setAvailable();
-									const infoJson = await this._api.getInfo();
-									this.setCapabilityValue('onoff', infoJson.onoff);
-									this.setCapabilityValue('measure_power', infoJson.measure_power);
-									this.setCapabilityValue('measure_current', infoJson.measure_current);
-									this.setCapabilityValue('measure_voltage', infoJson.measure_voltage);
-									this.setCapabilityValue('measure_temperature', infoJson.measure_temperature);
-									this.setCapabilityValue('meter_power', infoJson.meter_power);
+								 const infoJson = await this._api.getInfo();
+									if(infoJson){
+										this.setAvailable();
+										this.setCapabilityValue('onoff', infoJson.onoff);
+										this.setCapabilityValue('measure_power', infoJson.measure_power);
+										this.setCapabilityValue('measure_current', infoJson.measure_current);
+										this.setCapabilityValue('measure_voltage', infoJson.measure_voltage);
+										this.setCapabilityValue('measure_temperature', infoJson.measure_temperature);
+										this.setCapabilityValue('meter_power', infoJson.meter_power);
+									}
 			        } catch (e) {
 			            this.setUnavailable(e);
-			            console.log(e);
+			            //console.log(e);
 			            return e;
 			        }
 			    }
