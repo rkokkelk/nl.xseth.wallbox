@@ -48,6 +48,10 @@ class goe_charger_home_plus_device extends Homey.Device {
 										this.setCapabilityValue('measure_voltage', infoJson.measure_voltage);
 										this.setCapabilityValue('measure_temperature', infoJson.measure_temperature);
 										this.setCapabilityValue('meter_power', infoJson.meter_power);
+										this.setCapabilityValue('status', infoJson.status);
+										this.setCapabilityValue('errr', infoJson.error);
+										this.setCapabilityValue('charge_amp', infoJson.charge_amp);
+										this.setCapabilityValue('charge_amp_limit', infoJson.charge_amp_limit);
 									}
 			        } catch (e) {
 			            this.setUnavailable(e);

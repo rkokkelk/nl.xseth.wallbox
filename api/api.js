@@ -39,6 +39,8 @@ module.exports = class goechargerApi {
           default: status = "Ready to connect car"
         }
 
+        var meter_power = goecharger.dws*0.00000277;
+
         return {
             name: 'Go-e Charger Home+ '+goecharger.sse,
             ip: this._ip,
@@ -48,11 +50,11 @@ module.exports = class goechargerApi {
             measure_current: (goecharger.nrg[7]+goecharger.nrg[8]+goecharger.nrg[9])/10,
             measure_voltage: goecharger.nrg[0]+goecharger.nrg[1]+goecharger.nrg[2],
             measure_temperature: Number(goecharger.tmp),
-            meter_power: goecharger.dws*0.00000277,
+            meter_power: +meter_power.toFixed(2),
             status: status,
             error: err,
-            charge_amp: goecharger.amp,
-            charge_amp_limit: goecharger.ama//,
+            charge_amp: Number(goecharger.amp),
+            charge_amp_limit: Number(goecharger.ama)//,
 
 //GET-able values:
 //version = encryption B:off C:on
@@ -140,11 +142,11 @@ module.exports = class goechargerApi {
         try {
             console.log('values: ' + values);
             console.log('POST to: /mqtt?payload=');
-            const res = await Fetch('http://' + this._ip + '/mqtt?payload=', {method: 'GET'});
+            const res = await Fetch('http://' + this._ip + '/mqtt?payload=' + values, {method: 'GET'});
             if (res.status === 200) {
-                return Promise.resolve();
+                return Promise.resolve(res);
             } else {
-                return Promise.reject();
+                return Promise.reject(res);
             }
         } catch (e) {
             return(e);

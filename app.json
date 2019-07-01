@@ -212,11 +212,11 @@
       "icon": "/assets/icon.svg",
       "insights": false
     },
-    "error": {
+    "errr": {
       "type": "boolean",
       "title": {
-        "en": "Allow charging",
-        "nl": "Laden toegestaan"
+        "en": "Errorstatus",
+        "nl": "Foutstatus"
       },
       "getable": true,
       "setable": false,
@@ -239,7 +239,7 @@
         "measure_temperature",
         "meter_power",
         "status",
-        "error",
+        "errr",
         "charge_amp",
         "charge_amp_limit"
       ],
