@@ -142,7 +142,7 @@
         "nl": "Maximaal bronvermogen beschikbaar voor laden"
       },
       "getable": true,
-      "setable": true,
+      "setable": false,
       "units": {
         "en": "A"
       },
