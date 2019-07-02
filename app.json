@@ -178,22 +178,22 @@
         {
           "id": "Ready to connect car",
           "title": {
-            "en": "Ready to connect car",
-            "nl": "Klaar om auto te koppelen"
+            "en": "Waiting for connection",
+            "nl": "Wacht op connectie"
+          }
+        },
+        {
+          "id": "Car connected, waiting for car",
+          "title": {
+            "en": "Communicating with car...",
+            "nl": "Communiceren met auto..."
           }
         },
         {
           "id": "Charging car",
           "title": {
             "en": "Charging car",
-            "nl": "Auto laden"
-          }
-        },
-        {
-          "id": "Car connected, waiting for car",
-          "title": {
-            "en": "Car connected, waiting for car",
-            "nl": "Auto verbonden, wacht op auto"
+            "nl": "Bezig met laden"
           }
         },
         {
