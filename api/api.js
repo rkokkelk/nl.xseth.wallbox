@@ -61,15 +61,20 @@ module.exports = class goechargerApi {
 
     //states
 
-    async _postToGoECharger(values) {
+    async onoff(vlw) {
+        return await this._postToGoECharger('alw='+vlw);
+    }
+
+    async _postToGoECharger(value) {
         try {
-            console.log('values: ' + values);
-            console.log('POST to: /mqtt?payload=');
-            const res = await Fetch('http://' + this._ip + '/mqtt?payload=' + values);
+            console.log('POST: http://' + this._ip + '/mqtt?payload=' + value);
+            const res = await Fetch('http://' + this._ip + '/mqtt?payload=' + value, {method: 'GET'});
             if (res.status === 200) {
                 return Promise.resolve(res);
+                console.log('result: '+ res);
             } else {
                 return Promise.reject(res);
+                console.log('result: '+ res);
             }
         } catch (e) {
             return(e);

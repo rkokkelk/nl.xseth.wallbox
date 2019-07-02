@@ -48,11 +48,12 @@
     "onoff": {
       "type": "boolean",
       "title": {
-        "en": "Allow charging",
+        "en": "Charging allowed",
         "nl": "Laden toegestaan"
       },
       "getable": true,
       "setable": true,
+      "uiQuickAction": true,
       "icon": "/assets/icon.svg",
       "insights": false
     },

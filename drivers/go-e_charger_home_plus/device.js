@@ -10,7 +10,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 			let settings = this.getSettings();
 			let name = this.getName() + '_' + this.getData().id;
 			this._api = new goechargerApi(settings.ip, null);
-			//this._registerCapabilities();
+			this._registerCapabilities();
 
 			setInterval(() => {
 				try {
@@ -59,6 +59,42 @@ class goe_charger_home_plus_device extends Homey.Device {
 			            return e;
 			        }
 			    }
+
+					_registerCapabilities() {
+								const capabilitySetMap = new Map([
+										['onoff', this._setOnOff],
+										['charge_amp', this._setChargeAmp]
+								]);
+								this.getCapabilities().forEach(capability =>
+								this.registerCapabilityListener(capability, (value) => {
+										return capabilitySetMap.get(capability).call(this, value)
+												.catch(err => {
+														return Promise.reject(err);
+												});
+								}))
+						}
+
+						async _setOnOff(onoff) {
+				        console.log('_setOnOff');
+				        try {
+				            if (onoff) {
+				                if (!this.getCapabilityValue('onoff')) {
+				                    return Promise.resolve(await this._api.onoff(1));
+				                }
+				            } else {
+				                if (this.getCapabilityValue('onoff')) {
+				                    return Promise.resolve(await this._api.onoff(0));
+				                }
+				            }
+				        } catch (e) {
+				            return Promise.reject(e);
+				        }
+				    }
+
+						async _setChargeAmp () {
+							console.log('_setChargeAmp');
+						}
+
 
 }
 module.exports = goe_charger_home_plus_device;
