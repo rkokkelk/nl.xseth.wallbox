@@ -1,6 +1,6 @@
 # Go-e Charger app for Homey Athom
 Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom](https://athom.homey.com).
-* *Version*: 0.0.1
+* *Version*: 0.1.0
 
 ### Features
 * readout of values: current power, current amperage, current voltage, current temperature, error status, power meter per session and max amperage as set for the device
