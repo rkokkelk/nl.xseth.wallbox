@@ -3,7 +3,7 @@ Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom
 * *Version*: 0.1.0
 
 ### Features
-* readout of values: current power, current amperage, current voltage, current temperature, error status, power meter per session and max amperage as set for the device
+* readout of values: *current power*, *current amperage*, *current voltage*, *current temperature*, *error status*, *power meter per session* and *max amperage as set for the device*
 * allow charging via on/off toggle via homey
 
 ### DEVICES

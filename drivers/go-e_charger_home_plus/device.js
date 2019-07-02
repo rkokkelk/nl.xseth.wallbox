@@ -62,8 +62,8 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 					_registerCapabilities() {
 								const capabilitySetMap = new Map([
-										['onoff', this._setOnOff],
-										['charge_amp', this._setChargeAmp]
+										['onoff', this._setOnOff]//,
+										//['charge_amp', this._setChargeAmp]
 								]);
 								this.getCapabilities().forEach(capability =>
 								this.registerCapabilityListener(capability, (value) => {
