@@ -40,6 +40,7 @@ module.exports = class goechargerApi {
         }
 
         var meter_power = goecharger.dws*0.00000277;
+        var measure_current = (goecharger.nrg[4]+goecharger.nrg[5]+goecharger.nrg[6])/30;
 
         return {
             name: 'Go-e Charger Home+ '+goecharger.sse,
@@ -47,7 +48,7 @@ module.exports = class goechargerApi {
             serialNumber: goecharger.sse,
             onoff: alw,
             measure_power: goecharger.nrg[11]/100,
-            measure_current: (goecharger.nrg[4]+goecharger.nrg[5]+goecharger.nrg[6])/30,
+            measure_current: +measure_current.toFixed(2),
             measure_voltage: goecharger.nrg[0]+goecharger.nrg[1]+goecharger.nrg[2],
             measure_temperature: Number(goecharger.tmp),
             meter_power: +meter_power.toFixed(2),
