@@ -1,10 +1,16 @@
 # Go-e Charger app for Homey Athom
 Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom](https://www.athom.com/).
-* *Version*: 0.1.3
+* *Version*: 0.1.3 (beta)
+
+## About the Go-e Charger
+The Go-e Charger is a mobile car charger for type 2 charging cable, enabling up to 22kW charging. The Go-e Charger is mobile, it's connecable to a wide variety of sockets so it can be both your 'granny charger' and your wallbox depending on the power that's available at the charging location.
 
 ### Features
 * readout of values: *current power*, *current amperage*, *current voltage*, *current temperature*, *error status*, *power meter per session* and *max amperage as set for the device*
-* allow charging via on/off toggle via homey
+* allow charging via on/off toggle via Homey
+
+#### Setup
+The homey app for the Go-e Charger Home+ allows only for local IP connection and does not yet support cloud connections. For most uses the local ip function is sufficient. Connect your go-e charger to the same wireless network as the Homey athom, and give it a fixed ip address. Next add the go-e charger to the Homey and enter the ip address and you're good to go.
 
 ### DEVICES
 #### Go-e Charger Home+:
@@ -14,7 +20,6 @@ Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom
 
 #### Go-e Charger Pro (not yet available):
 * [homepage](https://go-e.co/en/go-echarger-pro/)
-
 
 ### Special thanks to:
 * [abaretta](https://github.com/abaretta),
