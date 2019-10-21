@@ -14,10 +14,10 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 			this.interval = setInterval(() => {
 				try {
-						this.log("=============refresh state=============");
+						//this.log("=============refresh state=============");
 						var status_old = "oldstatustext";
 						status_old = this.getCapabilityValue('status');
-						this.log("old status: '"+status_old+"'");
+						//this.log("old status: '"+status_old+"'");
 						this._pollChargerState(status_old);
 				} catch (e) {
 						return e;
@@ -64,13 +64,10 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 										var status_new = "newstatustext";
 										status_new = infoJson.status;
-										this.log("new status: '"+status_new+"'");
-
-										if (status_old!=null)
-										{
+										//this.log("new status: '"+status_new+"'");
 											if (status_old!==status_new) {
 												//status has changed.
-												this.log("status changed");
+												//this.log("status changed");
 												//so trigger a flow
 												if(status_new=="Charging finished") //status is finished
 								        {
@@ -104,17 +101,15 @@ class goe_charger_home_plus_device extends Homey.Device {
 								        }
 											}
 											else {
-												this.log("status same");
+												//status unchanged
+												//this.log("status same");
 											}
 									}
-								}
 			        } catch (e) {
 			            this.setUnavailable(e);
 			            console.log(e);
 			            return "not connected";
 			        }
-
-
 			    }
 
 					_registerCapabilities() {
@@ -147,13 +142,6 @@ class goe_charger_home_plus_device extends Homey.Device {
 				            return Promise.reject(e);
 				        }
 				    }
-
-
-
-						/*async _setChargeAmp () {
-							console.log('_setChargeAmp');
-						}*/
-
 
 }
 module.exports = goe_charger_home_plus_device;
