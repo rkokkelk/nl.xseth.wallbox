@@ -1,6 +1,15 @@
 # Go-e Charger app for Homey Athom
 Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom](https://www.athom.com/).
-* *Version*: 0.1.3 (beta)
+* *Version*: 0.2.0 (rc 1 beta)
+
+## Version History
+
+### v0.2.0 (rc 1 beta)
+* fixed an error resulting from deleting the device
+* added flow card trigger 'charging finished'
+
+### v0.1.3 (beta)
+* first beta version
 
 ## About the Go-e Charger
 The Go-e Charger is a mobile car charger for type 2 charging cable, enabling up to 22kW charging. The Go-e Charger is mobile, it's connecable to a wide variety of sockets so it can be both your 'granny charger' and your wallbox depending on the power that's available at the charging location.

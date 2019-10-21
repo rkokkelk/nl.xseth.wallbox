@@ -11,9 +11,19 @@ module.exports = class goechargerApi {
 
     //config
     async getInfo() {
+
+      if (goecharger) {
+        const goecharger_prevstate = goecharger; //get the previous state and put it in a variable.
+        console.log("there was a previous state");
+      }
+      else
+      {
+        const goecharger_prevstate = "";
+      }
         const res = await this._getFromGoECharger('/status');
         const txt = await res.text();
-        const goecharger = JSON.parse(txt);
+        var goecharger = JSON.parse(txt);
+
 
         //voorbewerken van de variabelen als die niet 1-op-1 te gebruiken zijn
         //allow
@@ -39,6 +49,7 @@ module.exports = class goechargerApi {
           default: status = "Ready to connect car"
         }
 
+
         var meter_power = goecharger.dws*0.00000277;
         var measure_current = (goecharger.nrg[4]+goecharger.nrg[5]+goecharger.nrg[6])/30;
 
@@ -56,12 +67,22 @@ module.exports = class goechargerApi {
             error: err,
             charge_amp: Number(goecharger.amp),
             charge_amp_limit: Number(goecharger.ama)//,
-
         };
+
+        //check if the status has changed from charging to finished
+        if(goecharger_prevstate.car==2 && goecharger.car==4)
+        {
+          console.log("status changed to finished");
+          let chargingFinisedTrigger = new Homey.FlowCardTrigger('charging_finished');
+          chargingFinisedTrigger
+            .register()
+            .trigger()
+              .catch( this.error )
+              .then( this.log )
+        }
     }
 
     //states
-
     async onoff(vlw) {
         return await this._postToGoECharger('alw='+vlw);
     }

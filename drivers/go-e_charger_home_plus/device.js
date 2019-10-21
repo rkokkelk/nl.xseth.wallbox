@@ -5,19 +5,21 @@ const goechargerApi = require("../../api/api.js");
 const POLL_INTERVAL = 5000;
 
 class goe_charger_home_plus_device extends Homey.Device {
-	async onInit() {
+	onInit() {
+			const device = this;
 			this.log('device init');
 			let settings = this.getSettings();
-			let name = this.getName() + '_' + this.getData().id;
 			this._api = new goechargerApi(settings.ip, null);
 			this._registerCapabilities();
 
-			setInterval(() => {
+			this.interval = setInterval(() => {
 				try {
-            this._pollChargerState();
+						this.log("refresh state");
+						this._pollChargerState();
 				} catch (e) {
 						return e;
 				}}, POLL_INTERVAL)
+
 			} // end onInit
 
 			onAdded() {
@@ -27,12 +29,14 @@ class goe_charger_home_plus_device extends Homey.Device {
 	        this.log('device_class:', this.getClass());
 	        this.log('settings:', this.getSettings());
 	        this.log('data:', this.getData());
-	    } // end onAdded
+					//this._pollChargerState(); //first time immediately get the results
+			} // end onAdded
 
 	    onDeleted() {
-	        let id = this.getData().id;
-	        clearInterval(this.pollingIntervalCurrent);
-	        this.log('device deleted:', id);
+					this.log("deleting device...");
+					clearInterval(this.interval);
+					let id = this.getData().id;
+					this.log("device deleted:'"+id+"'");
 					this.available = false;
 	    } // end onDeleted
 
@@ -56,7 +60,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 			        } catch (e) {
 			            this.setUnavailable(e);
 			            //console.log(e);
-			            return e;
+			            return "not connected";
 			        }
 			    }
 
