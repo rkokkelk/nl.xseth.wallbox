@@ -1,6 +1,6 @@
 {
   "id": "nl.phate.goecharger",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -21,6 +21,10 @@
     "name": "Tim Willemsen",
     "email": "tim.willemsen@gmail.com"
   },
+  "bugs": {
+  "url": "https://github.com/phatenl/nl.phate.goecharger"
+  },
+  "homeyCommunityTopicId": 14162,
   "contributors": {
     "developers": [
       {
@@ -44,7 +48,21 @@
               "en": "Finished Charging",
               "nl": "Laden afgerond"
             }
-          }
+      },
+      {
+            "id": "charging_started",
+            "title": {
+              "en": "Charging started",
+              "nl": "Laden gestart"
+            }
+      },
+      {
+            "id": "car_connected",
+            "title": {
+              "en": "Car connected...",
+              "nl": "Auto verbonden..."
+            }
+      }
     ],
     "conditions" : [],
     "actions" : []

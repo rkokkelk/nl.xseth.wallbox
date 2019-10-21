@@ -1,8 +1,13 @@
 # Go-e Charger app for Homey Athom
 Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom](https://www.athom.com/).
-* *Version*: 0.2.0 (rc 1 beta)
+* *Version*: 0.2.1 (rc 1 beta)
 
 ## Version History
+
+### v0.2.1 (rc 2 beta)
+* fixed the flow card trigger 'charging finished'
+* added flow card trigger car car_connected
+* added flow card trigger car charging
 
 ### v0.2.0 (rc 1 beta)
 * fixed an error resulting from deleting the device
