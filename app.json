@@ -1,6 +1,6 @@
 {
   "id": "nl.phate.goecharger",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -68,6 +68,13 @@
             "title": {
               "en": "Car connected",
               "nl": "Auto verbonden"
+            }
+      },
+      {
+            "id": "car_unplugged",
+            "title": {
+              "en": "Car unplugged",
+              "nl": "Auto ontkoppeld"
             }
       },
       {

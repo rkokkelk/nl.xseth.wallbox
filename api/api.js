@@ -42,6 +42,9 @@ module.exports = class goechargerApi {
 
         var meter_power = goecharger.dws*0.00000277;
 
+        //the amps should be measured over the whole of the phases.
+        //if more than 1 phase is used, the amps should be devided by the number of phases
+        //all amp values are devided by 10 so therefor the below calculation
         var measure_current_divider = 0;
         if(goecharger.nrg[4]>0) {measure_current_divider=measure_current_divider+10;}
         if(goecharger.nrg[5]>0) {measure_current_divider=measure_current_divider+10;}
