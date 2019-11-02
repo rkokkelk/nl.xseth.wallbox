@@ -17,7 +17,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 						//this.log("=============refresh state=============");
 						var status_old = "oldstatustext";
 						status_old = this.getCapabilityValue('status');
-						//this.log("old status: '"+status_old+"'");
+						this.log("old status: '"+status_old+"'");
 						this._pollChargerState(status_old);
 				} catch (e) {
 						return e;
@@ -64,12 +64,12 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 										var status_new = "newstatustext";
 										status_new = infoJson.status;
-										//this.log("new status: '"+status_new+"'");
+										this.log("new status: '"+status_new+"'");
 											if (status_old!==status_new) {
 												//status has changed.
-												//this.log("status changed");
+												this.log("status changed");
 												//so trigger a flow
-												if(status_new=="Charging finished") //status is finished
+												if(status_new=="Charging finished") //status is finished, car still connected
 								        {
 								          this.log("Status changed to finished");
 								          let chargingFinishedTrigger = new Homey.FlowCardTrigger('charging_finished');
@@ -79,6 +79,16 @@ class goe_charger_home_plus_device extends Homey.Device {
 								              .catch( this.error )
 								              .then( this.log )
 								        }
+												if(status_old=="Charging car" && status_new=="No car connected") //was charging but no longer connected
+												{
+													this.log("Status changed from charging to no car connected");
+													let chargingFinishedTrigger = new Homey.FlowCardTrigger('charging_ended');
+													chargingFinishedTrigger
+														.register()
+														.trigger()
+															.catch( this.error )
+															.then( this.log )
+												}
 												if(status_new=="Charging car") //status is car charging started
 								        {
 								          this.log("Status changed to charging");
@@ -89,7 +99,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 								              .catch( this.error )
 								              .then( this.log )
 								        }
-												if(status_new=="Car connected, waiting for car data") //status is car connected
+												if(status_new=="Car connected") //status is car connected
 								        {
 								          this.log("Status changed to car connected");
 								          let carConnectedTrigger = new Homey.FlowCardTrigger('car_connected');

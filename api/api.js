@@ -28,20 +28,24 @@ module.exports = class goechargerApi {
         //status (car)
         var status = "statusstring";
         switch (goecharger.car) {
-          case '1': status = "Ready to connect car"
+          case '1': status = "No car connected"
             break;
           case '2': status = "Charging car"
             break;
-          case '3': status = "Car connected, waiting for car data"
+          case '3': status = "Car connected"
             break;
           case '4': status = "Charging finished"
             break;
-          default: status = "Ready to connect car"
+          default: status = "No car connected"
         }
         //console.log(goecharger.car);
 
         var meter_power = goecharger.dws*0.00000277;
-        var measure_current = (goecharger.nrg[4]+goecharger.nrg[5]+goecharger.nrg[6])/30;
+        var measure_current_divider = 0;
+        if(goecharger.nrg[4]>0) {measure_current_divider=measure_current_divider+10;}
+        if(goecharger.nrg[5]>0) {measure_current_divider=measure_current_divider+10;}
+        if(goecharger.nrg[6]>0) {measure_current_divider=measure_current_divider+10;}
+        var measure_current = (goecharger.nrg[4]+goecharger.nrg[5]+goecharger.nrg[6])/measure_current_divider;
 
         return {
             name: 'Go-e Charger Home+ '+goecharger.sse,

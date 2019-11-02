@@ -4,6 +4,9 @@ Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom
 
 ## Version History
 
+### v0.2.2 (rc 3 beta)
+* fixed status values
+
 ### v0.2.1 (rc 2 beta)
 * fixed the flow card trigger 'charging finished'
 * added flow card trigger car car_connected

@@ -1,6 +1,6 @@
 {
   "id": "nl.phate.goecharger",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -45,8 +45,15 @@
       {
             "id": "charging_finished",
             "title": {
-              "en": "Finished Charging",
+              "en": "Finished charging",
               "nl": "Laden afgerond"
+            }
+      },
+      {
+            "id": "charging_ended",
+            "title": {
+              "en": "Finished ended",
+              "nl": "Laden beëindigd"
             }
       },
       {
@@ -59,13 +66,80 @@
       {
             "id": "car_connected",
             "title": {
-              "en": "Car connected...",
-              "nl": "Auto verbonden..."
+              "en": "Car connected",
+              "nl": "Auto verbonden"
+            }
+      },
+      {
+            "id": "charging_allowed",
+            "title": {
+              "en": "Charging allowed",
+              "nl": "Opladen toegestaan"
+            }
+      },
+      {
+            "id": "charging_disallowed",
+            "title": {
+              "en": "Charging disallowed",
+              "nl": "Opladen niet meer toegestaan"
             }
       }
     ],
-    "conditions" : [],
-    "actions" : []
+    "conditions" : [
+      {
+            "id": "is_finished",
+            "title": {
+              "en": "!{{Finished charging|Not finished charging}}",
+              "nl": "!{{Laden afgerond|Laden niet afgerond}}"
+            }
+      },
+      {
+            "id": "is_charging",
+            "title": {
+              "en": "!{{Charging|Not charging}}",
+              "nl": "!{{Bezig met laden|Niet bezig met laden}}"
+            }
+      }
+    ],
+    "actions" : [
+      {
+            "id": "Allow_charging",
+            "title": {
+              "en": "Allow charging",
+              "nl": "Laden toestaan"
+            }
+      },
+      {
+            "id": "Stop_charging",
+            "title": {
+              "en": "Stop charging",
+              "nl": "Laden stoppen"
+            }
+      },
+      {
+            "id": "Change_amps_to",
+            "title": {
+              "en": "Change amperage to...",
+              "nl": "Amperage veranderen naar..."
+            },
+            "titleformatted": {
+              "en": "Change amperage to [[amps]]",
+              "nl": "Amperage veranderen naar [[amps]]"
+            },
+            "args": [
+              {
+                "type": "range",
+                "name": "amps",
+                "min": 6,
+                "max": 32,
+                "step": 1,
+                "label": "A",
+                "labelMultiplier": 1,
+                "labelDecimals": 0
+              }
+            ]
+      }
+    ]
   },
   "capabilities": {
     "onoff": {
@@ -94,7 +168,7 @@
       "min": 0,
       "max": 22,
       "icon": "/assets/icon.svg",
-      "insights": false
+      "insights": true
     },
     "measure_current": {
       "type": "number",
@@ -110,7 +184,7 @@
       "min": 0,
       "max": 100,
       "icon": "/assets/icon.svg",
-      "insights": false
+      "insights": true
     },
     "measure_voltage": {
       "type": "number",
@@ -126,7 +200,7 @@
       "min": 0,
       "max": 750,
       "icon": "/assets/icon.svg",
-      "insights": false
+      "insights": true
     },
     "measure_temperature": {
       "type": "number",
@@ -142,7 +216,7 @@
       "min": -50,
       "max": 50,
       "icon": "/assets/icon.svg",
-      "insights": false
+      "insights": true
     },
     "meter_power": {
       "type": "number",
@@ -172,7 +246,7 @@
       "min": 6,
       "max": 32,
       "icon": "/assets/icon.svg",
-      "insights": false
+      "insights": true
     },
     "charge_amp_limit": {
       "type": "number",
@@ -186,7 +260,7 @@
         "en": "A"
       },
       "icon": "/assets/icon.svg",
-      "insights": false
+      "insights": true
     },
     "status": {
       "type": "enum",
@@ -200,17 +274,17 @@
       },
       "values": [
         {
-          "id": "Ready to connect car",
+          "id": "No car connected",
           "title": {
-            "en": "Waiting for connection",
-            "nl": "Wacht op connectie"
+            "en": "No car connected",
+            "nl": "Geen auto verbonden"
           }
         },
         {
-          "id": "Car connected, waiting for car",
+          "id": "Car connected",
           "title": {
-            "en": "Communicating with car...",
-            "nl": "Communiceren met auto..."
+            "en": "Getting ready to start charging",
+            "nl": "Klaarmaken voor laden"
           }
         },
         {
