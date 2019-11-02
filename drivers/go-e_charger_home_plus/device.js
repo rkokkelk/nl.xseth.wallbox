@@ -112,7 +112,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 											}
 											else {
 												//status unchanged
-												//this.log("status same");
+												this.log("status same");
 											}
 									}
 			        } catch (e) {
