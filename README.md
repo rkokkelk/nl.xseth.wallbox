@@ -1,6 +1,6 @@
 # Go-e Charger app for Homey Athom
 Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom](https://www.athom.com/).
-* *Version*: 0.2.1 (rc 1 beta)
+* *Version*: 0.2.3 (beta)
 
 ## Version History
 
