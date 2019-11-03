@@ -67,7 +67,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 										this.log("new status: '"+status_new+"'");
 											if (status_old!==status_new) {
 												//status has changed.
-												this.log("status changed");
+												this.log("status CHANGED");
 												//so trigger a flow
 												//add  && status_old!=null to not run the trigger if the app was first installed.
 												if(status_new=="Charging finished") //status is finished, car still connected
@@ -123,7 +123,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 											}
 											else {
 												//status unchanged
-												this.log("status same");
+												this.log("status unchanged");
 											}
 									}
 			        } catch (e) {
