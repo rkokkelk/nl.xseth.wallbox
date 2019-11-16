@@ -58,7 +58,7 @@ module.exports = class goechargerApi {
             ip: this._ip,
             serialNumber: goecharger.sse,
             onoff: alw,
-            measure_power: goecharger.nrg[11]/100,
+            measure_power: goecharger.nrg[11]*10,
             measure_current: +measure_current.toFixed(2),
             measure_voltage: goecharger.nrg[0]+goecharger.nrg[1]+goecharger.nrg[2],
             measure_temperature: Number(goecharger.tmp),

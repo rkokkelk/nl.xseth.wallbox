@@ -192,10 +192,10 @@
       "getable": true,
       "setable": false,
       "units": {
-        "en": "kW"
+        "en": "W"
       },
       "min": 0,
-      "max": 22,
+      "max": 22000,
       "icon": "/assets/icon.svg",
       "insights": true
     },

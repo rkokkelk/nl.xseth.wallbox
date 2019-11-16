@@ -1,6 +1,6 @@
 # Go-e Charger app for Homey Athom
 Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom](https://www.athom.com/).
-* *Version*: 0.2.3 (beta)
+* *Version*: 0.3 (beta)
 
 ## Version History
 
@@ -8,6 +8,8 @@ Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom
 * added action to change charging amps
 * added action to allow charging
 * added action to disallow charging
+* added condition is charging
+* added condition charging finished
 
 ### v0.2.3 (beta)
 * added trigger when unplugging a plugged car
