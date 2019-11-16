@@ -1,5 +1,8 @@
 {
   "0.3.0": {
     "en": "* added action to change charging amps"
+  },
+  "0.3.1": {
+    "en": "typo corrected"
   }
 }
