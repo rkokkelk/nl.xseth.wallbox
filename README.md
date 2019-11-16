@@ -8,9 +8,6 @@ Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom
 * added action to change charging amps
 * added action to allow charging
 * added action to disallow charging
-#### known errors
-* condition flow cards don't work yet
-
 
 ### v0.2.3 (beta)
 * added trigger when unplugging a plugged car

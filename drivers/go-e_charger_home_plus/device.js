@@ -63,6 +63,22 @@ class goe_charger_home_plus_device extends Homey.Device {
 						}
 				});
 
+/*deze werkt nog niet*/
+				const _isFinishedCondition = new Homey.FlowCardCondition('is_finished')
+		            .register()
+		            .registerRunListener(async (args, state) => {
+		                var result = (this.getCapabilityValue('finished'));
+		                return Promise.resolve(result);
+		    });
+/*deze werkt nog niet*/
+				const _isChargingCondition = new Homey.FlowCardCondition('is_charging')
+								.register()
+								.registerRunListener(async (args, state) => {
+												var result = (this.getCapabilityValue('charging'));
+												return Promise.resolve(result);
+				});
+
+
 			} // end onInit
 
 			onAdded() {
@@ -101,6 +117,8 @@ class goe_charger_home_plus_device extends Homey.Device {
 										this.setCapabilityValue('errr', infoJson.error);
 										this.setCapabilityValue('charge_amp', infoJson.charge_amp);
 										this.setCapabilityValue('charge_amp_limit', infoJson.charge_amp_limit);
+										this.setCapabilityValue('charging', false);
+										this.setCapabilityValue('finished', false);
 
 										var status_new = "newstatustext";
 										status_new = infoJson.status;
@@ -115,6 +133,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 												if(status_new=="Charging finished") //status is finished, car still connected
 								        {
 								          this.log("Status changed to finished");
+													this.setCapabilityValue('finished', true);
 								          let chargingFinishedTrigger = new Homey.FlowCardTrigger('charging_finished');
 								          chargingFinishedTrigger
 								            .register()
@@ -125,6 +144,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 												if(status_old=="Charging car") //was charging but no longer
 												{
 													this.log("Status changed from charging to no car connected");
+													this.setCapabilityValue('finished', true);
 													let chargingEndedTrigger = new Homey.FlowCardTrigger('charging_ended');
 													chargingEndedTrigger
 														.register()
@@ -135,6 +155,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 												if(status_new=="Charging car") //status is car charging started
 								        {
 								          this.log("Status changed to charging");
+													this.setCapabilityValue('charging', true);
 								          let chargingStartedTrigger = new Homey.FlowCardTrigger('charging_started');
 								          chargingStartedTrigger
 								            .register()
@@ -213,7 +234,9 @@ class goe_charger_home_plus_device extends Homey.Device {
 					_registerCapabilities() {
 								const capabilitySetMap = new Map([
 										['onoff', this._setOnOff],
-										['charge_amp', this._setChargeAmp]
+										['charge_amp', this._setChargeAmp],
+										['finished', null],
+										['charging', null]
 								]);
 								this.getCapabilities().forEach(capability =>
 								this.registerCapabilityListener(capability, (value) => {

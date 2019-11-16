@@ -1,6 +1,6 @@
 {
   "id": "nl.phate.goecharger",
-  "version": "0.3",
+  "version": "0.3.0",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -149,6 +149,28 @@
     ]
   },
   "capabilities": {
+    "finished": {
+      "type": "boolean",
+      "title": {
+        "en": "Charging finished",
+        "nl": "Laden afgerond"
+      },
+      "getable": false,
+      "setable": true,
+      "uiComponent": null,
+      "insights": false
+    },
+    "charging": {
+      "type": "boolean",
+      "title": {
+        "en": "Charging",
+        "nl": "Laden"
+      },
+      "getable": false,
+      "setable": true,
+      "uiComponent": null,
+      "insights": false
+    },
     "onoff": {
       "type": "boolean",
       "title": {
@@ -337,6 +359,8 @@
       },
       "class": "socket",
       "capabilities": [
+        "finished",
+        "charging",
         "onoff",
         "measure_power",
         "measure_current",
