@@ -5,11 +5,7 @@ Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom
 ## Version History
 
 ### v0.3 (beta)
-* added action to change charging amps
-* added action to allow charging
-* added action to disallow charging
-* added condition is charging
-* added condition charging finished
+\
 
 ### v0.2.3 (beta)
 * added trigger when unplugging a plugged car
