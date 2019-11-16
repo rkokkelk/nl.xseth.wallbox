@@ -18,10 +18,50 @@ class goe_charger_home_plus_device extends Homey.Device {
 						var status_old = "oldstatustext";
 						status_old = this.getCapabilityValue('status');
 						this.log("old status: '"+status_old+"'");
-						this._pollChargerState(status_old);
+						var onoff_old = "oldonofftext";
+						onoff_old = this.getCapabilityValue('onoff');
+						this.log("old onoff: '"+onoff_old+"'");
+
+						this._pollChargerState(status_old, onoff_old);
 				} catch (e) {
 						return e;
 				}}, POLL_INTERVAL)
+
+				const _Change_amps_to = new Homey.FlowCardAction('Change_amps_to')
+				.register()
+				.registerRunListener(async (args, state) => {
+						this.log('action change amps to: ', args);
+						try {
+								this._setChargeAmp(args.amps);
+								return Promise.resolve();
+						} catch (e) {
+								return Promise.reject(e);
+						}
+				});
+
+				const _Stop_charging = new Homey.FlowCardAction('Stop_charging')
+				.register()
+				.registerRunListener(async (args, state) => {
+						this.log('action stop charging: ', args);
+						try {
+								this._setOnOff(false)
+								return Promise.resolve();
+						} catch (e) {
+								return Promise.reject(e);
+						}
+				});
+
+				const _Allow_charging = new Homey.FlowCardAction('Allow_charging')
+				.register()
+				.registerRunListener(async (args, state) => {
+						this.log('action allow charging: ', args);
+						try {
+								this._setOnOff(true)
+								return Promise.resolve();
+						} catch (e) {
+								return Promise.reject(e);
+						}
+				});
 
 			} // end onInit
 
@@ -44,7 +84,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 	    } // end onDeleted
 
 
-			async _pollChargerState(status_old) {
+			async _pollChargerState(status_old, onoff_old) {
 
 			        try {
 								 const infoJson = await this._api.getInfo();
@@ -65,6 +105,8 @@ class goe_charger_home_plus_device extends Homey.Device {
 										var status_new = "newstatustext";
 										status_new = infoJson.status;
 										this.log("new status: '"+status_new+"'");
+
+
 											if (status_old!==status_new) {
 												//status has changed.
 												this.log("status CHANGED");
@@ -125,6 +167,41 @@ class goe_charger_home_plus_device extends Homey.Device {
 												//status unchanged
 												this.log("status unchanged");
 											}
+
+											var onoff_new = "newonofftext";
+											onoff_new = infoJson.onoff;
+											this.log("new onoff: '"+onoff_new+"'");
+
+											if (onoff_old!==onoff_new) {
+												//status has changed.
+												this.log("onoff CHANGED");
+												//so trigger a flow
+												//add  && onoff_old!=null to not run the trigger if the app was first installed.
+												if (onoff_new==true && onoff_old!=null) {
+													this.log("OnOff changed to TRUE");
+
+													let onoffAllowedTrigger = new Homey.FlowCardTrigger('charging_allowed');
+								          onoffAllowedTrigger
+								            .register()
+								            .trigger()
+								              .catch( this.error )
+								              .then( this.log )
+												}
+												if (onoff_new==false && onoff_old!=null) {
+													this.log("OnOff changed to FALSE");
+
+													let onoffNotAllowedTrigger = new Homey.FlowCardTrigger('charging_disallowed');
+								          onoffNotAllowedTrigger
+								            .register()
+								            .trigger()
+								              .catch( this.error )
+								              .then( this.log )
+												}
+											}
+											else {
+												this.log("onoff unchanged");
+											}
+
 									}
 			        } catch (e) {
 			            this.setUnavailable(e);
@@ -135,8 +212,8 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 					_registerCapabilities() {
 								const capabilitySetMap = new Map([
-										['onoff', this._setOnOff]//,
-										//['charge_amp', this._setChargeAmp]
+										['onoff', this._setOnOff],
+										['charge_amp', this._setChargeAmp]
 								]);
 								this.getCapabilities().forEach(capability =>
 								this.registerCapabilityListener(capability, (value) => {
@@ -158,6 +235,17 @@ class goe_charger_home_plus_device extends Homey.Device {
 				                if (this.getCapabilityValue('onoff')) {
 				                    return Promise.resolve(await this._api.onoff(0));
 				                }
+				            }
+				        } catch (e) {
+				            return Promise.reject(e);
+				        }
+				    }
+
+						async _setChargeAmp(charge_amp) {
+				        console.log('_setChargeAmp');
+				        try {
+				            if (charge_amp) {
+				                return Promise.resolve(await this._api.charge_amp(charge_amp));
 				            }
 				        } catch (e) {
 				            return Promise.reject(e);

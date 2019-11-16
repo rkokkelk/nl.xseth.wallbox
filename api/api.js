@@ -76,6 +76,11 @@ module.exports = class goechargerApi {
     }
 
 
+    async charge_amp(vlw) {
+        return await this._postToGoECharger('amp='+vlw);
+    }
+
+
     async _postToGoECharger(value) {
         try {
             console.log('POST: http://' + this._ip + '/mqtt?payload=' + value);
