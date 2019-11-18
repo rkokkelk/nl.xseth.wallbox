@@ -1,33 +1,6 @@
 # Go-e Charger app for Homey Athom
-Adds support for the [Go-e car Charger](https://go-e.co/en/) to the [Homey Athom](https://www.athom.com/).
-* *Version*: 0.3 (beta)
-
-## Version History
-
-### v0.3 (beta)
-* added action to change charging amps
-* added action to allow charging
-* added action to disallow charging
-* added condition is charging
-* added condition charging finished
-
-### v0.2.3 (beta)
-* added trigger when unplugging a plugged car
-
-### v0.2.2 (rc 3 beta)
-* fixed status values
-
-### v0.2.1 (rc 2 beta)
-* fixed the flow card trigger 'charging finished'
-* added flow card trigger car car_connected
-* added flow card trigger car charging
-
-### v0.2.0 (rc 1 beta)
-* fixed an error resulting from deleting the device
-* added flow card trigger 'charging finished'
-
-### v0.1.3 (beta)
-* first beta version
+Adds support for the Go-e car Charger to the Homey Athom.
+* *Version*: 0.3.2 (beta)
 
 ## About the Go-e Charger
 The Go-e Charger is a mobile car charger for type 2 charging cable, enabling up to 22kW charging. The Go-e Charger is mobile, it's connecable to a wide variety of sockets so it can be both your 'granny charger' and your wallbox depending on the power that's available at the charging location.
@@ -35,6 +8,9 @@ The Go-e Charger is a mobile car charger for type 2 charging cable, enabling up 
 ### Features
 * readout of values: *current power*, *current amperage*, *current voltage*, *current temperature*, *error status*, *power meter per session* and *max amperage as set for the device*
 * allow charging via on/off toggle via Homey
+* flow trigger cards for: *charging finished* and *car connected*
+* flow action cards for: *changing amperage* and *allow / disallow charging*
+* flow condition cards for: *car connected* and *charging in progress*
 
 #### Setup
 The homey app for the Go-e Charger Home+ allows only for local IP connection and does not yet support cloud connections. For most uses the local ip function is sufficient. Connect your go-e charger to the same wireless network as the Homey athom, and give it a fixed ip address. Next add the go-e charger to the Homey and enter the ip address and you're good to go.
@@ -54,3 +30,7 @@ The homey app for the Go-e Charger Home+ allows only for local IP connection and
 * [StefanSimon](https://gitlab.com/StefanSimon)
 
 ...for being able to view their app code and learning from it.
+
+and
+* [peltsi51](https://community.athom.com/u/peltsi51)
+...for helping me test the app.
