@@ -6,7 +6,7 @@
   "name": {
     "en": "Go-e Charger"
   },
-  "brandcolor": "#007bff",
+  "brandColor": "#007bff",
   "description": {
     "en": "Adds support for the Go-e car Charger"
   },
