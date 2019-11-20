@@ -53,20 +53,26 @@ module.exports = class goechargerApi {
         var measure_current = (goecharger.nrg[4]+goecharger.nrg[5]+goecharger.nrg[6])/measure_current_divider;
         //console.log("measure_current_divider:"+measure_current_divider)
 
+        var energy_tot = 0;
+        if(goecharger.eto>0) {energy_tot=goecharger.eto/10}
+
         return {
             name: 'Go-e Charger Home+ '+goecharger.sse,
             ip: this._ip,
             serialNumber: goecharger.sse,
             onoff: alw,
+            old_onoff: alw,
             measure_power: goecharger.nrg[11]*10,
             measure_current: +measure_current.toFixed(2),
             measure_voltage: goecharger.nrg[0]+goecharger.nrg[1]+goecharger.nrg[2],
             measure_temperature: Number(goecharger.tmp),
             meter_power: +meter_power.toFixed(2),
             status: status,
+            old_status: status,
             error: err,
             charge_amp: Number(goecharger.amp),
-            charge_amp_limit: Number(goecharger.ama)
+            charge_amp_limit: Number(goecharger.ama),
+            energy_total: energy_tot
         }
     }
 

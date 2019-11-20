@@ -1,6 +1,6 @@
 {
   "id": "nl.phate.goecharger",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -184,6 +184,19 @@
       "icon": "/assets/icon.svg",
       "insights": false
     },
+    "old_onoff": {
+      "type": "boolean",
+      "title": {
+        "en": "Charging allowed",
+        "nl": "Laden toegestaan"
+      },
+      "getable": true,
+      "setable": true,
+      "uiQuickAction": false,
+      "uiComponent": null,
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
     "measure_power": {
       "type": "number",
       "title": {
@@ -340,6 +353,55 @@
       "icon": "/assets/icon.svg",
       "insights": false
     },
+    "old_status": {
+      "type": "enum",
+      "uiComponent": null,
+      "title": {
+        "en": "Device status",
+        "nl": "Status van het apparaat"
+      },
+      "desc": {
+        "en": "Device status",
+        "nl": "Status van het apparaat"
+      },
+      "values": [
+        {
+          "id": "No car connected",
+          "title": {
+            "en": "No car connected",
+            "nl": "Geen auto verbonden"
+          }
+        },
+        {
+          "id": "Car connected",
+          "title": {
+            "en": "Getting ready to start charging",
+            "nl": "Klaarmaken voor laden"
+          }
+        },
+        {
+          "id": "Charging car",
+          "title": {
+            "en": "Charging car",
+            "nl": "Bezig met laden"
+          }
+        },
+        {
+          "id": "Charging finished",
+          "title": {
+            "en": "Charging finished",
+            "nl": "Klaar met laden"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "A"
+      },
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
     "errr": {
       "type": "boolean",
       "title": {
@@ -350,6 +412,21 @@
       "setable": false,
       "icon": "/assets/icon.svg",
       "insights": false
+    },
+    "energy_total": {
+      "type": "number",
+      "title": {
+        "en": "Total Enery Supplied",
+        "nl": "Totaal geleverde energie"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null,
+      "units": {
+        "en": "kWh"
+      },
+      "icon": "/assets/icon.svg",
+      "insights": true
     }
   },
   "drivers": [
@@ -363,15 +440,18 @@
         "finished",
         "charging",
         "onoff",
+        "old_onoff",
         "measure_power",
         "measure_current",
         "measure_voltage",
         "measure_temperature",
         "meter_power",
         "status",
+        "old_status",
         "errr",
         "charge_amp",
-        "charge_amp_limit"
+        "charge_amp_limit",
+        "energy_total"
       ],
       "images": {
         "large": "/drivers/go-e_charger_home_plus/assets/images/large.png",

@@ -14,15 +14,14 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 			this.interval = setInterval(() => {
 				try {
-						this.log("=============refresh state=============");
-						var status_old = "oldstatustext";
-						status_old = this.getCapabilityValue('status');
-						this.log("old status: '"+status_old+"'");
-						var onoff_old = "oldonofftext";
-						onoff_old = this.getCapabilityValue('onoff');
-						this.log("old onoff: '"+onoff_old+"'");
-
-						this._pollChargerState(status_old, onoff_old);
+					this.log("=============refresh state=============");
+					var status_old = "oldstatustext";
+					status_old = this.getCapabilityValue('old_status');
+					this.log("old_status: '"+status_old+"'");
+					var onoff_old = "oldonofftext";
+					onoff_old = this.getCapabilityValue('old_onoff');
+					this.log("old_onoff: '"+onoff_old+"'");
+					this._pollChargerState(status_old, onoff_old);
 				} catch (e) {
 						return e;
 				}}, POLL_INTERVAL)
@@ -108,21 +107,22 @@ class goe_charger_home_plus_device extends Homey.Device {
 
 										this.setAvailable();
 										this.setCapabilityValue('onoff', infoJson.onoff);
+										this.setCapabilityValue('old_onoff', infoJson.onoff);
 										this.setCapabilityValue('measure_power', infoJson.measure_power);
 										this.setCapabilityValue('measure_current', infoJson.measure_current);
 										this.setCapabilityValue('measure_voltage', infoJson.measure_voltage);
 										this.setCapabilityValue('measure_temperature', infoJson.measure_temperature);
 										this.setCapabilityValue('meter_power', infoJson.meter_power);
 										this.setCapabilityValue('status', infoJson.status);
+										this.setCapabilityValue('old_status', infoJson.status);
 										this.setCapabilityValue('errr', infoJson.error);
 										this.setCapabilityValue('charge_amp', infoJson.charge_amp);
 										this.setCapabilityValue('charge_amp_limit', infoJson.charge_amp_limit);
-
+										this.setCapabilityValue('energy_total', infoJson.energy_total);
 
 										var status_new = "newstatustext";
 										status_new = infoJson.status;
 										this.log("new status: '"+status_new+"'");
-
 
 											if (status_old!==status_new) {
 												//status has changed.

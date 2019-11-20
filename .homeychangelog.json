@@ -25,5 +25,8 @@
   },
   "0.3.3": {
     "en": "Homey App Store compliancy issues fixed II"
+  },
+  "0.3.4": {
+    "en": "Added energy total variable; fixed changing on-off values not triggering when changing from homey by adding hidden old_onoff"
   }
 }
