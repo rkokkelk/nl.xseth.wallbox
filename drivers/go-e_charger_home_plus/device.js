@@ -124,7 +124,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 										status_new = infoJson.status;
 										this.log("new status: '"+status_new+"'");
 
-											if (status_old!==status_new) {
+											if (status_old!=status_new) {
 												//status has changed.
 												this.log("status CHANGED");
 												//so trigger a flow
@@ -199,7 +199,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 											onoff_new = infoJson.onoff;
 											this.log("new onoff: '"+onoff_new+"'");
 
-											if (onoff_old!==onoff_new) {
+											if (onoff_old!=onoff_new) {
 												//status has changed.
 												this.log("onoff CHANGED");
 												//so trigger a flow

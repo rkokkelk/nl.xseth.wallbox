@@ -28,5 +28,8 @@
   },
   "0.3.4": {
     "en": "Added energy total variable; fixed changing on-off values not triggering when changing from homey by adding hidden old_onoff"
+  },
+  "0.3.5": {
+    "en": "Fix for trigger problems"
   }
 }
