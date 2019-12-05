@@ -223,7 +223,7 @@
         "nl": "Laden toegestaan"
       },
       "getable": false,
-      "setable": false,
+      "setable": true,
       "uiQuickAction": false,
       "uiComponent": null,
       "icon": "/assets/icon.svg",
@@ -483,7 +483,8 @@
         "errr",
         "charge_amp",
         "charge_amp_limit",
-        "energy_total"
+        "energy_total",
+        "pluggedin"
       ],
       "images": {
         "large": "/drivers/go-e_charger_home_plus/assets/images/large.png",
