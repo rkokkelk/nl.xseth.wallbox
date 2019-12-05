@@ -1,6 +1,6 @@
 {
   "id": "nl.phate.goecharger",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -91,6 +91,13 @@
               "en": "Charging disallowed",
               "nl": "Opladen niet meer toegestaan"
             }
+      },
+      {
+            "id": "status_changed",
+            "title": {
+              "en": "Status changed",
+              "nl": "Status gewijzigd"
+            }
       }
     ],
     "conditions" : [
@@ -106,6 +113,20 @@
             "title": {
               "en": "!{{Charging|Not charging}}",
               "nl": "!{{Bezig met laden|Niet bezig met laden}}"
+            }
+      },
+      {
+            "id": "is_allowed",
+            "title": {
+              "en": "!{{Charging allowed|Charging not allowed}}",
+              "nl": "!{{Laden toegestaan|Laden niet toegestaan}}"
+            }
+      },
+      {
+            "id": "is_plugged",
+            "title": {
+              "en": "!{{Car plugged in|No car plugged in}}",
+              "nl": "!{{Auto verbonden|Geen auto verbonden}}"
             }
       }
     ],
@@ -157,7 +178,18 @@
         "nl": "Laden afgerond"
       },
       "getable": false,
-      "setable": true,
+      "setable": false,
+      "uiComponent": null,
+      "insights": false
+    },
+    "pluggedin": {
+      "type": "boolean",
+      "title": {
+        "en": "Car plugged in",
+        "nl": "Auto verbonden"
+      },
+      "getable": false,
+      "setable": false,
       "uiComponent": null,
       "insights": false
     },
@@ -168,7 +200,7 @@
         "nl": "Laden"
       },
       "getable": false,
-      "setable": true,
+      "setable": false,
       "uiComponent": null,
       "insights": false
     },
@@ -190,8 +222,8 @@
         "en": "Charging allowed",
         "nl": "Laden toegestaan"
       },
-      "getable": true,
-      "setable": true,
+      "getable": false,
+      "setable": false,
       "uiQuickAction": false,
       "uiComponent": null,
       "icon": "/assets/icon.svg",
@@ -283,6 +315,7 @@
       },
       "getable": true,
       "setable": false,
+      "getable": false,
       "units": {
         "en": "A"
       },
@@ -345,7 +378,6 @@
           }
         }
       ],
-      "getable": true,
       "setable": false,
       "units": {
         "en": "A"
@@ -361,8 +393,8 @@
         "nl": "Status van het apparaat"
       },
       "desc": {
-        "en": "Device status",
-        "nl": "Status van het apparaat"
+        "en": "Previous device status",
+        "nl": "Vorige Status van het apparaat"
       },
       "values": [
         {

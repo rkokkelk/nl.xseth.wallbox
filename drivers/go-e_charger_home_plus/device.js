@@ -62,14 +62,14 @@ class goe_charger_home_plus_device extends Homey.Device {
 						}
 				});
 
-/*deze werkt nog niet*/
+
 				const _isFinishedCondition = new Homey.FlowCardCondition('is_finished')
 		            .register()
 		            .registerRunListener(async (args, state) => {
 		                var result = (this.getCapabilityValue('finished'));
 		                return Promise.resolve(result);
 		    });
-/*deze werkt nog niet*/
+
 				const _isChargingCondition = new Homey.FlowCardCondition('is_charging')
 								.register()
 								.registerRunListener(async (args, state) => {
@@ -77,6 +77,19 @@ class goe_charger_home_plus_device extends Homey.Device {
 												return Promise.resolve(result);
 				});
 
+				const _isAllowedCondition = new Homey.FlowCardCondition('is_allowed')
+								.register()
+								.registerRunListener(async (args, state) => {
+												var result = (this.getCapabilityValue('onoff')); //toevoegen
+												return Promise.resolve(result);
+				});
+
+				const _isPluggedCondition = new Homey.FlowCardCondition('is_plugged')
+								.register()
+								.registerRunListener(async (args, state) => {
+												var result = (this.getCapabilityValue('pluggedin'));
+												return Promise.resolve(result);
+				});
 
 			} // end onInit
 
@@ -128,12 +141,21 @@ class goe_charger_home_plus_device extends Homey.Device {
 												//status has changed.
 												this.log("status CHANGED");
 												//so trigger a flow
+												let statusChangedTrigger = new Homey.FlowCardTrigger('status_changed');
+												statusChangedTrigger
+													.register()
+													.trigger()
+														.catch( this.error )
+														.then( this.log )
+
+												//basedon conditions, trigger other flows as well
 												//add  && status_old!=null to not run the trigger if the app was first installed.
 												if(status_new=="Charging finished") //status is finished, car still connected
 								        {
 								          this.log("Status changed to finished");
 													this.setCapabilityValue('finished', true);
 													this.setCapabilityValue('charging', false);
+													this.setCapabilityValue('pluggedin', true);
 								          let chargingFinishedTrigger = new Homey.FlowCardTrigger('charging_finished');
 								          chargingFinishedTrigger
 								            .register()
@@ -158,6 +180,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 								          this.log("Status changed to charging");
 													this.setCapabilityValue('charging', true);
 													this.setCapabilityValue('finished', false);
+													this.setCapabilityValue('pluggedin', true);
 								          let chargingStartedTrigger = new Homey.FlowCardTrigger('charging_started');
 								          chargingStartedTrigger
 								            .register()
@@ -170,6 +193,7 @@ class goe_charger_home_plus_device extends Homey.Device {
 								          this.log("Status changed to car connected");
 													this.setCapabilityValue('charging', false);
 													this.setCapabilityValue('finished', false);
+													this.setCapabilityValue('pluggedin', true);
 								          let carConnectedTrigger = new Homey.FlowCardTrigger('car_connected');
 								          carConnectedTrigger
 								            .register()
@@ -177,11 +201,16 @@ class goe_charger_home_plus_device extends Homey.Device {
 								              .catch( this.error )
 								              .then( this.log )
 								        }
+												if(status_new=="No car connected") //status no car is connected
+								        {
+													this.setCapabilityValue('pluggedin', false);
+													this.setCapabilityValue('charging', false);
+													this.setCapabilityValue('finished', false);
+												}
 												if(status_new=="No car connected" && status_old!=null) //status no car is connected
 								        {
 								          this.log("Status changed to car unplugged");
-													this.setCapabilityValue('charging', false);
-													this.setCapabilityValue('finished', false);
+
 								          let carDisconnectedTrigger = new Homey.FlowCardTrigger('car_unplugged');
 								          carDisconnectedTrigger
 								            .register()
