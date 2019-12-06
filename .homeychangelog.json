@@ -1,9 +1,9 @@
 {
   "0.1.3": {
     "en": "first beta version"
-    },
-    "0.2.0": {
-      "en": "fixed an error resulting from deleting the device; added flow card trigger charging finished"
+  },
+  "0.2.0": {
+    "en": "fixed an error resulting from deleting the device; added flow card trigger charging finished"
   },
   "0.2.1": {
     "en": "fixed the flow card trigger charging finished; added flow card trigger car car_connected; added flow card trigger car charging"
@@ -34,5 +34,8 @@
   },
   "0.3.6": {
     "en": "Few minor fixes. Added Charging allowed, Car Plugged conditions and Status changed trigger."
+  },
+  "0.3.7": {
+    "en": "minor fixes"
   }
 }
