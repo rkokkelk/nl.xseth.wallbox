@@ -1,6 +1,6 @@
 {
   "id": "nl.phate.goecharger",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -177,7 +177,7 @@
         "en": "Charging finished",
         "nl": "Laden afgerond"
       },
-      "getable": false,
+      "getable": true,
       "setable": false,
       "uiComponent": null,
       "insights": false
@@ -188,7 +188,7 @@
         "en": "Car plugged in",
         "nl": "Auto verbonden"
       },
-      "getable": false,
+      "getable": true,
       "setable": false,
       "uiComponent": null,
       "insights": false
@@ -199,7 +199,7 @@
         "en": "Charging",
         "nl": "Laden"
       },
-      "getable": false,
+      "getable": true,
       "setable": false,
       "uiComponent": null,
       "insights": false
@@ -223,7 +223,7 @@
         "nl": "Laden toegestaan"
       },
       "getable": false,
-      "setable": true,
+      "setable": false,
       "uiQuickAction": false,
       "uiComponent": null,
       "icon": "/assets/icon.svg",
@@ -315,7 +315,6 @@
       },
       "getable": true,
       "setable": false,
-      "getable": false,
       "units": {
         "en": "A"
       },
@@ -379,6 +378,7 @@
         }
       ],
       "setable": false,
+      "getable": true,
       "units": {
         "en": "A"
       },
@@ -426,7 +426,7 @@
           }
         }
       ],
-      "getable": true,
+      "getable": false,
       "setable": false,
       "units": {
         "en": "A"
