@@ -6,7 +6,7 @@
   "name": {
     "en": "Wallbox Charger"
   },
-  "brandColor": "#95debf",
+  "brandColor": "#60b59d",
   "description": {
     "en": "Adds support for the Wallbox Charger"
   },
@@ -438,7 +438,6 @@
       },
       "class": "socket",
       "capabilities": [
-        "finished",
         "charging",
         "onoff",
         "measure_power",

@@ -1,8 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
-const goechargerApi = require("../../api/api.js");
-
+const WallboxAPI = require('/lib/wallbox_api');
 
 class goe_charger_home_plus extends Homey.Driver {
 
