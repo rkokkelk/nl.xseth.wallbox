@@ -1,14 +1,14 @@
 {
-  "id": "nl.phate.goecharger",
-  "version": "1.0.0",
-  "compatibility": ">=1.5.0",
+  "id": "nl.xseth.wallbox",
+  "version": "0.1.0",
+  "compatibility": ">=3.0.0",
   "sdk": 2,
   "name": {
-    "en": "Go-e Charger"
+    "en": "Wallbox Charger"
   },
-  "brandColor": "#007bff",
+  "brandColor": "#95debf",
   "description": {
-    "en": "Adds support for the Go-e car Charger"
+    "en": "Adds support for the Wallbox Charger"
   },
   "category": [
     "energy"
@@ -19,27 +19,20 @@
     "small": "/assets/images/small.png"
   },
   "author": {
-    "name": "Tim Willemsen",
-    "email": "tim.willemsen@gmail.com"
+    "name": "Roy K",
+    "website": "https://github.com/rkokkelk/nl.xseth.wallbox"
   },
   "bugs": {
-  "url": "https://github.com/phatenl/nl.phate.goecharger"
+    "url": "https://github.com/rkokkelk/nl.xseth.wallbox/issues"
   },
-  "homeyCommunityTopicId": 14162,
+  "source": "https://github.com/rkokkelk/nl.xseth.dashboardctrl",
   "contributors": {
     "developers": [
       {
-        "name": "phatenl",
-        "github": "https://github.com/phatenl/"
+        "name": "rkokkelk",
+        "github": "https://github.com/rkokkelk/"
       }
     ]
-  },
-  "contributing": {
-    "donate": {
-      "paypal": {
-        "username": "TimWillemsen"
-      }
-    }
   },
   "flow" : {
     "triggers": [
@@ -171,17 +164,6 @@
     ]
   },
   "capabilities": {
-    "finished": {
-      "type": "boolean",
-      "title": {
-        "en": "Charging finished",
-        "nl": "Laden afgerond"
-      },
-      "getable": true,
-      "setable": false,
-      "uiComponent": null,
-      "insights": false
-    },
     "pluggedin": {
       "type": "boolean",
       "title": {
@@ -213,19 +195,6 @@
       "getable": true,
       "setable": true,
       "uiQuickAction": true,
-      "icon": "/assets/icon.svg",
-      "insights": false
-    },
-    "old_onoff": {
-      "type": "boolean",
-      "title": {
-        "en": "Charging allowed",
-        "nl": "Laden toegestaan"
-      },
-      "getable": false,
-      "setable": false,
-      "uiQuickAction": false,
-      "uiComponent": null,
       "icon": "/assets/icon.svg",
       "insights": false
     },
@@ -463,16 +432,15 @@
   },
   "drivers": [
     {
-      "id": "go-e_charger_home_plus",
+      "id": "wallbox",
       "name": {
-        "en": "Go-e Charger Home+"
+        "en": "Wallbox Charger"
       },
       "class": "socket",
       "capabilities": [
         "finished",
         "charging",
         "onoff",
-        "old_onoff",
         "measure_power",
         "measure_current",
         "measure_voltage",

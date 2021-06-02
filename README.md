@@ -1,9 +1,8 @@
-# Go-e Charger app for Homey Athom
-Adds support for the Go-e car Charger to the Homey Athom.
-* *Version*: 1.0.0
+# Wallbox Charger app for Homey Athom
+Adds support for the Wallbox car Charger to the Homey Athom.
 
-## About the Go-e Charger
-The Go-e Charger is a mobile car charger for type 2 charging cable, enabling up to 22kW charging. The Go-e Charger is mobile, it's connecable to a wide variety of sockets so it can be both your 'granny charger' and your wallbox depending on the power that's available at the charging location.
+## About the Wallbox Charger
+The Wallbox Charger is a mobile car charger, enabling up to 22kW charging.
 
 ### Features
 * readout of values: *current power*, *current amperage*, *current voltage*, *current temperature*, *error status*, *power meter per session* and *max amperage as set for the device*
@@ -13,24 +12,9 @@ The Go-e Charger is a mobile car charger for type 2 charging cable, enabling up 
 * flow condition cards for: *car connected* and *charging in progress*
 
 #### Setup
-The homey app for the Go-e Charger Home+ allows only for local IP connection and does not yet support cloud connections. For most uses the local ip function is sufficient. Connect your go-e charger to the same wireless network as the Homey athom, and give it a fixed ip address. Next add the go-e charger to the Homey and enter the ip address and you're good to go.
+The homey app for the Wallbox only supports cloud connections. Connect your Wallbox charger to a network with internet connectivity. Next add the Wallbox charger to the Homey and enter the your Wallbox credentials.
 
-### DEVICES
-#### Go-e Charger Home+:
-* [homepage](https://go-e.co/en/go-echarger-home/)
-* [manual](https://go-e.co/wp-content/uploads/2019/04/Handbuch-B2C-Charger_EN-1.0-003-1.pdf)
-* [api reference](https://go-e.co/app/api.pdf)
-
-#### Go-e Charger Pro (not yet available):
-* [homepage](https://go-e.co/en/go-echarger-pro/)
-
-### Special thanks to:
-* [abaretta](https://github.com/abaretta),
-* [biemond](https://github.com/biemond), and
-* [StefanSimon](https://gitlab.com/StefanSimon)
+## Special thanks to:
+* [Phatenl](https://github.com/phatenl/nl.phate.goecharger)
 
 ...for being able to view their app code and learning from it.
-
-and
-* [peltsi51](https://community.athom.com/u/peltsi51)
-...for helping me test the app.

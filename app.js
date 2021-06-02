@@ -2,11 +2,11 @@
 
 const Homey = require('homey');
 
-class goechargerapp extends Homey.App {
+class wallboxapp extends Homey.App {
 
 	onInit() {
-		this.log('goechargerapp is running...');
+		this.log('wallboxapp is running...');
 	}
 }
 
-module.exports = goechargerapp;
+module.exports = wallboxapp;
