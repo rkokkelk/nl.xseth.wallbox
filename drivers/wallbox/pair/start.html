@@ -1,82 +1,61 @@
 <script>
-    Homey.setTitle( __('pair.start.title') );
-    let data = null;
-    const saveButton = $('#saveDevice');
-    const testIpButton = $('#testIp');
-    saveButton.prop('disabled', true);
-    testIpButton.prop('disabled', false);
-    function testDevice() {
-        testIpButton.prop('disabled', true);
-        $('#result').html(`
-            <br>
-            <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        `);
-        const user = $('#user').val();
-        const pass = $('#pass').val();
-        if (user !== '') {
-            let data = {
-              user: user,
-              pass: pass
-            };
-            Homey.emit('testConnection', data, (error, result) => {
-                if (error) {
-                    $('#result').html(`<p>Something went wrong. Please navigate using your browser to
-                                        <a href="http://${ip}/status">http://${ip}/status</a>
-                                        and see if you get any results. If so, please create an issue on the GitLab page of the Go-e Charger device with the data you received.
-                                        If you didn't get any results, your Go-e Charger is not accessable for Homey</p>`);
-                    saveButton.prop('disabled', true);
-                    testIpButton.prop('disabled', false);
-                } else {
-                    data = result;
-                    console.log(data);
-                    saveButton.prop('disabled', false);
-                    testIpButton.prop('disabled', false);
-                }
-            });
-        } else {
-            Homey.alert(__('pair.start.required'), 'error');
-            testIpButton.prop('disabled', false);
-        }
-    }
+  Homey.setTitle( __('pair.start.title') );
 
-    function saveDevice() {
-        testIpButton.prop('disabled', true);
-        saveButton.prop('disabled', true);
-        Homey.addDevice({
-            name: data.name,
-            data: {
-                id: data.serialNumber,
-                dataContainer: data.dataContainer
-            },
-            settings: {
-                ip: data.ip,
-            },
-            store: {}
-        }, (err, result) => {
-            if (err) {
-                return Homey.alert(err);
-            }
-            Homey.done();
-        });
+  let data = null;
+
+  $(function() {
+      $('.app-loading').hide();
+      $('.app-error').hide();
+
+      $('#login').click(function() {
+
+    function testDevice() {
+      $('.app-loading').show();
+      const user = $('#user').val();
+      const pass = $('#pass').val();
+
+      if (user !== '' && pass != '') {
+          let data = {
+            user: user,
+            pass: pass
+          };
+          Homey.emit('testConnection', data, (error, result) => {
+              if (error) {
+                $('.fully-error').show();
+                $('.fully-error-msg').html(error);
+              } else {
+                data = result;
+                console.log(data);
+              }
+          });
+      } else {
+          $('.fully-error').show();
+          $('.fully-error-msg').html( __('pair.start.required') );
+      }
     }
 </script>
 
 <div class="container-fluid">
-    <p class="lead" data-i18n="pair.start.intro.instructions"></p>
-    <hr class="my-4">
-    <p data-i18n="pair.start.intro.hint"></p>
+  <p class="lead" data-i18n="pair.start.intro.instructions"></p>
+  <hr class="my-4">
 
-    <div class="form-group">
-        <label for="user" data-i18n="pair.start.ipaddress">User:</label>
-        <input id="user" type="text" placeholder="user" value=""> <!--for testing purposes the value is set-->
-        <label for="pass" data-i18n="pair.start.ipaddress">Pass:</label>
-        <input id="pass" type="password" value=""> <!--for testing purposes the value is set-->
-    </div>
+  <p data-i18n="pair.start.intro.hint"></p>
 
-    <button class="btn btn-primary" type="button" id="testIp" data-i18n="pair.start.testDevice" onclick="testDevice()">Test</button>
-    <div id="result"></div>
+  <div class="form-group">
+      <label for="user" data-i18n="pair.start.ipaddress">User:</label>
+      <input id="user" type="text" placeholder="user" value=""> <!--for testing purposes the value is set-->
+  </div>
+  <div class="form-group">
+      <label for="pass" data-i18n="pair.start.ipaddress">Pass:</label>
+      <input id="pass" type="password" value=""> <!--for testing purposes the value is set-->
+  </div>
+
+  <button class="btn btn-primary" type="button" id="login" data-i18n="pair.start.testDevice">Login</button>
+
+  <div class="messages">
+    <p class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </p>
+    <p class="app-status app-error" style="color: #ff6300;"><i class="fa fa-times"></i> <span class="app-error-msg"></span></p>
+  </div>
 </div>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
