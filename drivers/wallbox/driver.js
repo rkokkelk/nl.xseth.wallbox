@@ -11,13 +11,18 @@ class goe_charger_home_plus extends Homey.Driver {
 
 	async onPair(socket) {
 			this.log('pairing started');
-			socket.on('testConnection', async (ip, callback) => {
+			socket.on('testConnection', async (data, callback) => {
 					try {
-							console.log(ip);
-							const api = new goechargerApi(ip, null);
-							const info = await api.getInfo();
-							console.log(info);
-							callback(false, info);
+					    let user = data['user'];
+					    let pass = data['pass'];
+							this.log(user+ ' ' + pass);
+							const api = new WallboxAPI(user, pass);
+						  await api.authenticate();
+						  const chargers = await api.getChargers();
+							this.log(chargers);
+							this.log(chargers['result']['groups']);
+							this.log(chargers['result']['groups'][0]['chargers']);
+							callback(false, chargers);
 					} catch (e) {
 							console.log(e);
 							callback(true, e);

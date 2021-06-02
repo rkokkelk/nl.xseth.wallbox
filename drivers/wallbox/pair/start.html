@@ -13,9 +13,14 @@
                 <span class="sr-only">Loading...</span>
             </div>
         `);
-        const ip = $('#ipaddress').val();
-        if (ip !== '') {
-            Homey.emit('testConnection', ip, (error, result) => {
+        const user = $('#user').val();
+        const pass = $('#pass').val();
+        if (user !== '') {
+            let data = {
+              user: user,
+              pass: pass
+            };
+            Homey.emit('testConnection', data, (error, result) => {
                 if (error) {
                     $('#result').html(`<p>Something went wrong. Please navigate using your browser to
                                         <a href="http://${ip}/status">http://${ip}/status</a>
@@ -25,13 +30,7 @@
                     testIpButton.prop('disabled', false);
                 } else {
                     data = result;
-                    $('#result').html(`
-                        <br>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">A device with Serial Number <b>${data.serialNumber}</b> was found at IP address <i>${data.ip}</i>.<br />If this Serial Number matches your Go-e Charger Home+, please click 'save' below.</li>
-                        </ul><br><br>
-                        <button class="btn btn-primary" type="button" id="saveDevice" data-i18n="pair.start.saveDevice" onclick="saveDevice()">Save</button>
-                    `);
+                    console.log(data);
                     saveButton.prop('disabled', false);
                     testIpButton.prop('disabled', false);
                 }
@@ -70,8 +69,10 @@
     <p data-i18n="pair.start.intro.hint"></p>
 
     <div class="form-group">
-        <label for="ipaddress" data-i18n="pair.start.ipaddress">IP:</label>
-        <input id="ipaddress" type="text" placeholder="192.168.1.xxx" value=""> <!--for testing purposes the value is set-->
+        <label for="user" data-i18n="pair.start.ipaddress">User:</label>
+        <input id="user" type="text" placeholder="user" value=""> <!--for testing purposes the value is set-->
+        <label for="pass" data-i18n="pair.start.ipaddress">Pass:</label>
+        <input id="pass" type="password" value=""> <!--for testing purposes the value is set-->
     </div>
 
     <button class="btn btn-primary" type="button" id="testIp" data-i18n="pair.start.testDevice" onclick="testDevice()">Test</button>
