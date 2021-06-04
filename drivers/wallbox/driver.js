@@ -31,7 +31,7 @@ class goe_charger_home_plus extends Homey.Driver {
 				return {
 					name: charger['chargers'][0]['name'],
 					data: {
-						id: charger['id']
+						id: charger['chargers'][0]['id']
 					},
 					settings: {
 						user: user,
