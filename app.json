@@ -438,20 +438,7 @@
       },
       "class": "socket",
       "capabilities": [
-        "charging",
-        "onoff",
-        "measure_power",
-        "measure_current",
-        "measure_voltage",
-        "measure_temperature",
-        "meter_power",
-        "status",
-        "old_status",
-        "errr",
-        "charge_amp",
-        "charge_amp_limit",
-        "energy_total",
-        "pluggedin"
+        "locked"
       ],
       "images": {
         "large": "/drivers/go-e_charger_home_plus/assets/images/large.png",

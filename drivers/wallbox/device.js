@@ -17,6 +17,9 @@ class goe_charger_home_plus_device extends Homey.Device {
     
     // Perform initial authentication
     await this._api.authenticate();
+
+    // Register capabilities
+    this.registerCapabilityListener('locked', this.turnLocked.bind(this));
   }
 
   onDeleted() {
@@ -28,5 +31,20 @@ class goe_charger_home_plus_device extends Homey.Device {
   } // end onDeleted
 
 
+  async turnLocked(value) {
+    /**
+     * Lock or unlock charger
+     *
+     * @param {Boolean} value - to lock or unlock
+     */
+    let func;
+    if (value)
+      func = this._api.lockCharger(this._id);
+    else
+      func = this._api.unlockCharger(this._id);
+
+    await func;
+  }
 }
+
 module.exports = goe_charger_home_plus_device;
