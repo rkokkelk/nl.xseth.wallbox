@@ -441,10 +441,10 @@
         "locked"
       ],
       "images": {
-        "large": "/drivers/go-e_charger_home_plus/assets/images/large.png",
-        "small": "/drivers/go-e_charger_home_plus/assets/images/small.png"
+        "large": "/drivers/wallbox/assets/images/large.png",
+        "small": "/drivers/wallbox/assets/images/small.png"
       },
-      "icon":"/drivers/go-e_charger_home_plus/assets/icon.svg",
+      "icon":"/drivers/wallbox/assets/icon.svg",
       "pair": [
           {
             "id": "login_credentials",

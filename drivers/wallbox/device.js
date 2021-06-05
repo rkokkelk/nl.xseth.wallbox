@@ -5,7 +5,7 @@ const WallboxAPI = require('/lib/wallbox_api');
 
 const POLL_INTERVAL = 15;
 
-class goe_charger_home_plus_device extends Homey.Device {
+class wallbox_charger extends Homey.Device {
 
   async onInit() {
     console.log('Device init: ', this.getName());
@@ -65,4 +65,4 @@ class goe_charger_home_plus_device extends Homey.Device {
   }
 }
 
-module.exports = goe_charger_home_plus_device;
+module.exports = wallbox_charger;

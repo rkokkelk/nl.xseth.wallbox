@@ -3,7 +3,7 @@
 const Homey = require('homey');
 const WallboxAPI = require('/lib/wallbox_api');
 
-class goe_charger_home_plus extends Homey.Driver {
+class wallbox extends Homey.Driver {
 
 	async onPair(session) {
 		let user = "";
@@ -45,4 +45,4 @@ class goe_charger_home_plus extends Homey.Driver {
 	}
 }
 
-module.exports = goe_charger_home_plus;
+module.exports = wallbox;
