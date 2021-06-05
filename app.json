@@ -318,85 +318,43 @@
       },
       "values": [
         {
-          "id": "No car connected",
+          "id": "0",
           "title": {
-            "en": "No car connected",
-            "nl": "Geen auto verbonden"
+            "en": "Charger offline",
+            "nl": "Charger is offline"
           }
         },
         {
-          "id": "Car connected",
+          "id": "161",
           "title": {
             "en": "Getting ready to start charging",
-            "nl": "Klaarmaken voor laden"
+            "nl": "Gereed voor laden"
           }
         },
         {
-          "id": "Charging car",
+          "id": "181",
+          "title": {
+            "en": "Connected; waiting for car demand",
+            "nl": "Verbonden; wacht op auto"
+          }
+        },
+        {
+          "id": "194",
           "title": {
             "en": "Charging car",
             "nl": "Bezig met laden"
           }
         },
         {
-          "id": "Charging finished",
+          "id": "210",
           "title": {
-            "en": "Charging finished",
-            "nl": "Klaar met laden"
+            "en": "Waiting to unlock",
+            "nl": "Wacht op ontgrendeling"
           }
         }
       ],
       "setable": false,
       "getable": true,
-      "units": {
-        "en": "A"
-      },
-      "icon": "/assets/icon.svg",
-      "insights": false
-    },
-    "old_status": {
-      "type": "enum",
-      "uiComponent": null,
-      "title": {
-        "en": "Device status",
-        "nl": "Status van het apparaat"
-      },
-      "desc": {
-        "en": "Previous device status",
-        "nl": "Vorige Status van het apparaat"
-      },
-      "values": [
-        {
-          "id": "No car connected",
-          "title": {
-            "en": "No car connected",
-            "nl": "Geen auto verbonden"
-          }
-        },
-        {
-          "id": "Car connected",
-          "title": {
-            "en": "Getting ready to start charging",
-            "nl": "Klaarmaken voor laden"
-          }
-        },
-        {
-          "id": "Charging car",
-          "title": {
-            "en": "Charging car",
-            "nl": "Bezig met laden"
-          }
-        },
-        {
-          "id": "Charging finished",
-          "title": {
-            "en": "Charging finished",
-            "nl": "Klaar met laden"
-          }
-        }
-      ],
-      "getable": false,
-      "setable": false,
       "units": {
         "en": "A"
       },
@@ -438,7 +396,8 @@
       },
       "class": "socket",
       "capabilities": [
-        "locked"
+        "locked",
+        "status"
       ],
       "images": {
         "large": "/drivers/wallbox/assets/images/large.png",

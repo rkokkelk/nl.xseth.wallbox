@@ -47,6 +47,17 @@ class wallbox_charger extends Homey.Device {
       this.log(`Setting [locked]: {isLocked}`);
       this.setCapabilityValue('locked', isLocked);
     }
+
+    // Parse current status
+    let status = stats['status_id'].toString();
+    if (this.getCapabilityValue('status') !== status) {
+
+      // Ensure availability is correct
+      status === '0' ? this.setUnavailable() : this.setAvailable();
+        
+      this.log('Setting [status]: ', status);
+      this.setCapabilityValue('status', status);
+    }
   }
 
   async turnLocked(value) {
