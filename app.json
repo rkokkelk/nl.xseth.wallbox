@@ -198,22 +198,6 @@
       "icon": "/assets/icon.svg",
       "insights": false
     },
-    "measure_power": {
-      "type": "number",
-      "title": {
-        "en": "Current Power Supplied",
-        "nl": "Actueel wattage"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "W"
-      },
-      "min": 0,
-      "max": 22000,
-      "icon": "/assets/icon.svg",
-      "insights": true
-    },
     "measure_current": {
       "type": "number",
       "title": {
@@ -246,35 +230,20 @@
       "icon": "/assets/icon.svg",
       "insights": true
     },
-    "measure_temperature": {
-      "type": "number",
+    "meter_time": {
+      "type": "string",
       "title": {
-        "en": "Temperature",
-        "nl": "Temperatuur"
+        "en": "Time",
+        "nl": "Tijd"
       },
       "getable": true,
       "setable": false,
       "units": {
-        "en": "C"
+        "en": "time"
       },
-      "min": -50,
-      "max": 50,
+      "uiComponent": "sensor",
       "icon": "/assets/icon.svg",
-      "insights": true
-    },
-    "meter_power": {
-      "type": "number",
-      "title": {
-        "en": "Power supplied in this session",
-        "nl": "Vermogen in deze laadsessie geleverd"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "kWh"
-      },
-      "icon": "/assets/icon.svg",
-      "insights": true
+      "insights": false
     },
     "charge_amp": {
       "type": "number",
@@ -361,17 +330,6 @@
       "icon": "/assets/icon.svg",
       "insights": false
     },
-    "errr": {
-      "type": "boolean",
-      "title": {
-        "en": "Errorstatus",
-        "nl": "Foutstatus"
-      },
-      "getable": true,
-      "setable": false,
-      "icon": "/assets/icon.svg",
-      "insights": false
-    },
     "energy_total": {
       "type": "number",
       "title": {
@@ -387,6 +345,7 @@
       "icon": "/assets/icon.svg",
       "insights": true
     }
+
   },
   "drivers": [
     {
@@ -397,7 +356,9 @@
       "class": "socket",
       "capabilities": [
         "locked",
-        "status"
+        "status",
+        "meter_power",
+        "meter_time"
       ],
       "images": {
         "large": "/drivers/wallbox/assets/images/large.png",

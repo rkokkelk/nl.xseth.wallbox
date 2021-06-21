@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const moment = require('moment')
 const WallboxAPI = require('/lib/wallbox_api');
 
 const POLL_INTERVAL = 15;
@@ -25,6 +26,7 @@ class wallbox_charger extends Homey.Device {
 
     // Setup polling of device
     this.polling = setInterval(this.poll.bind(this), 1000 * this.getSetting('polling'));
+    await this.poll().bind(this); 
 
     // Register capabilities
     this.registerCapabilityListener('locked', this.turnLocked.bind(this));
@@ -38,6 +40,9 @@ class wallbox_charger extends Homey.Device {
   }
 
   async poll() {
+    /**
+     * Polling function for retrieving/parsing current status charger
+     */
     let stats = await this._api.getChargerStatus(this._id);
     console.log(stats)
     
@@ -57,6 +62,25 @@ class wallbox_charger extends Homey.Device {
         
       this.log('Setting [status]: ', status);
       this.setCapabilityValue('status', status);
+    }
+
+    // Parse power
+    try{
+    let power = stats['added_energy'];
+    if (this.getCapabilityValue('meter_power') !== power) {
+      this.log('Setting [meter_power]: ', power);
+      //this.setCapabilityValue('meter_power', power);
+    }
+    }catch (err) {
+      this.log(err);
+    }
+
+    // Parse charging time
+    let time = stats['charging_time'];
+    let time_human = moment.duration(time, "seconds").humanize();
+    if (this.getCapabilityValue('meter_time') !== time_human) {
+      this.log('Setting [meter_time]: ', time_human);
+      //this.setCapabilityValue('meter_time', time_human);
     }
   }
 
