@@ -399,6 +399,11 @@
         "locked",
         "status"
       ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "approximated": true
+        }
+      },
       "images": {
         "large": "/drivers/wallbox/assets/images/large.png",
         "small": "/drivers/wallbox/assets/images/small.png"

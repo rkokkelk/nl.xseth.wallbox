@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const util = require('/lib/util');
 const WallboxAPI = require('/lib/wallbox_api');
 
 const POLL_INTERVAL = 15;
@@ -40,6 +41,13 @@ class wallbox_charger extends Homey.Device {
   async poll() {
     let stats = await this._api.getChargerStatus(this._id);
     console.log(stats)
+
+    // Set current usage
+    const kwhs = stats['added_energy']
+    const charge_time = stats['charging_time']
+    const watts = util.calcWattFromKwhs(kwhs, charge_time)
+
+    this.setCapabilityValue('measure_power', Math.round(watts))
     
     // Parse locked capability
     let isLocked = Boolean(stats['config_data']['locked']);
