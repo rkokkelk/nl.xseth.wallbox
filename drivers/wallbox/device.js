@@ -2,7 +2,10 @@
 
 const Homey = require('homey');
 const util = require('/lib/util');
+const status_util = require('/lib/statuses');
 const WallboxAPI = require('/lib/wallbox_api');
+
+const statuses = status_util.statuses;
 
 const POLL_INTERVAL = 15;
 
@@ -28,6 +31,7 @@ class wallbox_charger extends Homey.Device {
     this.polling = setInterval(this.poll.bind(this), 1000 * this.getSetting('polling'));
 
     // Register capabilities
+    //this.addCapability('measure_power')
     this.registerCapabilityListener('locked', this.turnLocked.bind(this));
   }
 
@@ -45,7 +49,7 @@ class wallbox_charger extends Homey.Device {
     // Set current usage
     const kwhs = stats['added_energy']
     const charge_time = stats['charging_time']
-    const watts = util.calcWattFromKwhs(kwhs, charge_time)
+    const watts = util.calcWattFromkWhs(kwhs, charge_time)
 
     this.setCapabilityValue('measure_power', Math.round(watts))
     
@@ -57,15 +61,48 @@ class wallbox_charger extends Homey.Device {
     }
 
     // Parse current status
-    let status = stats['status_id'].toString();
-    if (this.getCapabilityValue('status') !== status) {
+    const statusId = stats['status_id']
+    const status = status_util.getStatus(statusId)
+    const curStatus = this.getCapabilityValue('status')
+
+    if (curStatus !== status) {
 
       // Ensure availability is correct
-      status === '0' ? this.setUnavailable() : this.setAvailable();
-        
+      status == statuses.Error ? this.setUnavailable() : this.setAvailable();
+
       this.log('Setting [status]: ', status);
       this.setCapabilityValue('status', status);
+
+      await this.triggerStatusChange(curStatus, status)
     }
+  }
+
+  async triggerStatusChange(curStatus, newStatus){
+    /**
+     * Fire homey triggers for status change
+     * 
+     * @param {String} curStatus - current Status
+     * @param {String} newStatus - new Status
+     */
+    this.driver.trigger('status_changed', this)
+
+    // Ignore Error and Update triggers for now
+    if (newStatus == statuses.Error || newStatus == statuses.Updating)
+      return
+
+    // Triggers based on change in previous status
+    if (curStatus == statuses.Charging)
+      this.driver.trigger('charging_ended', this)
+    else if (curStatus == statuses.Disconnected)
+      this.driver.trigger('car_connected', this)
+
+
+    // Triggers based on change in current status
+    if (newStatus == statuses.Charging)
+      this.driver.trigger('charging_started', this)
+    else if (newStatus == statuses.Disconnected)
+      this.driver.trigger('car_unplugged', this)
+
   }
 
   async turnLocked(value) {
