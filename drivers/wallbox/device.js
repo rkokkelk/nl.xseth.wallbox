@@ -46,12 +46,6 @@ class wallbox_charger extends Homey.Device {
     let stats = await this._api.getChargerStatus(this._id);
     console.log(stats)
 
-    // Set current usage
-    const kwhs = stats['added_energy']
-    const charge_time = stats['charging_time']
-    const watts = util.calcWattFromkWhs(kwhs, charge_time)
-
-    this.setCapabilityValue('measure_power', Math.round(watts))
     
     // Parse locked capability
     let isLocked = Boolean(stats['config_data']['locked']);
@@ -73,8 +67,19 @@ class wallbox_charger extends Homey.Device {
       this.log('Setting [status]: ', status);
       this.setCapabilityValue('status', status);
 
-      await this.triggerStatusChange(curStatus, status)
+      this.triggerStatusChange(curStatus, status)
     }
+
+    let watss = 0
+    // Set current usage
+    if (status === statuses.Charging){
+      const kwhs = stats['added_energy']
+      const charge_time = stats['charging_time']
+      const watts = util.calcWattFromkWhs(kwhs, charge_time)
+    }
+
+    this.setCapabilityValue('measure_power', Math.round(watts))
+
   }
 
   async triggerStatusChange(curStatus, newStatus){
@@ -84,7 +89,11 @@ class wallbox_charger extends Homey.Device {
      * @param {String} curStatus - current Status
      * @param {String} newStatus - new Status
      */
-    this.driver.trigger('status_changed', this)
+    const tokens = {
+      status: newStatus
+    }
+
+    this.driver.trigger('status_changed', this, tokens)
 
     // Ignore Error and Update triggers for now
     if (newStatus == statuses.Error || newStatus == statuses.Updating)
