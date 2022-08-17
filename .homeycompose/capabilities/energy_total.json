@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Total Energy Supplied",
+    "nl": "Totaal geleverde energie"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": null,
+  "units": {
+    "en": "kWh"
+  },
+  "icon": "/assets/icon.svg",
+  "insights": true
+}

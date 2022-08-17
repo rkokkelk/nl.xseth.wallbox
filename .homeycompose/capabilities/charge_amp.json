@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Maximum power from source available for charging",
+    "nl": "Maximaal bronvermogen beschikbaar voor laden"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "A"
+  },
+  "min": 6,
+  "max": 32,
+  "icon": "/assets/icon.svg",
+  "insights": true
+}

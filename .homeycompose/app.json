@@ -1,0 +1,37 @@
+{
+  "id": "nl.xseth.wallbox",
+  "version": "0.1.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "Wallbox Charger"
+  },
+  "brandColor": "#60b59d",
+  "description": {
+    "en": "Adds support for the Wallbox Charger"
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Roy K",
+    "website": "https://github.com/rkokkelk/nl.xseth.wallbox"
+  },
+  "bugs": {
+    "url": "https://github.com/rkokkelk/nl.xseth.wallbox/issues"
+  },
+  "source": "https://github.com/rkokkelk/nl.xseth.dashboardctrl",
+  "contributors": {
+    "developers": [
+      {
+        "name": "rkokkelk",
+        "github": "https://github.com/rkokkelk/"
+      }
+    ]
+  }
+}

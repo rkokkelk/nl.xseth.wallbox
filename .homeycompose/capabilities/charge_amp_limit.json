@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Maximum power as set in the device's app",
+    "nl": "Maximaal vermogen zoals ingesteld in de app van het apparaat"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "A"
+  },
+  "icon": "/assets/icon.svg",
+  "insights": true
+}

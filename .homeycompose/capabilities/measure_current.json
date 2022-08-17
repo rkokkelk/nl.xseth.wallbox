@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Current Amperage Supplied",
+    "nl": "Actueel amperage"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "A"
+  },
+  "min": 0,
+  "max": 100,
+  "icon": "/assets/icon.svg",
+  "insights": true
+}

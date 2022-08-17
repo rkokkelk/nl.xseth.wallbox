@@ -1,0 +1,11 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Errorstatus",
+    "nl": "Foutstatus"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/icon.svg",
+  "insights": false
+}

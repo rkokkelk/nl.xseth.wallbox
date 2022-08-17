@@ -1,0 +1,62 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Device status",
+    "nl": "Status van het apparaat"
+  },
+  "desc": {
+    "en": "Device status",
+    "nl": "Status van het apparaat"
+  },
+  "values": [
+    {
+      "id": "Error",
+      "title": {
+        "en": "Charger error",
+        "nl": "Charger bevat error"
+      }
+    },
+    {
+      "id": "Disconnected",
+      "title": {
+        "en": "Charger disconnected",
+        "nl": "Charger is niet verbonden"
+      }
+    },
+    {
+      "id": "Ready",
+      "title": {
+        "en": "Getting ready to start charging",
+        "nl": "Gereed voor laden"
+      }
+    },
+    {
+      "id": "Waiting",
+      "title": {
+        "en": "Connected; waiting for car demand",
+        "nl": "Verbonden; wacht op auto"
+      }
+    },
+    {
+      "id": "Charging",
+      "title": {
+        "en": "Charging car",
+        "nl": "Bezig met laden"
+      }
+    },
+    {
+      "id": "Locked",
+      "title": {
+        "en": "Waiting to unlock",
+        "nl": "Wacht op ontgrendeling"
+      }
+    }
+  ],
+  "setable": false,
+  "getable": true,
+  "units": {
+    "en": "A"
+  },
+  "icon": "/assets/icon.svg",
+  "insights": false
+}
