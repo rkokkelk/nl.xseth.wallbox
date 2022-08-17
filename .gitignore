@@ -1,4 +1,5 @@
 #ignore all folders starting with an underscore
 .homeybuild
 .vscode
+dev
 _*/
