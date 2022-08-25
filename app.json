@@ -168,6 +168,20 @@
           "en": "Status changed",
           "nl": "Status gewijzigd"
         },
+        "tokens": [
+          {
+            "name": "status",
+            "type": "string",
+            "title": {
+              "en": "Status",
+              "nl": "Status"
+            },
+            "example": {
+              "en": "Waiting",
+              "nl": "Waiting"
+            }
+          }
+        ],
         "args": [
           {
             "type": "device",
@@ -317,54 +331,6 @@
       },
       "min": 0,
       "max": 100,
-      "icon": "/assets/icon.svg",
-      "insights": true
-    },
-    "measure_power": {
-      "type": "number",
-      "title": {
-        "en": "Current Power Supplied",
-        "nl": "Actueel wattage"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "W"
-      },
-      "min": 0,
-      "max": 22000,
-      "icon": "/assets/icon.svg",
-      "insights": true
-    },
-    "measure_temperature": {
-      "type": "number",
-      "title": {
-        "en": "Temperature",
-        "nl": "Temperatuur"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "C"
-      },
-      "min": -50,
-      "max": 50,
-      "icon": "/assets/icon.svg",
-      "insights": true
-    },
-    "measure_voltage": {
-      "type": "number",
-      "title": {
-        "en": "Current Voltage Supplied",
-        "nl": "Actueel voltage"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "V"
-      },
-      "min": 0,
-      "max": 750,
       "icon": "/assets/icon.svg",
       "insights": true
     },
