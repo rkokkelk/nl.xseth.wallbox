@@ -11,8 +11,7 @@ class wallbox extends Homey.Driver {
     this._triggers = {}
     this.trigger_keys = [
       'charging_ended', 'charging_started', 'car_connected', 'car_unplugged', 'status_changed'
-    ]
-
+    ];
     for (const type of this.trigger_keys) {
       this._triggers[type] = this.homey.flow.getDeviceTriggerCard(type);
     }

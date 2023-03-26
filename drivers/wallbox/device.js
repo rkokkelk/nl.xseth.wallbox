@@ -28,8 +28,8 @@ class wallbox_charger extends Homey.Device {
       this.setSettings({ polling: POLL_INTERVAL});
 
     // Setup polling of device
-    this.polling = setInterval(this.poll.bind(this), 1000 * this.getSetting('polling'));
-    await this.poll().bind(this); 
+    this.polling = this.homey.setInterval(this.poll.bind(this), 1000 * this.getSetting('polling'));
+    await this.poll();
 
     // Register capabilities
     //this.addCapability('measure_power')

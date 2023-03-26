@@ -3,3 +3,7 @@
 .vscode
 dev
 _*/
+
+
+# Added by Homey CLI
+/.homeybuild/
