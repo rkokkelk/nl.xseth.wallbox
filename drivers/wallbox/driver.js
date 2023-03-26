@@ -8,11 +8,11 @@ class wallbox extends Homey.Driver {
   async onInit() {
     console.log("onInit WallBox driver");
 
-    this._triggers = {};
+    this._triggers = {}
     this.trigger_keys = [
       'charging_ended', 'charging_started', 'car_connected', 'car_unplugged', 'status_changed'
     ]
-      '
+
     for (const type of this.trigger_keys) {
       this._triggers[type] = this.homey.flow.getDeviceTriggerCard(type);
     }
@@ -33,8 +33,6 @@ class wallbox extends Homey.Driver {
       .then(this.log)
       .catch(this.error);
   }
-
-
 
 	async onPair(session) {
 		let user = "";

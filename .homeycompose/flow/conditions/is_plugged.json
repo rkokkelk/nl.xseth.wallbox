@@ -1,0 +1,7 @@
+{
+  "id": "is_plugged",
+  "title": {
+    "en": "!{{Car plugged in|No car plugged in}}",
+    "nl": "!{{Auto verbonden|Geen auto verbonden}}"
+  }
+}

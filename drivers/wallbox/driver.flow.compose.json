@@ -1,0 +1,53 @@
+{
+  "triggers": [
+    {
+      "id": "car_connected",
+      "title": {
+        "en": "Car connected",
+        "nl": "Auto verbonden"
+      }
+    },
+    {
+      "id": "car_unplugged",
+      "title": {
+        "en": "Car unplugged",
+        "nl": "Auto ontkoppeld"
+      }
+    },
+    {
+      "id": "charging_ended",
+      "title": {
+        "en": "Charging ended",
+        "nl": "Laden beëindigd"
+      }
+    },
+    {
+      "id": "charging_started",
+      "title": {
+        "en": "Charging started",
+        "nl": "Laden gestart"
+      }
+    },
+    {
+      "id": "status_changed",
+      "title": {
+        "en": "Status changed",
+        "nl": "Status gewijzigd"
+      },
+      "tokens": [
+        {
+          "name" : "status",
+          "type": "string",
+          "title": {
+            "en": "Status",
+            "nl": "Status"
+          },
+          "example": {
+            "en": "Waiting",
+            "nl": "Waiting"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,11 @@
 'use strict';
 
 const Homey = require('homey');
-const moment = require('moment')
+const util = require('/lib/util');
+const status_util = require('/lib/statuses');
 const WallboxAPI = require('/lib/wallbox_api');
+
+const statuses = status_util.statuses;
 
 const POLL_INTERVAL = 15;
 
@@ -29,6 +32,7 @@ class wallbox_charger extends Homey.Device {
     await this.poll().bind(this); 
 
     // Register capabilities
+    //this.addCapability('measure_power')
     this.registerCapabilityListener('locked', this.turnLocked.bind(this));
   }
 
@@ -45,6 +49,7 @@ class wallbox_charger extends Homey.Device {
      */
     let stats = await this._api.getChargerStatus(this._id);
     console.log(stats)
+
     
     // Parse locked capability
     let isLocked = Boolean(stats['config_data']['locked']);
@@ -54,34 +59,66 @@ class wallbox_charger extends Homey.Device {
     }
 
     // Parse current status
-    let status = stats['status_id'].toString();
-    if (this.getCapabilityValue('status') !== status) {
+    const statusId = stats['status_id']
+    const status = status_util.getStatus(statusId)
+    const curStatus = this.getCapabilityValue('status')
 
-      // Ensure availability is correct
-      status === '0' ? this.setUnavailable() : this.setAvailable();
-        
+    // Ensure availability is correct
+    if (status == statuses.Disconnected || status == statuses.Error) {
+      this.setUnavailable();
+      return
+    } else 
+      this.setAvailable();
+
+    if (curStatus !== status) {
       this.log('Setting [status]: ', status);
       this.setCapabilityValue('status', status);
+
+      this.triggerStatusChange(curStatus, status)
     }
 
-    // Parse power
-    try{
-    let power = stats['added_energy'];
-    if (this.getCapabilityValue('meter_power') !== power) {
-      this.log('Setting [meter_power]: ', power);
-      //this.setCapabilityValue('meter_power', power);
-    }
-    }catch (err) {
-      this.log(err);
+    let watss = 0
+    // Set current usage
+    if (status === statuses.Charging){
+      const kwhs = stats['added_energy']
+      const charge_time = stats['charging_time']
+      const watts = util.calcWattFromkWhs(kwhs, charge_time)
     }
 
-    // Parse charging time
-    let time = stats['charging_time'];
-    let time_human = moment.duration(time, "seconds").humanize();
-    if (this.getCapabilityValue('meter_time') !== time_human) {
-      this.log('Setting [meter_time]: ', time_human);
-      //this.setCapabilityValue('meter_time', time_human);
+    this.setCapabilityValue('measure_power', Math.round(watts))
+
+  }
+
+  async triggerStatusChange(curStatus, newStatus){
+    /**
+     * Fire homey triggers for status change
+     * 
+     * @param {String} curStatus - current Status
+     * @param {String} newStatus - new Status
+     */
+    const tokens = {
+      status: newStatus
     }
+
+    this.driver.trigger('status_changed', this, tokens)
+
+    // Ignore Error and Update triggers for now
+    if (newStatus == statuses.Error || newStatus == statuses.Updating)
+      return
+
+    // Triggers based on change in previous status
+    if (curStatus == statuses.Charging)
+      this.driver.trigger('charging_ended', this)
+    else if (curStatus == statuses.Ready)
+      this.driver.trigger('car_connected', this)
+
+
+    // Triggers based on change in current status
+    if (newStatus == statuses.Charging)
+      this.driver.trigger('charging_started', this)
+    else if (newStatus == statuses.Ready)
+      this.driver.trigger('car_unplugged', this)
+
   }
 
   async turnLocked(value) {

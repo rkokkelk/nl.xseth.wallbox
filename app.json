@@ -1,4 +1,5 @@
 {
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "nl.xseth.wallbox",
   "version": "0.1.0",
   "compatibility": ">=5.0.0",
@@ -34,217 +35,222 @@
       }
     ]
   },
-  "flow" : {
+  "flow": {
+    "conditions": [
+      {
+        "id": "is_allowed",
+        "title": {
+          "en": "!{{Charging allowed|Charging not allowed}}",
+          "nl": "!{{Laden toegestaan|Laden niet toegestaan}}"
+        }
+      },
+      {
+        "id": "is_charging",
+        "title": {
+          "en": "!{{Charging|Not charging}}",
+          "nl": "!{{Bezig met laden|Niet bezig met laden}}"
+        }
+      },
+      {
+        "id": "is_finished",
+        "title": {
+          "en": "!{{Finished charging|Not finished charging}}",
+          "nl": "!{{Laden afgerond|Laden niet afgerond}}"
+        }
+      },
+      {
+        "id": "is_plugged",
+        "title": {
+          "en": "!{{Car plugged in|No car plugged in}}",
+          "nl": "!{{Auto verbonden|Geen auto verbonden}}"
+        }
+      }
+    ],
+    "actions": [
+      {
+        "id": "Allow_charging",
+        "title": {
+          "en": "Allow charging",
+          "nl": "Laden toestaan"
+        }
+      },
+      {
+        "id": "Change_amps_to",
+        "title": {
+          "en": "Change amperage to...",
+          "nl": "Amperage veranderen naar..."
+        },
+        "titleformatted": {
+          "en": "Change amperage to [[amps]]",
+          "nl": "Amperage veranderen naar [[amps]]"
+        },
+        "args": [
+          {
+            "type": "range",
+            "name": "amps",
+            "min": 6,
+            "max": 32,
+            "step": 1,
+            "label": "A",
+            "labelMultiplier": 1,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "Stop_charging",
+        "title": {
+          "en": "Stop charging",
+          "nl": "Laden stoppen"
+        }
+      }
+    ],
     "triggers": [
       {
-            "id": "charging_finished",
-            "title": {
-              "en": "Finished charging",
-              "nl": "Laden afgerond"
-            }
+        "id": "car_connected",
+        "title": {
+          "en": "Car connected",
+          "nl": "Auto verbonden"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=wallbox"
+          }
+        ]
       },
       {
-            "id": "charging_ended",
-            "title": {
-              "en": "Charging ended",
-              "nl": "Laden beëindigd"
-            }
+        "id": "car_unplugged",
+        "title": {
+          "en": "Car unplugged",
+          "nl": "Auto ontkoppeld"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=wallbox"
+          }
+        ]
       },
       {
-            "id": "charging_started",
-            "title": {
-              "en": "Charging started",
-              "nl": "Laden gestart"
-            }
+        "id": "charging_ended",
+        "title": {
+          "en": "Charging ended",
+          "nl": "Laden beëindigd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=wallbox"
+          }
+        ]
       },
       {
-            "id": "car_connected",
-            "title": {
-              "en": "Car connected",
-              "nl": "Auto verbonden"
-            }
+        "id": "charging_started",
+        "title": {
+          "en": "Charging started",
+          "nl": "Laden gestart"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=wallbox"
+          }
+        ]
       },
       {
-            "id": "car_unplugged",
+        "id": "status_changed",
+        "title": {
+          "en": "Status changed",
+          "nl": "Status gewijzigd"
+        },
+        "tokens": [
+          {
+            "name": "status",
+            "type": "string",
             "title": {
-              "en": "Car unplugged",
-              "nl": "Auto ontkoppeld"
-            }
-      },
-      {
-            "id": "charging_allowed",
-            "title": {
-              "en": "Charging allowed",
-              "nl": "Opladen toegestaan"
-            }
-      },
-      {
-            "id": "charging_disallowed",
-            "title": {
-              "en": "Charging disallowed",
-              "nl": "Opladen niet meer toegestaan"
-            }
-      },
-      {
-            "id": "status_changed",
-            "title": {
-              "en": "Status changed",
-              "nl": "Status gewijzigd"
-            }
-      }
-    ],
-    "conditions" : [
-      {
-            "id": "is_finished",
-            "title": {
-              "en": "!{{Finished charging|Not finished charging}}",
-              "nl": "!{{Laden afgerond|Laden niet afgerond}}"
-            }
-      },
-      {
-            "id": "is_charging",
-            "title": {
-              "en": "!{{Charging|Not charging}}",
-              "nl": "!{{Bezig met laden|Niet bezig met laden}}"
-            }
-      },
-      {
-            "id": "is_allowed",
-            "title": {
-              "en": "!{{Charging allowed|Charging not allowed}}",
-              "nl": "!{{Laden toegestaan|Laden niet toegestaan}}"
-            }
-      },
-      {
-            "id": "is_plugged",
-            "title": {
-              "en": "!{{Car plugged in|No car plugged in}}",
-              "nl": "!{{Auto verbonden|Geen auto verbonden}}"
-            }
-      }
-    ],
-    "actions" : [
-      {
-            "id": "Allow_charging",
-            "title": {
-              "en": "Allow charging",
-              "nl": "Laden toestaan"
-            }
-      },
-      {
-            "id": "Stop_charging",
-            "title": {
-              "en": "Stop charging",
-              "nl": "Laden stoppen"
-            }
-      },
-      {
-            "id": "Change_amps_to",
-            "title": {
-              "en": "Change amperage to...",
-              "nl": "Amperage veranderen naar..."
+              "en": "Status",
+              "nl": "Status"
             },
-            "titleformatted": {
-              "en": "Change amperage to [[amps]]",
-              "nl": "Amperage veranderen naar [[amps]]"
-            },
-            "args": [
-              {
-                "type": "range",
-                "name": "amps",
-                "min": 6,
-                "max": 32,
-                "step": 1,
-                "label": "A",
-                "labelMultiplier": 1,
-                "labelDecimals": 0
-              }
-            ]
+            "example": {
+              "en": "Waiting",
+              "nl": "Waiting"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=wallbox"
+          }
+        ]
       }
     ]
   },
+  "drivers": [
+    {
+      "name": {
+        "en": "Wallbox Charger"
+      },
+      "class": "socket",
+      "capabilities": [
+        "locked",
+        "status"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "approximated": true
+        }
+      },
+      "images": {
+        "large": "/drivers/wallbox/assets/images/large.png",
+        "small": "/drivers/wallbox/assets/images/small.png"
+      },
+      "icon": "/drivers/wallbox/assets/icon.svg",
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "icon.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": true
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "wallbox"
+    }
+  ],
   "capabilities": {
-    "pluggedin": {
-      "type": "boolean",
-      "title": {
-        "en": "Car plugged in",
-        "nl": "Auto verbonden"
-      },
-      "getable": true,
-      "setable": false,
-      "uiComponent": null,
-      "insights": false
-    },
-    "charging": {
-      "type": "boolean",
-      "title": {
-        "en": "Charging",
-        "nl": "Laden"
-      },
-      "getable": true,
-      "setable": false,
-      "uiComponent": null,
-      "insights": false
-    },
-    "onoff": {
-      "type": "boolean",
-      "title": {
-        "en": "Charging allowed",
-        "nl": "Laden toegestaan"
-      },
-      "getable": true,
-      "setable": true,
-      "uiQuickAction": true,
-      "icon": "/assets/icon.svg",
-      "insights": false
-    },
-    "measure_current": {
-      "type": "number",
-      "title": {
-        "en": "Current Amperage Supplied",
-        "nl": "Actueel amperage"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "A"
-      },
-      "min": 0,
-      "max": 100,
-      "icon": "/assets/icon.svg",
-      "insights": true
-    },
-    "measure_voltage": {
-      "type": "number",
-      "title": {
-        "en": "Current Voltage Supplied",
-        "nl": "Actueel voltage"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "V"
-      },
-      "min": 0,
-      "max": 750,
-      "icon": "/assets/icon.svg",
-      "insights": true
-    },
-    "meter_time": {
-      "type": "string",
-      "title": {
-        "en": "Time",
-        "nl": "Tijd"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "time"
-      },
-      "uiComponent": "sensor",
-      "icon": "/assets/icon.svg",
-      "insights": false
-    },
     "charge_amp": {
       "type": "number",
       "title": {
@@ -275,59 +281,15 @@
       "icon": "/assets/icon.svg",
       "insights": true
     },
-    "status": {
-      "type": "enum",
+    "charging": {
+      "type": "boolean",
       "title": {
-        "en": "Device status",
-        "nl": "Status van het apparaat"
+        "en": "Charging",
+        "nl": "Laden"
       },
-      "desc": {
-        "en": "Device status",
-        "nl": "Status van het apparaat"
-      },
-      "values": [
-        {
-          "id": "0",
-          "title": {
-            "en": "Charger offline",
-            "nl": "Charger is offline"
-          }
-        },
-        {
-          "id": "161",
-          "title": {
-            "en": "Getting ready to start charging",
-            "nl": "Gereed voor laden"
-          }
-        },
-        {
-          "id": "181",
-          "title": {
-            "en": "Connected; waiting for car demand",
-            "nl": "Verbonden; wacht op auto"
-          }
-        },
-        {
-          "id": "194",
-          "title": {
-            "en": "Charging car",
-            "nl": "Bezig met laden"
-          }
-        },
-        {
-          "id": "210",
-          "title": {
-            "en": "Waiting to unlock",
-            "nl": "Wacht op ontgrendeling"
-          }
-        }
-      ],
-      "setable": false,
       "getable": true,
-      "units": {
-        "en": "A"
-      },
-      "icon": "/assets/icon.svg",
+      "setable": false,
+      "uiComponent": null,
       "insights": false
     },
     "energy_total": {
@@ -344,50 +306,132 @@
       },
       "icon": "/assets/icon.svg",
       "insights": true
-    }
-
-  },
-  "drivers": [
-    {
-      "id": "wallbox",
-      "name": {
-        "en": "Wallbox Charger"
+    },
+    "errr": {
+      "type": "boolean",
+      "title": {
+        "en": "Errorstatus",
+        "nl": "Foutstatus"
       },
-      "class": "socket",
-      "capabilities": [
-        "locked",
-        "status",
-        "meter_power",
-        "meter_time"
-      ],
-      "images": {
-        "large": "/drivers/wallbox/assets/images/large.png",
-        "small": "/drivers/wallbox/assets/images/small.png"
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
+    "measure_current": {
+      "type": "number",
+      "title": {
+        "en": "Current Amperage Supplied",
+        "nl": "Actueel amperage"
       },
-      "icon":"/drivers/wallbox/assets/icon.svg",
-      "pair": [
-          {
-            "id": "login_credentials",
-            "template": "login_credentials",
-            "options": {
-              "logo": "icon.png",
-              "usernameLabel": { "en": "E-mail address" },
-              "usernamePlaceholder": { "en": "john@doe.com" },
-              "passwordLabel": { "en": "Password" },
-              "passwordPlaceholder": { "en": "Password" }
-            }
-          },
-          {
-            "id": "list_devices",
-            "template": "list_devices",
-            "navigation": { "next": "add_devices" },
-            "options": { "singular": true }
-          },
-          {
-            "id": "add_devices",
-            "template": "add_devices"
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "A"
+      },
+      "min": 0,
+      "max": 100,
+      "icon": "/assets/icon.svg",
+      "insights": true
+    },
+    "meter_power": {
+      "type": "number",
+      "title": {
+        "en": "Power supplied in this session",
+        "nl": "Vermogen in deze laadsessie geleverd"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "kWh"
+      },
+      "icon": "/assets/icon.svg",
+      "insights": true
+    },
+    "onoff": {
+      "type": "boolean",
+      "title": {
+        "en": "Charging allowed",
+        "nl": "Laden toegestaan"
+      },
+      "getable": true,
+      "setable": true,
+      "uiQuickAction": true,
+      "icon": "/assets/icon.svg",
+      "insights": false
+    },
+    "pluggedin": {
+      "type": "boolean",
+      "title": {
+        "en": "Car plugged in",
+        "nl": "Auto verbonden"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null,
+      "insights": false
+    },
+    "status": {
+      "type": "enum",
+      "title": {
+        "en": "Device status",
+        "nl": "Status van het apparaat"
+      },
+      "desc": {
+        "en": "Device status",
+        "nl": "Status van het apparaat"
+      },
+      "values": [
+        {
+          "id": "Error",
+          "title": {
+            "en": "Charger error",
+            "nl": "Charger bevat error"
           }
-      ]
+        },
+        {
+          "id": "Disconnected",
+          "title": {
+            "en": "Charger disconnected",
+            "nl": "Charger is niet verbonden"
+          }
+        },
+        {
+          "id": "Ready",
+          "title": {
+            "en": "Getting ready to start charging",
+            "nl": "Gereed voor laden"
+          }
+        },
+        {
+          "id": "Waiting",
+          "title": {
+            "en": "Connected; waiting for car demand",
+            "nl": "Verbonden; wacht op auto"
+          }
+        },
+        {
+          "id": "Charging",
+          "title": {
+            "en": "Charging car",
+            "nl": "Bezig met laden"
+          }
+        },
+        {
+          "id": "Locked",
+          "title": {
+            "en": "Waiting to unlock",
+            "nl": "Wacht op ontgrendeling"
+          }
+        }
+      ],
+      "setable": false,
+      "getable": true,
+      "units": {
+        "en": "A"
+      },
+      "icon": "/assets/icon.svg",
+      "insights": false
     }
-  ]
+  }
 }
