@@ -34,6 +34,7 @@ class wallbox_charger extends Homey.Device {
     // Register capabilities
     //this.addCapability('measure_power')
     this.registerCapabilityListener('locked', this.turnLocked.bind(this));
+    this.registerCapabilityListener('onoff', this.turnOnOff.bind(this));
   }
 
   onDeleted() {
@@ -132,6 +133,22 @@ class wallbox_charger extends Homey.Device {
       func = this._api.lockCharger(this._id);
     else
       func = this._api.unlockCharger(this._id);
+
+    await func;
+  }
+
+  async turnOnOff(value) {
+    /**
+     * On (resume) or off (pause) charging
+     *
+     * @param {Boolean} value - to pause / resume charging
+     */
+    let func;
+
+    if (value)
+      func = this._api.resumeCharging(this._id);
+    else
+      func = this._api.pauseCharging(this._id);
 
     await func;
   }
