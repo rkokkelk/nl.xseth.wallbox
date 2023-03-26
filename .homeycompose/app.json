@@ -8,7 +8,7 @@
   },
   "brandColor": "#60b59d",
   "description": {
-    "en": "Adds support for the Wallbox Charger"
+    "en": "Adds support for the Wallbox Chargers"
   },
   "category": [
     "energy"
@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/rkokkelk/nl.xseth.wallbox/issues"
   },
-  "source": "https://github.com/rkokkelk/nl.xseth.dashboardctrl",
+  "source": "https://github.com/rkokkelk/nl.xseth.wallbox",
   "contributors": {
     "developers": [
       {
@@ -33,5 +33,10 @@
         "github": "https://github.com/rkokkelk/"
       }
     ]
-  }
+  },
+  "platforms": [
+    "local"
+  ],
+  "homeyCommunityTopicId": 54616,
+  "homepage": "https://github.com/rkokkelk/nl.xseth.wallbox"
 }
