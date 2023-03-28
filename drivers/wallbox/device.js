@@ -12,7 +12,7 @@ const POLL_INTERVAL = 15;
 class wallbox_charger extends Homey.Device {
 
   async onInit() {
-    console.log('Device init: ', this.getName());
+    this.log('Device init: ', this.getName());
     let user = this.getSetting('user');
     let pass = this.getSetting('pass');
 
@@ -38,7 +38,7 @@ class wallbox_charger extends Homey.Device {
   }
 
   onDeleted() {
-    console.log("deleting device...", this._name);
+    this.log("deleting device...", this._name);
 
     clearInterval(this.polling);
     this.available = false;
@@ -49,7 +49,6 @@ class wallbox_charger extends Homey.Device {
      * Polling function for retrieving/parsing current status charger
      */
     let stats = await this._api.getChargerStatus(this._id);
-    console.log(stats)
 
     // Parse current status
     const statusId = stats['status_id']
@@ -59,7 +58,7 @@ class wallbox_charger extends Homey.Device {
     // Parse locked capability
     let isLocked = Boolean(stats['config_data']['locked']);
     if (this.getCapabilityValue('locked') !== isLocked) {
-      this.log(`Setting [locked]: {isLocked}`);
+      this.log(`Setting [locked]: ${isLocked}`);
       this.setCapabilityValue('locked', isLocked);
     }
 
