@@ -5,7 +5,11 @@
   "class": "socket",
   "capabilities": [
     "locked",
-    "status"
+    "status",
+    "onoff",
+    "meter_power",
+    "measure_current",
+    "measure_power"
   ],
   "capabilitiesOptions": {
     "measure_power": {
