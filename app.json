@@ -127,64 +127,6 @@
         ]
       }
     ],
-    "conditions": [
-      {
-        "id": "is_allowed",
-        "title": {
-          "en": "!{{Charging allowed|Charging not allowed}}",
-          "nl": "!{{Laden toegestaan|Laden niet toegestaan}}"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=wallbox"
-          }
-        ]
-      },
-      {
-        "id": "is_charging",
-        "title": {
-          "en": "!{{Charging|Not charging}}",
-          "nl": "!{{Bezig met laden|Niet bezig met laden}}"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=wallbox"
-          }
-        ]
-      },
-      {
-        "id": "is_finished",
-        "title": {
-          "en": "!{{Finished charging|Not finished charging}}",
-          "nl": "!{{Laden afgerond|Laden niet afgerond}}"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=wallbox"
-          }
-        ]
-      },
-      {
-        "id": "is_plugged",
-        "title": {
-          "en": "!{{Car plugged in|No car plugged in}}",
-          "nl": "!{{Auto verbonden|Geen auto verbonden}}"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=wallbox"
-          }
-        ]
-      }
-    ],
     "actions": [
       {
         "id": "resume_charging",
@@ -197,34 +139,6 @@
             "type": "device",
             "name": "device",
             "filter": "driver_id=wallbox"
-          }
-        ]
-      },
-      {
-        "id": "change_amps_to",
-        "title": {
-          "en": "Change amperage to...",
-          "nl": "Amperage veranderen naar..."
-        },
-        "titleformatted": {
-          "en": "Change amperage to [[amps]]",
-          "nl": "Amperage veranderen naar [[amps]]"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=wallbox"
-          },
-          {
-            "type": "range",
-            "name": "amps",
-            "min": 6,
-            "max": 32,
-            "step": 1,
-            "label": "A",
-            "labelMultiplier": 1,
-            "labelDecimals": 0
           }
         ]
       },
@@ -264,6 +178,7 @@
         }
       },
       "images": {
+        "xlarge": "/drivers/wallbox/assets/images/xlarge.png",
         "large": "/drivers/wallbox/assets/images/large.png",
         "small": "/drivers/wallbox/assets/images/small.png"
       },
