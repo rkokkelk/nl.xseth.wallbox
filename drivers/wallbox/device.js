@@ -24,7 +24,7 @@ class wallbox_charger extends Homey.Device {
     await this._api.authenticate();
 
     // Verify default polling frequenty is set
-    if (this.getSetting('polling') == null)
+    if (!this.getSetting('polling'))
       this.setSettings({ polling: POLL_INTERVAL});
 
     // Setup polling of device
