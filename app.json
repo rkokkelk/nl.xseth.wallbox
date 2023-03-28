@@ -428,6 +428,13 @@
             "en": "Waiting to unlock",
             "nl": "Wacht op ontgrendeling"
           }
+        },
+        {
+          "id": "Paused",
+          "title": {
+            "en": "Pauzed charging",
+            "nl": "Laden gepauzeerd"
+          }
         }
       ],
       "setable": false,

@@ -51,6 +51,10 @@ class wallbox_charger extends Homey.Device {
     let stats = await this._api.getChargerStatus(this._id);
     console.log(stats)
 
+    // Parse current status
+    const statusId = stats['status_id']
+    const status = status_util.getStatus(statusId)
+    const curStatus = this.getCapabilityValue('status')
     
     // Parse locked capability
     let isLocked = Boolean(stats['config_data']['locked']);
@@ -59,10 +63,12 @@ class wallbox_charger extends Homey.Device {
       this.setCapabilityValue('locked', isLocked);
     }
 
-    // Parse current status
-    const statusId = stats['status_id']
-    const status = status_util.getStatus(statusId)
-    const curStatus = this.getCapabilityValue('status')
+    // Parse on/off-pause/resume capability
+    const isOnOff = status != 'Paused';
+    if (this.getCapabilityValue('onoff') !== isOnOff) {
+      this.log(`Setting [onoff]: ${isOnOff}`);
+      this.setCapabilityValue('onoff', isOnOff);
+    }
 
     // Ensure availability is correct
     if (status == statuses.Disconnected || status == statuses.Error) {
