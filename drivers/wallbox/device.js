@@ -71,7 +71,7 @@ class wallbox_charger extends Homey.Device {
     }
 
     // Ensure availability is correct
-    if (status == statuses.Disconnected || status == statuses.Error) {
+    if (status == 'Disconnected' || status == 'Error') {
       this.setUnavailable();
       return
     } else 
@@ -110,20 +110,20 @@ class wallbox_charger extends Homey.Device {
     this.driver.trigger('status_changed', this, tokens)
 
     // Ignore Error and Update triggers for now
-    if (newStatus == statuses.Error || newStatus == statuses.Updating)
+    if (newStatus == 'Error' || newStatus == 'Updating')
       return
 
     // Triggers based on change in previous status
-    if (curStatus == statuses.Charging)
+    if (curStatus == 'Charging')
       this.driver.trigger('charging_ended', this)
-    else if (curStatus == statuses.Ready)
+    else if (curStatus == 'Ready')
       this.driver.trigger('car_connected', this)
 
 
     // Triggers based on change in current status
-    if (newStatus == statuses.Charging)
+    if (newStatus == 'Charging')
       this.driver.trigger('charging_started', this)
-    else if (newStatus == statuses.Ready)
+    else if (newStatus == 'Ready')
       this.driver.trigger('car_unplugged', this)
 
   }
