@@ -11,6 +11,12 @@ class wallboxapp extends Homey.App {
 			inspector.open(8080, '0.0.0.0', true)
 
 		this.log('wallboxapp is running...');
+
+		this.log('Setting up actions')
+		this.homey.flow.getActionCard('resume_charging')
+			.registerRunListener(args => args.device.turnOnOff(true));
+		this.homey.flow.getActionCard('pause_charging')
+			.registerRunListener(args => args.device.turnOnOff(false));
 	}
 }
 
