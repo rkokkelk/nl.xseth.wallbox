@@ -80,20 +80,20 @@ class wallbox_charger extends Homey.Device {
       this.log('Setting [status]: ', status);
       this.setCapabilityValue('status', status);
 
-      this.triggerStatusChange(curStatus, status)
+      this.triggerStatusChange(curStatus, status);
     }
 
     let watts = 0
     // Set current usage
     if (status === 'Charging'){
-      const kwhs = stats['added_energy']
-      const charge_time = stats['charging_time']
+      const kwhs = stats['added_energy'];
+      const charge_time = stats['charging_time'];
 
-      watts = util.calcWattFromkWhs(kwhs, charge_time)
+      watts = util.calcWattFromkWhs(kwhs, charge_time);
       this.setCapabilityValue('meter_power', kwhs);
     }
 
-    this.setCapabilityValue('measure_power', Math.round(watts))
+    this.setCapabilityValue('measure_power', Math.round(watts));
   }
 
   async triggerStatusChange(curStatus, newStatus){
@@ -105,26 +105,26 @@ class wallbox_charger extends Homey.Device {
      */
     const tokens = {
       status: newStatus
-    }
+    };
 
-    this.driver.trigger('status_changed', this, tokens)
+    this.driver.trigger('status_changed', this, tokens);
 
     // Ignore Error and Update triggers for now
     if (newStatus == 'Error' || newStatus == 'Updating')
-      return
+      return;
 
     // Triggers based on change in previous status
     if (curStatus == 'Charging')
-      this.driver.trigger('charging_ended', this)
+      this.driver.trigger('charging_ended', this);
     else if (curStatus == 'Ready')
-      this.driver.trigger('car_connected', this)
+      this.driver.trigger('car_connected', this);
 
 
     // Triggers based on change in current status
     if (newStatus == 'Charging')
-      this.driver.trigger('charging_started', this)
+      this.driver.trigger('charging_started', this);
     else if (newStatus == 'Ready')
-      this.driver.trigger('car_unplugged', this)
+      this.driver.trigger('car_unplugged', this);
 
   }
 
