@@ -1,9 +1,9 @@
 'use strict';
 
 const Homey = require('homey');
-const util = require('/lib/util');
-const status_util = require('/lib/statuses');
-const WallboxAPI = require('/lib/wallbox_api');
+const util = require('../../lib/util');
+const status_util = require('../../lib/statuses');
+const WallboxAPI = require('../../lib/wallbox_api');
 
 const statuses = status_util.statuses;
 

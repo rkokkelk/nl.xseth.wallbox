@@ -1,7 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
-const WallboxAPI = require('/lib/wallbox_api');
+const WallboxAPI = require('../../lib/wallbox_api');
 
 class wallbox extends Homey.Driver {
 
