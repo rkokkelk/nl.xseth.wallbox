@@ -43,7 +43,16 @@
   ],
   "homeyCommunityTopicId": 54616,
   "homepage": "https://github.com/rkokkelk/nl.xseth.wallbox",
-  "tags": {},
+  "tags": {
+    "en": [
+      "charging station",
+      "wallbox"
+    ],
+    "nl": [
+      "laadpaal",
+      "wallbox"
+    ]
+  },
   "flow": {
     "triggers": [
       {
