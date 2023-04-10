@@ -4,11 +4,13 @@
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "name": {
-    "en": "Wallbox Charger"
+    "en": "Wallbox Charger",
+    "nl": "Wallbox Laadpaal"
   },
   "brandColor": "#60b59d",
   "description": {
-    "en": "Smart EV charging technology made simple."
+    "en": "Smart EV charging technology made simple.",
+    "nl": "Slimme EV laad technologie simpel gemaakt"
   },
   "category": [
     "energy"
@@ -39,5 +41,6 @@
     "local"
   ],
   "homeyCommunityTopicId": 54616,
-  "homepage": "https://github.com/rkokkelk/nl.xseth.wallbox"
+  "homepage": "https://github.com/rkokkelk/nl.xseth.wallbox",
+  "tags": {}
 }

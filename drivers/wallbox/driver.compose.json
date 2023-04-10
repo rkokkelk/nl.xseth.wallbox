@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Wallbox Charger"
+    "en": "Wallbox Charger",
+    "nl": "Wallbox Laadpaal"
   },
   "class": "socket",
   "capabilities": [
@@ -29,16 +30,20 @@
       "options": {
         "logo": "icon.png",
         "usernameLabel": {
-          "en": "E-mail address"
+          "en": "E-mail address",
+          "nl": "E-mail adres"
         },
         "usernamePlaceholder": {
-          "en": "john@doe.com"
+          "en": "john@doe.com",
+          "nl": "john@doe.com"
         },
         "passwordLabel": {
-          "en": "Password"
+          "en": "Password",
+          "nl": "Wachtwoord"
         },
         "passwordPlaceholder": {
-          "en": "Password"
+          "en": "Password",
+          "nl": "Wachtwoord"
         }
       }
     },

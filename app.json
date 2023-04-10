@@ -5,11 +5,13 @@
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "name": {
-    "en": "Wallbox Charger"
+    "en": "Wallbox Charger",
+    "nl": "Wallbox Laadpaal"
   },
   "brandColor": "#60b59d",
   "description": {
-    "en": "Smart EV charging technology made simple."
+    "en": "Smart EV charging technology made simple.",
+    "nl": "Slimme EV laad technologie simpel gemaakt"
   },
   "category": [
     "energy"
@@ -41,6 +43,7 @@
   ],
   "homeyCommunityTopicId": 54616,
   "homepage": "https://github.com/rkokkelk/nl.xseth.wallbox",
+  "tags": {},
   "flow": {
     "triggers": [
       {
@@ -162,7 +165,8 @@
   "drivers": [
     {
       "name": {
-        "en": "Wallbox Charger"
+        "en": "Wallbox Charger",
+        "nl": "Wallbox Laadpaal"
       },
       "class": "socket",
       "capabilities": [
@@ -191,16 +195,20 @@
           "options": {
             "logo": "icon.png",
             "usernameLabel": {
-              "en": "E-mail address"
+              "en": "E-mail address",
+              "nl": "E-mail adres"
             },
             "usernamePlaceholder": {
-              "en": "john@doe.com"
+              "en": "john@doe.com",
+              "nl": "john@doe.com"
             },
             "passwordLabel": {
-              "en": "Password"
+              "en": "Password",
+              "nl": "Wachtwoord"
             },
             "passwordPlaceholder": {
-              "en": "Password"
+              "en": "Password",
+              "nl": "Wachtwoord"
             }
           }
         },
