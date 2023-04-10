@@ -7,5 +7,8 @@
   },
   "0.1.2": {
     "en": "Update icons and fix bugs"
+  },
+  "0.1.3": {
+    "en": "Add Dutch language support"
   }
 }
