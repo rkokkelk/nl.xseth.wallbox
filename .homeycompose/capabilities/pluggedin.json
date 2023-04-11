@@ -2,7 +2,8 @@
   "type": "boolean",
   "title": {
     "en": "Car plugged in",
-    "nl": "Auto verbonden"
+    "nl": "Auto verbonden",
+    "fr": "Voiture branchée"
   },
   "getable": true,
   "setable": false,
