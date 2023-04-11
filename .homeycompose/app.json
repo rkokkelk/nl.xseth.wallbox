@@ -5,7 +5,8 @@
   "sdk": 3,
   "name": {
     "en": "Wallbox Charger",
-    "nl": "Wallbox Laadpaal"
+    "nl": "Wallbox Laadpaal",
+    "fr": "Borne de charge WallBox"
   },
   "brandColor": "#60b59d",
   "description": {
