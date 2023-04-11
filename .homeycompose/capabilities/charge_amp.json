@@ -2,7 +2,8 @@
   "type": "number",
   "title": {
     "en": "Maximum power from source available for charging",
-    "nl": "Maximaal bronvermogen beschikbaar voor laden"
+    "nl": "Maximaal bronvermogen beschikbaar voor laden",
+    "fr": ""fr": "Puissance maximale de la source disponible pour la charge"
   },
   "getable": true,
   "setable": false,
