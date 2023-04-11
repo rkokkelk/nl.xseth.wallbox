@@ -2,60 +2,69 @@
   "type": "enum",
   "title": {
     "en": "Device status",
-    "nl": "Status van het apparaat"
+    "nl": "Status van het apparaat",
+    "fr": "Statut du périphérique"
   },
   "desc": {
     "en": "Device status",
-    "nl": "Status van het apparaat"
+    "nl": "Status van het apparaat",
+    "fr": "Statut du périphérique"
   },
   "values": [
     {
       "id": "Error",
       "title": {
         "en": "Charger error",
-        "nl": "Charger bevat error"
+        "nl": "Charger bevat error",
+        "fr": "Erreur de chargeur"
       }
     },
     {
       "id": "Disconnected",
       "title": {
         "en": "Charger disconnected",
-        "nl": "Charger is niet verbonden"
+        "nl": "Charger is niet verbonden",
+        "fr": "Chargeur déconnecté"
       }
     },
     {
       "id": "Ready",
       "title": {
         "en": "Getting ready to start charging",
-        "nl": "Gereed voor laden"
+        "nl": "Gereed voor laden",
+        "fr": "Se préparer à commencer à charger"        
       }
     },
     {
       "id": "Waiting",
       "title": {
         "en": "Connected; waiting for car demand",
-        "nl": "Verbonden; wacht op auto"
+        "nl": "Verbonden; wacht op auto",
+        "fr": "En attente d'un demande de charge"
       }
     },
     {
       "id": "Charging",
       "title": {
         "en": "Charging car",
-        "nl": "Bezig met laden"
+        "nl": "Bezig met laden",
+        "fr": "Véhicule en charge"
       }
     },
     {
       "id": "Locked",
       "title": {
         "en": "Waiting to unlock",
-        "nl": "Wacht op ontgrendeling"
+        "nl": "Wacht op ontgrendeling",
+        "fr": "En attente de déverrouillage"
       }
     },
     {
       "id": "Paused",
       "title": {
         "en": "Pauzed charging",
-        "nl": "Laden gepauzeerd"
+        "nl": "Laden gepauzeerd",
+        "fr": "Chargement en pause"
       }
     }
   ],
