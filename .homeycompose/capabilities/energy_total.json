@@ -2,7 +2,8 @@
   "type": "number",
   "title": {
     "en": "Total Energy Supplied",
-    "nl": "Totaal geleverde energie"
+    "nl": "Totaal geleverde energie",
+    "fr": "Énergie totale fournie"
   },
   "getable": true,
   "setable": false,
