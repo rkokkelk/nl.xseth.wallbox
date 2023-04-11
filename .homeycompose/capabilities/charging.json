@@ -2,7 +2,8 @@
   "type": "boolean",
   "title": {
     "en": "Charging",
-    "nl": "Laden"
+    "nl": "Laden",
+    "fr": "Chargement"
   },
   "getable": true,
   "setable": false,
