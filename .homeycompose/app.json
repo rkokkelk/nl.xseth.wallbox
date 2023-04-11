@@ -5,12 +5,14 @@
   "sdk": 3,
   "name": {
     "en": "Wallbox Charger",
-    "nl": "Wallbox Laadpaal"
+    "nl": "Wallbox Laadpaal",
+    "fr": "Borne de charge Wallbox"
   },
   "brandColor": "#60b59d",
   "description": {
     "en": "Smart EV charging technology made simple.",
-    "nl": "Slimme EV laad technologie simpel gemaakt"
+    "nl": "Slimme EV laad technologie simpel gemaakt",
+    "fr": "La technologie de charge intelligente EV simplifiée."
   },
   "category": [
     "energy"
