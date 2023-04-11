@@ -1,0 +1,17 @@
+{
+  "pair": {
+    "start": {
+      "title": "Go-e Charger Setup",
+      "intro": {
+        "instructions": "Entrez l'adresse IP du chargeur.",
+        "hint": "Pour vous assurer que Homey reste connecté, assurez-vous que l'appareil dispose d'une adresse IP statique."
+      },
+      "ipaddress": "Adresse IP",
+      "saveDevice": "Sauvegarder",
+      "required": "L'adresse IP est requise"
+    }
+  },
+  "settings": {
+    "empty": "L'adresse IP ne peut pas être vide"
+  }
+}
