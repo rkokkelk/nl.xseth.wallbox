@@ -2,7 +2,8 @@
   "type": "boolean",
   "title": {
     "en": "Errorstatus",
-    "nl": "Foutstatus"
+    "nl": "Foutstatus",
+    "fr": "Statut d'erreur"
   },
   "getable": true,
   "setable": false,
