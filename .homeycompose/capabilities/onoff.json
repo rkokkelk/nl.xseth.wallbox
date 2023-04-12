@@ -2,7 +2,8 @@
   "type": "boolean",
   "title": {
     "en": "Charging allowed",
-    "nl": "Laden toegestaan"
+    "nl": "Laden toegestaan",
+    "fr": "Chargement autorisé"
   },
   "getable": true,
   "setable": true,
