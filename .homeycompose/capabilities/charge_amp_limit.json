@@ -2,7 +2,8 @@
   "type": "number",
   "title": {
     "en": "Maximum power as set in the device's app",
-    "nl": "Maximaal vermogen zoals ingesteld in de app van het apparaat"
+    "nl": "Maximaal vermogen zoals ingesteld in de app van het apparaat",
+    		"fr": "Puissance maximale définie dans l'application"
   },
   "getable": true,
   "setable": false,
