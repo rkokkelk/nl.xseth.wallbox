@@ -2,7 +2,8 @@
   "type": "number",
   "title": {
     "en": "Power supplied in this session",
-    "nl": "Vermogen in deze laadsessie geleverd"
+    "nl": "Vermogen in deze laadsessie geleverd",
+    "fr": "Puissance fournie lors de cette session"
   },
   "getable": true,
   "setable": false,
