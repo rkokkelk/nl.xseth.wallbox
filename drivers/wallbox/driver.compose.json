@@ -1,7 +1,8 @@
 {
   "name": {
     "en": "Wallbox Charger",
-    "nl": "Wallbox Laadpaal"
+    "nl": "Wallbox Laadpaal",
+    "fr": "Borne de charge Wallbox"
   },
   "class": "socket",
   "capabilities": [
@@ -31,11 +32,13 @@
         "logo": "icon.png",
         "usernameLabel": {
           "en": "E-mail address",
-          "nl": "E-mail adres"
+          "nl": "E-mail adres",
+          "fr": "Adresse Email"
         },
         "usernamePlaceholder": {
           "en": "john@doe.com",
-          "nl": "john@doe.com"
+          "nl": "john@doe.com",
+          "fr": "john@doe.com"
         },
         "passwordLabel": {
           "en": "Password",
@@ -43,7 +46,8 @@
         },
         "passwordPlaceholder": {
           "en": "Password",
-          "nl": "Wachtwoord"
+          "nl": "Wachtwoord",
+          "fr": "Mot de passe"
         }
       }
     },
