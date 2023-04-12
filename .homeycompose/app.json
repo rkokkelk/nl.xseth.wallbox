@@ -11,7 +11,8 @@
   "brandColor": "#60b59d",
   "description": {
     "en": "Smart EV charging technology made simple.",
-    "nl": "Slimme EV laad technologie simpel gemaakt"
+    "nl": "Slimme EV laad technologie simpel gemaakt",
+    "fr": "La technologie de charge intelligente EV simplifiée."
   },
   "category": [
     "energy"
@@ -50,6 +51,10 @@
     ],
     "nl": [
       "laadpaal",
+      "wallbox"
+    ],
+    "fr": [
+      "bornde de charge",
       "wallbox"
     ]
   }

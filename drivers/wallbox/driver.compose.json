@@ -42,7 +42,8 @@
         },
         "passwordLabel": {
           "en": "Password",
-          "nl": "Wachtwoord"
+          "nl": "Wachtwoord",
+          "fr": "Mot de passe"
         },
         "passwordPlaceholder": {
           "en": "Password",

@@ -7,13 +7,13 @@
   "name": {
     "en": "Wallbox Charger",
     "nl": "Wallbox Laadpaal",
-	"fr": "Borne de charge Wallbox"
+    "fr": "Borne de charge WallBox"
   },
   "brandColor": "#60b59d",
   "description": {
     "en": "Smart EV charging technology made simple.",
     "nl": "Slimme EV laad technologie simpel gemaakt",
-	"fr": "La technologie de charge intelligente EV simplifiée."
+    "fr": "La technologie de charge intelligente EV simplifiée."
   },
   "category": [
     "energy"
@@ -54,10 +54,10 @@
       "laadpaal",
       "wallbox"
     ],
-	"fr": [
+    "fr": [
       "bornde de charge",
       "wallbox"
-    ],
+    ]
   },
   "flow": {
     "triggers": [
@@ -66,7 +66,7 @@
         "title": {
           "en": "Car connected",
           "nl": "Auto verbonden",
-		  "fr": "Véhicule branché"
+          "fr": "Véhicule connecté"
         },
         "args": [
           {
@@ -81,7 +81,7 @@
         "title": {
           "en": "Car unplugged",
           "nl": "Auto ontkoppeld",
-		  "fr": "Véhicule non branché"
+          "fr": "Véhicule déconnecté"
         },
         "args": [
           {
@@ -96,7 +96,7 @@
         "title": {
           "en": "Charging ended",
           "nl": "Laden beëindigd",
-		  "fr": "Chargement terminé"
+          "fr": "Charge terminée"
         },
         "args": [
           {
@@ -111,7 +111,7 @@
         "title": {
           "en": "Charging started",
           "nl": "Laden gestart",
-		  "fr": "Chargement débuté"
+          "fr": "Charge démarrée"
         },
         "args": [
           {
@@ -126,7 +126,7 @@
         "title": {
           "en": "Status changed",
           "nl": "Status gewijzigd",
-		  "fr": "Etat à changé"
+          "fr": "statut à changé"
         },
         "tokens": [
           {
@@ -135,12 +135,12 @@
             "title": {
               "en": "Status",
               "nl": "Status",
-			  "fr": "Etat"
+              "fr": "Statut"
             },
             "example": {
               "en": "Waiting",
               "nl": "Waiting",
-			  "fr": "En attente"
+              "fr": "En attente"
             }
           }
         ],
@@ -159,7 +159,7 @@
         "title": {
           "en": "Resume charging",
           "nl": "Laden vervolgen",
-		  "fr": "Reprendre chargement"
+          "fr": "Reprendre chargement"
         },
         "args": [
           {
@@ -174,7 +174,7 @@
         "title": {
           "en": "Pause charging",
           "nl": "Laden pauzeren",
-		  "fr": "Chargement en pause"
+          "fr": "Chargement en pause"
         },
         "args": [
           {
@@ -191,7 +191,7 @@
       "name": {
         "en": "Wallbox Charger",
         "nl": "Wallbox Laadpaal",
-		"fr": "Borne de charge WallBox"
+        "fr": "Borne de charge Wallbox"
       },
       "class": "socket",
       "capabilities": [
@@ -222,22 +222,22 @@
             "usernameLabel": {
               "en": "E-mail address",
               "nl": "E-mail adres",
-			  "fr": "Adresse Email"
+              "fr": "Adresse Email"
             },
             "usernamePlaceholder": {
               "en": "john@doe.com",
               "nl": "john@doe.com",
-			  "fr": "john@doe.com"
+              "fr": "john@doe.com"
             },
             "passwordLabel": {
               "en": "Password",
               "nl": "Wachtwoord",
-			  "fr": "Mot de passe"
+              "fr": "Mot de passe"
             },
             "passwordPlaceholder": {
               "en": "Password",
               "nl": "Wachtwoord",
-			  "fr": "Mot de passe"
+              "fr": "Mot de passe"
             }
           }
         },
@@ -265,7 +265,7 @@
       "title": {
         "en": "Maximum power from source available for charging",
         "nl": "Maximaal bronvermogen beschikbaar voor laden",
-		"fr": "Puissance maximale de la source disponible pour la charge"
+        "fr": "Puissance maximale de la source disponible pour la charge"
       },
       "getable": true,
       "setable": false,
@@ -282,7 +282,7 @@
       "title": {
         "en": "Maximum power as set in the device's app",
         "nl": "Maximaal vermogen zoals ingesteld in de app van het apparaat",
-		"fr": "Puissance maximale définie dans l'application"
+        "fr": "Puissance maximale définie dans l'application"
       },
       "getable": true,
       "setable": false,
@@ -297,7 +297,7 @@
       "title": {
         "en": "Charging",
         "nl": "Laden",
-		"fr": "Chargement"
+        "fr": "Chargement"
       },
       "getable": true,
       "setable": false,
@@ -309,7 +309,7 @@
       "title": {
         "en": "Total Energy Supplied",
         "nl": "Totaal geleverde energie",
-		"fr": "Énergie totale fournie"
+        "fr": "Énergie totale fournie"
       },
       "getable": true,
       "setable": false,
@@ -325,7 +325,7 @@
       "title": {
         "en": "Errorstatus",
         "nl": "Foutstatus",
-		"fr": "Statut d'erreur"
+        "fr": "Statut d'erreur"
       },
       "getable": true,
       "setable": false,
@@ -337,7 +337,7 @@
       "title": {
         "en": "Current Amperage Supplied",
         "nl": "Actueel amperage",
-		"fr": "Ampérage actuel fourni"
+        "fr": "Ampérage actuel fourni"
       },
       "getable": true,
       "setable": false,
@@ -354,7 +354,7 @@
       "title": {
         "en": "Power supplied in this session",
         "nl": "Vermogen in deze laadsessie geleverd",
-		"fr": "Puissance fournie lors de cette session"
+        "fr": "Puissance fournie lors de cette session"
       },
       "getable": true,
       "setable": false,
@@ -369,7 +369,7 @@
       "title": {
         "en": "Charging allowed",
         "nl": "Laden toegestaan",
-		"fr": "Chargement autorisé"
+        "fr": "Chargement autorisé"
       },
       "getable": true,
       "setable": true,
@@ -382,7 +382,7 @@
       "title": {
         "en": "Car plugged in",
         "nl": "Auto verbonden",
-		"fr": "Voiture branchée"
+        "fr": "Voiture branchée"
       },
       "getable": true,
       "setable": false,
@@ -394,12 +394,12 @@
       "title": {
         "en": "Device status",
         "nl": "Status van het apparaat",
-		"fr": "Statut du périphérique"
+        "fr": "Statut du périphérique"
       },
       "desc": {
         "en": "Device status",
         "nl": "Status van het apparaat",
-		"fr": "Statut du périphérique"
+        "fr": "Statut du périphérique"
       },
       "values": [
         {
@@ -407,7 +407,7 @@
           "title": {
             "en": "Charger error",
             "nl": "Charger bevat error",
-			"fr": "Erreur de chargeur"
+            "fr": "Erreur de chargeur"
           }
         },
         {
@@ -415,14 +415,15 @@
           "title": {
             "en": "Charger disconnected",
             "nl": "Charger is niet verbonden",
-			"fr": "Chargeur déconnecté"
+            "fr": "Chargeur déconnecté"
           }
         },
         {
           "id": "Ready",
           "title": {
             "en": "Getting ready to start charging",
-            "nl": "Gereed voor laden"
+            "nl": "Gereed voor laden",
+            "fr": "Se préparer à commencer à charger"
           }
         },
         {
@@ -430,7 +431,7 @@
           "title": {
             "en": "Connected; waiting for car demand",
             "nl": "Verbonden; wacht op auto",
-			"fr": "En attente d'un demande de charge"
+            "fr": "En attente d'un demande de charge"
           }
         },
         {
@@ -438,14 +439,15 @@
           "title": {
             "en": "Charging car",
             "nl": "Bezig met laden",
-			"fr": "Véhicule en charge"
+            "fr": "Véhicule en charge"
           }
         },
         {
           "id": "Locked",
           "title": {
             "en": "Waiting to unlock",
-            "nl": "Wacht op ontgrendeling"
+            "nl": "Wacht op ontgrendeling",
+            "fr": "En attente de déverrouillage"
           }
         },
         {
@@ -453,7 +455,7 @@
           "title": {
             "en": "Pauzed charging",
             "nl": "Laden gepauzeerd",
-			"fr": "En attente de déverrouillage"
+            "fr": "Chargement en pause"
           }
         }
       ],
