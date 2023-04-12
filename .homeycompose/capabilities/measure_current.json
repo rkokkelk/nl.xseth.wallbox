@@ -2,7 +2,8 @@
   "type": "number",
   "title": {
     "en": "Current Amperage Supplied",
-    "nl": "Actueel amperage"
+    "nl": "Actueel amperage",
+    "fr": "Ampérage actuel fourni"
   },
   "getable": true,
   "setable": false,
