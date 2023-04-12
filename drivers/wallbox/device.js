@@ -48,7 +48,16 @@ class wallbox_charger extends Homey.Device {
     /**
      * Polling function for retrieving/parsing current status charger
      */
-    let stats = await this._api.getChargerStatus(this._id);
+    let stats;
+    let watts = 0;
+
+    try {
+      stats = await this._api.getChargerStatus(this._id);
+    } catch (error) {
+      this.log(`Failed to get ChargerStatus: ${error}`)
+      this.setUnavailable();
+      return
+    }
 
     // Parse current status
     const statusId = stats['status_id']
@@ -83,7 +92,6 @@ class wallbox_charger extends Homey.Device {
       this.triggerStatusChange(curStatus, status);
     }
 
-    let watts = 0
     // Set current usage
     if (status === 'Charging'){
       const kwhs = stats['added_energy'];
