@@ -1,23 +1,26 @@
-'use strict';
+'use strict'
 
-const Homey = require('homey');
-const WallboxAPI = require('../../lib/wallbox_api');
+const Homey = require('homey')
+const WallboxAPI = require('../../lib/wallbox_api')
 
 class wallbox extends Homey.Driver {
-
-  async onInit() {
-    console.log("onInit WallBox driver");
+  async onInit () {
+    console.log('onInit WallBox driver')
 
     this._triggers = {}
     this.trigger_keys = [
-      'charging_ended', 'charging_started', 'car_connected', 'car_unplugged', 'status_changed'
-    ];
+      'charging_ended',
+      'charging_started',
+      'car_connected',
+      'car_unplugged',
+      'status_changed'
+    ]
     for (const type of this.trigger_keys) {
-      this._triggers[type] = this.homey.flow.getDeviceTriggerCard(type);
+      this._triggers[type] = this.homey.flow.getDeviceTriggerCard(type)
     }
   }
 
-  trigger(key, device, tokens, state){
+  trigger (key, device, tokens, state) {
     /**
      * Trigger a triggerCard
      *
@@ -30,52 +33,54 @@ class wallbox extends Homey.Driver {
     this._triggers[key]
       .trigger(device, tokens, state)
       .then(this.log)
-      .catch(this.error);
+      .catch(this.error)
   }
 
-	async onPair(session) {
-		let user = "";
-    let pass = "";
-		let api = null;
+  async onPair (session) {
+    let user = ''
+    let pass = ''
+    let api = null
 
     // Pairing sequences
-    session.setHandler("login", async (data) => {
-      user = data.username;
-      pass = data.password;
+    session.setHandler('login', async data => {
+      user = data.username
+      pass = data.password
 
-			api = new WallboxAPI(user, pass);
-			await api.authenticate();
+      api = new WallboxAPI(user, pass)
+      await api.authenticate()
 
       // return true to continue adding the device if the login succeeded
       // return false to indicate to the user the login attempt failed
       // thrown errors will also be shown to the user
-      return true;
-    });
+      return true
+    })
 
-    session.setHandler("list_devices", async () => {
-			const chargerGroups = await api.getChargers();
-			const chargerDevices = chargerGroups['result']['groups'].map((chargerGroup) => {
-				this.log("Found chargers group: ", chargerGroup['chargers']);
+    session.setHandler('list_devices', async () => {
+      const chargerGroups = await api.getChargers()
+      const chargerDevices = chargerGroups['result']['groups'].map(
+        chargerGroup => {
+          this.log('Found chargers group: ', chargerGroup['chargers'])
 
-        return chargerGroup['chargers'].map((charger) => {
-          this.log("Found charger: ", charger);
+          return chargerGroup['chargers'].map(charger => {
+            this.log('Found charger: ', charger)
 
-          return {
-            name: charger['name'],
-            data: {
-              id: charger['id']
-            },
-            settings: {
-              user: user,
-              pass: pass
-            },
-          };
-        });
-			});
+            return {
+              name: charger['name'],
+              data: {
+                id: charger['id']
+              },
+              settings: {
+                user: user,
+                pass: pass
+              }
+            }
+          })
+        }
+      )
 
-			return chargerDevices
-		});
-	}
+      return chargerDevices
+    })
+  }
 }
 
-module.exports = wallbox;
+module.exports = wallbox
