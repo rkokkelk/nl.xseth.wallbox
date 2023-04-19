@@ -10,5 +10,8 @@
   },
   "0.1.3": {
     "en": "Add Dutch language support"
+  },
+  "0.1.4": {
+    "en": "Added FR language support and improved error handling"
   }
 }
