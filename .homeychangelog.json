@@ -13,5 +13,8 @@
   },
   "0.1.4": {
     "en": "Added FR language support and improved error handling"
+  },
+  "0.1.5": {
+    "en": "Fixes error when adding devices as non-super user."
   }
 }
