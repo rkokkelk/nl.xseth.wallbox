@@ -53,20 +53,24 @@ class wallbox extends Homey.Driver {
     });
 
     session.setHandler("list_devices", async () => {
-			const chargers = await api.getChargers();
-			const chargerDevices = chargers['result']['groups'].map((charger) => {
-				this.log("Found charger: " + charger);
+			const chargerGroups = await api.getChargers();
+			const chargerDevices = chargerGroups['result']['groups'].map((chargerGroup) => {
+				this.log("Found chargers group: ", chargerGroup['chargers']);
 
-				return {
-					name: charger['chargers'][0]['name'],
-					data: {
-						id: charger['chargers'][0]['id']
-					},
-					settings: {
-						user: user,
-						pass: pass
-					},
-				}
+        return chargerGroup['chargers'].map((charger) => {
+          this.log("Found charger: ", charger);
+
+          return {
+            name: charger['name'],
+            data: {
+              id: charger['id']
+            },
+            settings: {
+              user: user,
+              pass: pass
+            },
+          };
+        });
 			});
 
 			return chargerDevices
