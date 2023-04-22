@@ -16,5 +16,8 @@
   },
   "0.1.5": {
     "en": "Fixes error when adding devices as non-super user."
+  },
+  "0.1.6": {
+    "en": "Fix issue with adding charging stations"
   }
 }
