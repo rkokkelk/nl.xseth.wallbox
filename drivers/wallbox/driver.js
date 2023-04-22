@@ -73,7 +73,7 @@ class wallbox extends Homey.Driver {
         });
 			});
 
-			return chargerDevices
+			return chargerDevices.flat()
 		});
 	}
 }
