@@ -13,11 +13,6 @@
     "measure_current",
     "measure_power"
   ],
-  "capabilitiesOptions": {
-    "measure_power": {
-      "approximated": true
-    }
-  },
   "images": {
     "xlarge": "/drivers/wallbox/assets/images/xlarge.png",
     "large": "/drivers/wallbox/assets/images/large.png",

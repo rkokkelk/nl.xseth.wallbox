@@ -95,13 +95,13 @@ class wallbox_charger extends Homey.Device {
     // Set current usage
     if (status === 'Charging'){
       const kwhs = stats['added_energy'];
-      const charge_time = stats['charging_time'];
+      const kw = stats['charging_power'];
 
-      watts = util.calcWattFromkWhs(kwhs, charge_time);
+      watts = kw * 1000; // KiloWatt = Watt / 1000
       this.setCapabilityValue('meter_power', kwhs);
     }
 
-    this.setCapabilityValue('measure_power', Math.round(watts));
+    this.setCapabilityValue('measure_power', watts);
   }
 
   async triggerStatusChange(curStatus, newStatus){
