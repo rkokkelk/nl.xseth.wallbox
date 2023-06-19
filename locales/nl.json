@@ -1,0 +1,5 @@
+{
+    "errors": {
+        "max_amperage": "Aangegeven ampere moet voldoen aan >= __MIN_CURRENT__ en <= __MAX_CURRENT__, mag niet zijn: __maxChargingCurrent__!"
+    }
+}

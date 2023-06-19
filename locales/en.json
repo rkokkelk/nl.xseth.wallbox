@@ -1,0 +1,5 @@
+{
+    "errors": {
+        "max_amperage": "Current must fulfill following requirements >= __MIN_CURRENT__ en <= __MAX_CURRENT__, following is incorrect: __maxChargingCurrent__!"
+    }
+}
