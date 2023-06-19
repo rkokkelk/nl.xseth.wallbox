@@ -19,5 +19,8 @@
   },
   "0.1.6": {
     "en": "Fix issue with adding charging stations"
+  },
+  "0.2.0": {
+    "en": "Adds support for measuring and changing current while charging"
   }
 }
