@@ -18,7 +18,7 @@ class wallbox_charger extends Homey.Device {
 
     this._name = this.getName();
     this._id = this.getData().id;
-    this._api = new WallboxAPI(user, pass);
+    this._api = new WallboxAPI(user, pass, this.homey);
     
     // Perform initial authentication
     await this._api.authenticate();
