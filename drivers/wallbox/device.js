@@ -167,6 +167,15 @@ class wallbox_charger extends Homey.Device {
 
     await func;
   }
+
+  async setAmpere(amperage) {
+    /**
+     * Change ampere value for charging session
+     *
+     * @param {int} amperage - ampere to set charging to
+     */
+    await this._api.setMaxChargingCurrent(this._id, amperage);
+  }
 }
 
 module.exports = wallbox_charger;

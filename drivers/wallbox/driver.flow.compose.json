@@ -75,6 +75,38 @@
         "nl": "Laden pauzeren",
         "fr": "Chargement en pause"
       }
+    },
+    {
+      "id": "change_ampere",
+      "title": {
+        "en": "Change charging current",
+        "nl": "Veranderd laadsnelheid",
+        "fr": "Modifier la vitesse de chargement"
+      },
+      "titleFormatted": {
+        "en": "Set charging to current: [[ampere]]",
+        "nl": "Stel laden in met ampere: [[ampere]]",
+        "fr": "Configurer la charge avec Ampère: [[ampere]]"
+      },
+      "hint": {
+        "en": "Change current",
+        "nl": "Verander laadsnelheid",
+        "fr": "Modifier la vitesse de chargement"
+      },
+      "args": [
+        {
+          "name": "ampere",
+          "type": "number",
+          "placeholder": {
+            "en": "Current",
+            "nl": "Ampere",
+            "fr": "Ampère"
+          },
+          "min": 1,
+          "max": 32,
+          "step": 1
+        }
+      ]
     }
   ]
 }
