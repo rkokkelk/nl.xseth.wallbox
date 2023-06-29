@@ -188,7 +188,7 @@
         "id": "change_ampere",
         "title": {
           "en": "Change charging current",
-          "nl": "Veranderd laadsnelheid",
+          "nl": "Verander laadsnelheid",
           "fr": "Modifier la vitesse de chargement"
         },
         "titleFormatted": {
