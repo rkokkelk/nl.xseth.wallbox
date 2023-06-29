@@ -22,5 +22,8 @@
   },
   "0.2.0": {
     "en": "Adds support for measuring and changing current while charging"
+  },
+  "0.2.1": {
+    "en": "Fixes bug when adding devices"
   }
 }
