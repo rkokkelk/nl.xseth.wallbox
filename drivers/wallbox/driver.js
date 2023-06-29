@@ -46,7 +46,7 @@ class wallbox extends Homey.Driver {
       user = data.username
       pass = data.password
 
-      api = new WallboxAPI(user, pass)
+      api = new WallboxAPI(user, pass, this.homey)
       await api.authenticate()
 
       // return true to continue adding the device if the login succeeded
