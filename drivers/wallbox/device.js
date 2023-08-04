@@ -79,10 +79,10 @@ class wallbox_charger extends Homey.Device {
 
     // Ensure availability is correct
     if (status == 'Disconnected' || status == 'Error') {
-      this.setUnavailable();
+      await this.setUnavailable();
       return
     } else 
-      this.setAvailable();
+      await this.setAvailable();
 
     if (curStatus !== status) {
       this.log('Setting [status]: ', status);
