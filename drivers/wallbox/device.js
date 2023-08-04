@@ -39,9 +39,7 @@ class wallbox_charger extends Homey.Device {
 
   onDeleted() {
     this.log("deleting device...", this._name);
-
-    clearInterval(this.polling);
-    this.available = false;
+    this.homey.clearInterval(this.polling);
   }
 
   async poll() {
@@ -80,6 +78,7 @@ class wallbox_charger extends Homey.Device {
     // Ensure availability is correct
     if (status == 'Disconnected' || status == 'Error') {
       await this.setUnavailable();
+      this.log(`Device ${this._name} is unavailable (disconnected/error)`)
       return
     } else 
       await this.setAvailable();
