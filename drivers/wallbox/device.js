@@ -29,6 +29,7 @@ class wallbox_charger extends Homey.Device {
 
     // Setup polling of device
     this.polling = this.homey.setInterval(this.poll.bind(this), 1000 * this.getSetting('polling'));
+    this.authentication = this.homey.setInterval(this._api.authenticate.bind(this._api), 1000 * 60 * 60 * 24 * 2); // Reauthenticate every 2d
     await this.poll();
 
     // Register capabilities
@@ -40,6 +41,7 @@ class wallbox_charger extends Homey.Device {
   onDeleted() {
     this.log("deleting device...", this._name);
     this.homey.clearInterval(this.polling);
+    this.homey.clearInterval(this.authentication);
   }
 
   async poll() {
@@ -51,8 +53,8 @@ class wallbox_charger extends Homey.Device {
     try {
       stats = await this._api.getChargerStatus(this._id);
     } catch (error) {
+      await this.setUnavailable();
       this.log(`Failed to get ChargerStatus: ${error}`)
-      this.setUnavailable();
       return
     }
 
