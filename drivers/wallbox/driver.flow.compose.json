@@ -107,6 +107,34 @@
           "step": 1
         }
       ]
+    },
+    {
+      "id": "change_charge_mode",
+      "title": {
+        "en": "Change charging mode",
+        "nl": "Verander oplaadmodus",
+        "fr": "Changer le mode de charge"
+      },
+      "titleFormatted": {
+        "en": "Change charging mode to [[mode]]" ,
+        "nl": "Verander oplaadmodus naar [[mode]]",
+        "fr": "Changer le mode de charge en [[mode]]"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "mode",
+          "title": {
+            "en": "Charging mode",
+            "nl": "Oplaadmodus",
+            "fr": "Le mode de charge"
+          },
+          "values": [
+            { "id": "eco", "title": { "en": "Eco mode" } },
+            { "id": "green", "title": { "en": "Full green mode" } }
+          ]
+        }
+      ]
     }
   ]
 }
