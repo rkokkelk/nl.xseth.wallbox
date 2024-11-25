@@ -364,51 +364,6 @@
       "icon": "/assets/icon.svg",
       "insights": false
     },
-    "measure_current": {
-      "type": "number",
-      "title": {
-        "en": "Current Amperage Supplied",
-        "nl": "Actueel amperage",
-        "fr": "Ampérage actuel fourni"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "A"
-      },
-      "min": 0,
-      "max": 100,
-      "icon": "/assets/icon.svg",
-      "insights": true
-    },
-    "meter_power": {
-      "type": "number",
-      "title": {
-        "en": "Power supplied in this session",
-        "nl": "Vermogen in deze laadsessie geleverd",
-        "fr": "Puissance fournie lors de cette session"
-      },
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "kWh"
-      },
-      "icon": "/assets/icon.svg",
-      "insights": true
-    },
-    "onoff": {
-      "type": "boolean",
-      "title": {
-        "en": "Charging allowed",
-        "nl": "Laden toegestaan",
-        "fr": "Chargement autorisé"
-      },
-      "getable": true,
-      "setable": true,
-      "uiQuickAction": true,
-      "icon": "/assets/icon.svg",
-      "insights": false
-    },
     "pluggedin": {
       "type": "boolean",
       "title": {
