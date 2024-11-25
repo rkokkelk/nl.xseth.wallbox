@@ -31,5 +31,8 @@
   },
   "0.3.0": {
     "en": "Increase app compatiblity, change device class to evcharger and bugfixes."
+  },
+  "0.4.0": {
+    "en": "Add setting of charging mode"
   }
 }
