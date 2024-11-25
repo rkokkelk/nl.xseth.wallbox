@@ -4,7 +4,7 @@
     "nl": "Wallbox Laadpaal",
     "fr": "Borne de charge Wallbox"
   },
-  "class": "socket",
+  "class": "evcharger",
   "capabilities": [
     "locked",
     "status",
