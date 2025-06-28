@@ -13,10 +13,6 @@ class wallboxapp extends Homey.App {
 		this.log('wallboxapp is running...');
 
 		this.log('Setting up actions')
-		this.homey.flow.getActionCard('resume_charging')
-			.registerRunListener(args => args.device.turnOnOff(true));
-		this.homey.flow.getActionCard('pause_charging')
-			.registerRunListener(args => args.device.turnOnOff(false));
 		this.homey.flow.getActionCard('change_ampere')
 			.registerRunListener(args => args.device.setAmpere(args.ampere));
 	}
