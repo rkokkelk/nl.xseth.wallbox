@@ -71,10 +71,10 @@ class wallbox_charger extends Homey.Device {
     }
 
     // Parse on/off-pause/resume capability
-    const isOnOff = status != 'Paused';
-    if (this.getCapabilityValue('onoff') !== isOnOff) {
-      this.log(`Setting [onoff]: ${isOnOff}`);
-      this.setCapabilityValue('onoff', isOnOff);
+    const charging = status != 'Paused';
+    if (this.getCapabilityValue('evcharger_charging') !== charging) {
+      this.log(`Setting [evcharger_charging]: ${charging}`);
+      this.setCapabilityValue('evcharger_charging', charging);
     }
 
     // Ensure availability is correct
@@ -87,8 +87,6 @@ class wallbox_charger extends Homey.Device {
 
     if (curStatus !== status) {
       this.log('Setting [status]: ', status);
-      this.setCapabilityValue('status', status);
-
       this.triggerStatusChange(curStatus, status);
     }
 
@@ -113,28 +111,21 @@ class wallbox_charger extends Homey.Device {
      * @param {String} curStatus - current Status
      * @param {String} newStatus - new Status
      */
-    const tokens = {
-      status: newStatus
-    };
-
-    this.driver.trigger('status_changed', this, tokens);
 
     // Ignore Error and Update triggers for now
     if (newStatus == 'Error' || newStatus == 'Updating')
       return;
 
     // Triggers based on change in previous status
-    if (curStatus == 'Charging')
-      this.driver.trigger('charging_ended', this);
-    else if (curStatus == 'Ready')
-      this.driver.trigger('car_connected', this);
+    if (curStatus == 'Ready')
+      this.setCapabilityValue('evcharger_charging_state', 'plugged_in');
 
 
     // Triggers based on change in current status
     if (newStatus == 'Charging')
-      this.driver.trigger('charging_started', this);
+      this.setCapabilityValue('evcharger_charging_state', 'plugged_in_charging');
     else if (newStatus == 'Ready')
-      this.driver.trigger('car_unplugged', this);
+      this.setCapabilityValue('evcharger_charging_state', 'plugged_out');
 
   }
 

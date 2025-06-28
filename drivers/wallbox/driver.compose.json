@@ -7,8 +7,8 @@
   "class": "evcharger",
   "capabilities": [
     "locked",
-    "status",
-    "onoff",
+    "evcharger_charging_state",
+    "evcharger_charging",
     "meter_power",
     "measure_current",
     "measure_power"

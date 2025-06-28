@@ -1,81 +1,9 @@
 {
   "triggers": [
-    {
-      "id": "car_connected",
-      "title": {
-        "en": "Car connected",
-        "nl": "Auto verbonden",
-        "fr": "Véhicule connecté"
-      }
-    },
-    {
-      "id": "car_unplugged",
-      "title": {
-        "en": "Car unplugged",
-        "nl": "Auto ontkoppeld",
-        "fr": "Véhicule déconnecté"
-      }
-    },
-    {
-      "id": "charging_ended",
-      "title": {
-        "en": "Charging ended",
-        "nl": "Laden beëindigd",
-        "fr": "Charge terminée"
-      }
-    },
-    {
-      "id": "charging_started",
-      "title": {
-        "en": "Charging started",
-        "nl": "Laden gestart",
-        "fr": "Charge démarrée"
-      }
-    },
-    {
-      "id": "status_changed",
-      "title": {
-        "en": "Status changed",
-        "nl": "Status gewijzigd",
-        "fr": "statut à changé"
-      },
-      "tokens": [
-        {
-          "name" : "status",
-          "type": "string",
-          "title": {
-            "en": "Status",
-            "nl": "Status",
-            "fr": "Statut"
-          },
-          "example": {
-            "en": "Waiting",
-            "nl": "Waiting",
-            "fr": "En attente"
-          }
-        }
-      ]
-    }
   ],
   "conditions": [
   ],
   "actions": [
-    {
-      "id": "resume_charging",
-      "title": {
-        "en": "Resume charging",
-        "nl": "Laden vervolgen",
-        "fr": "Reprendre chargement"
-      }
-    },
-    {
-      "id": "pause_charging",
-      "title": {
-        "en": "Pause charging",
-        "nl": "Laden pauzeren",
-        "fr": "Chargement en pause"
-      }
-    },
     {
       "id": "change_ampere",
       "title": {
