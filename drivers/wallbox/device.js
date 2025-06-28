@@ -97,7 +97,7 @@ class wallbox_charger extends Homey.Device {
 
     if (status === 'Charging'){
       const kwhs = stats['added_energy'];
-      this.setCapabilityValue('meter_power', kwhs);
+      this.setCapabilityValue('meter_power.charged', kwhs);
     }
 
     this.setCapabilityValue('measure_current', amps);

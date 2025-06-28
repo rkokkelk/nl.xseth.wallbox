@@ -13,6 +13,10 @@
     "measure_current",
     "measure_power"
   ],
+  "energy": {
+    "evCharger": true,
+    "meterPowerImportedCapability": "meter_power.charged"
+  },
   "images": {
     "xlarge": "/drivers/wallbox/assets/images/xlarge.png",
     "large": "/drivers/wallbox/assets/images/large.png",
