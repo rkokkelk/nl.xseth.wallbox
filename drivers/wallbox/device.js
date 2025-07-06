@@ -76,6 +76,7 @@ class wallbox_charger extends Homey.Device {
       this.log(`Failed to get ChargerStatus: ${error}`)
       return
     }
+    this.log(stats);
 
     // Parse current status
     const statusId = stats['status_id']
