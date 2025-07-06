@@ -145,7 +145,7 @@ class wallbox_charger extends Homey.Device {
     // Triggers based on change in current status
     if (newStatus == 'Charging')
       this.setCapabilityValue('evcharger_charging_state', 'plugged_in_charging');
-    else if (newStatus == 'Disconnected')
+    else if (newStatus == 'Disconnected' || newStatus == 'Ready' )
       this.setCapabilityValue('evcharger_charging_state', 'plugged_out');
   }
 
