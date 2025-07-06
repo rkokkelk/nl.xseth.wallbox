@@ -21,6 +21,10 @@ class wallbox_charger extends Homey.Device {
       await this.addCapability('evcharger_charging');
     }
 
+    if (this.hasCapability('meter_power.charged') === false) {
+      await this.addCapability('meter_power.charged');
+    }
+
     if (this.hasCapability('status') === false) {
       await this.addCapability('status');
     }
