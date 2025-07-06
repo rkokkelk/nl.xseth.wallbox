@@ -13,6 +13,21 @@ class wallbox_charger extends Homey.Device {
 
   async onInit() {
     this.log('Device init: ', this.getName());
+
+    if (this.hasCapability('evcharger_charging_state') === false) {
+      await this.addCapability('evcharger_charging_state');
+    }
+    if (this.hasCapability('evcharger_charging') === false) {
+      await this.addCapability('evcharger_charging');
+    }
+
+    if (this.hasCapability('status') === true) {
+      await this.removeCapability('status');
+    }
+    if (this.hasCapability('onoff') === true) {
+      await this.removeCapability('onoff');
+    }
+
     let user = this.getSetting('user');
     let pass = this.getSetting('pass');
 
