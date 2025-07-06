@@ -21,8 +21,8 @@ class wallbox_charger extends Homey.Device {
       await this.addCapability('evcharger_charging');
     }
 
-    if (this.hasCapability('status') === true) {
-      await this.removeCapability('status');
+    if (this.hasCapability('status') === false) {
+      await this.addCapability('status');
     }
     if (this.hasCapability('onoff') === true) {
       await this.removeCapability('onoff');
@@ -50,7 +50,7 @@ class wallbox_charger extends Homey.Device {
     // Register capabilities
     //this.addCapability('measure_power')
     this.registerCapabilityListener('locked', this.turnLocked.bind(this));
-    this.registerCapabilityListener('onoff', this.turnOnOff.bind(this));
+    this.registerCapabilityListener('evcharger_charging', this.turnOnOff.bind(this));
   }
 
   onDeleted() {
@@ -86,11 +86,13 @@ class wallbox_charger extends Homey.Device {
     }
 
     // Parse on/off-pause/resume capability
-    const charging = status != 'Paused';
-    if (this.getCapabilityValue('evcharger_charging') !== charging) {
+    const charging = status == 'Charging';
+    this.log(`charging: ${charging}`);
+    this.log(`Status: ${status}`);    
+    // if (this.getCapabilityValue('evcharger_charging') !== charging) {
       this.log(`Setting [evcharger_charging]: ${charging}`);
       this.setCapabilityValue('evcharger_charging', charging);
-    }
+    // }
 
     // Ensure availability is correct
     if (status == 'Disconnected' || status == 'Error') {
@@ -100,8 +102,10 @@ class wallbox_charger extends Homey.Device {
     } else 
       await this.setAvailable();
 
+
     if (curStatus !== status) {
       this.log('Setting [status]: ', status);
+      this.setCapabilityValue('status', status);
       this.triggerStatusChange(curStatus, status);
     }
 

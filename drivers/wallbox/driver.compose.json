@@ -11,7 +11,8 @@
     "evcharger_charging",
     "meter_power",
     "measure_current",
-    "measure_power"
+    "measure_power",
+    "status"
   ],
   "energy": {
     "evCharger": true,
