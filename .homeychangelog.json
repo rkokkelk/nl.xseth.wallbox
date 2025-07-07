@@ -34,5 +34,8 @@
   },
   "0.3.1": {
     "en": "Fixes for WallBox API changes"
+  },
+  "1.0.0": {
+    "en": "Changed to new Homey EV charger type and capabilities"
   }
 }
