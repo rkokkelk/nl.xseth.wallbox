@@ -1,14 +1,14 @@
 {
   "type": "enum",
   "title": {
-    "en": "Device status",
-    "nl": "Status van het apparaat",
-    "fr": "Statut du périphérique"
+    "en": "Wallbox Device status",
+    "nl": "Wallbox Status van het apparaat",
+    "fr": "Wallbox Statut du périphérique"
   },
   "desc": {
-    "en": "Device status",
-    "nl": "Status van het apparaat",
-    "fr": "Statut du périphérique"
+    "en": "Wallbox Device status",
+    "nl": "Wallbox Status van het apparaat",
+    "fr": "Wallbox Statut du périphérique"
   },
   "values": [
     {
@@ -74,5 +74,6 @@
     "en": "A"
   },
   "icon": "/assets/icon.svg",
-  "insights": false
+  "insights": false,
+  "uiComponent": "sensor"   
 }

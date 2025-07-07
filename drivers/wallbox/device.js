@@ -13,6 +13,25 @@ class wallbox_charger extends Homey.Device {
 
   async onInit() {
     this.log('Device init: ', this.getName());
+
+    if (this.hasCapability('evcharger_charging_state') === false) {
+      await this.addCapability('evcharger_charging_state');
+    }
+    if (this.hasCapability('evcharger_charging') === false) {
+      await this.addCapability('evcharger_charging');
+    }
+
+    if (this.hasCapability('meter_power.charged') === false) {
+      await this.addCapability('meter_power.charged');
+    }
+
+    if (this.hasCapability('status') === false) {
+      await this.addCapability('status');
+    }
+    if (this.hasCapability('onoff') === true) {
+      await this.removeCapability('onoff');
+    }
+
     let user = this.getSetting('user');
     let pass = this.getSetting('pass');
 
@@ -35,7 +54,7 @@ class wallbox_charger extends Homey.Device {
     // Register capabilities
     //this.addCapability('measure_power')
     this.registerCapabilityListener('locked', this.turnLocked.bind(this));
-    this.registerCapabilityListener('onoff', this.turnOnOff.bind(this));
+    this.registerCapabilityListener('evcharger_charging', this.turnOnOff.bind(this));
   }
 
   onDeleted() {
@@ -57,6 +76,7 @@ class wallbox_charger extends Homey.Device {
       this.log(`Failed to get ChargerStatus: ${error}`)
       return
     }
+    // this.log(stats);
 
     // Parse current status
     const statusId = stats['status_id']
@@ -71,11 +91,13 @@ class wallbox_charger extends Homey.Device {
     }
 
     // Parse on/off-pause/resume capability
-    const charging = status != 'Paused';
-    if (this.getCapabilityValue('evcharger_charging') !== charging) {
+    const charging = status == 'Charging';
+    this.log(`charging: ${charging}`);
+    this.log(`Status: ${status}`);    
+    // if (this.getCapabilityValue('evcharger_charging') !== charging) {
       this.log(`Setting [evcharger_charging]: ${charging}`);
       this.setCapabilityValue('evcharger_charging', charging);
-    }
+    // }
 
     // Ensure availability is correct
     if (status == 'Disconnected' || status == 'Error') {
@@ -85,10 +107,11 @@ class wallbox_charger extends Homey.Device {
     } else 
       await this.setAvailable();
 
+    this.log('Setting [status]: ', status);
     if (curStatus !== status) {
-      this.log('Setting [status]: ', status);
-      this.triggerStatusChange(curStatus, status);
+      this.setCapabilityValue('status', status);
     }
+    this.triggerStatusChange(curStatus, status);
 
     // Set power measurements
     const amps = stats['config_data']['max_charging_current'];
@@ -117,16 +140,13 @@ class wallbox_charger extends Homey.Device {
       return;
 
     // Triggers based on change in previous status
-    if (curStatus == 'Ready')
+    if (newStatus == 'Paused' || newStatus == 'Waiting')
       this.setCapabilityValue('evcharger_charging_state', 'plugged_in');
-
-
     // Triggers based on change in current status
     if (newStatus == 'Charging')
       this.setCapabilityValue('evcharger_charging_state', 'plugged_in_charging');
-    else if (newStatus == 'Ready')
+    else if (newStatus == 'Disconnected' || newStatus == 'Ready' )
       this.setCapabilityValue('evcharger_charging_state', 'plugged_out');
-
   }
 
   async turnLocked(value) {
