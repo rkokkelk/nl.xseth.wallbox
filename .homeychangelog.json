@@ -40,5 +40,8 @@
   },
   "1.1.0": {
     "en": "Implemented new EVcharger capabilities. Fixed changes in Wallbox API's. Increased timing interval to prevent API errors."
+  },
+  "1.1.1": {
+    "en": "Small fix in status translations"
   }
 }
