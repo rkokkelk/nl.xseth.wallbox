@@ -29,7 +29,7 @@ class wallbox_charger extends Homey.Device {
 
     // Setup polling of device
     this.polling = this.homey.setInterval(this.poll.bind(this), 1000 * POLL_INTERVAL);
-    this.authentication = this.homey.setInterval(this._api.authenticate.bind(this._api), 1000 * 60 * 60 * 24 * 2); // Reauthenticate every 2d
+    this.authentication = this.homey.setInterval(this._api.authenticate.bind(this._api), 1000 * 60 * 14); // Reauthenticate every 14m
     await this.poll();
 
     // Register capabilities
