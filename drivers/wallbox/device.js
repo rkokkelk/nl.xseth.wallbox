@@ -7,7 +7,7 @@ const WallboxAPI = require('../../lib/wallbox_api');
 
 const statuses = status_util.statuses;
 
-const POLL_INTERVAL = 61;  // Follow API guidelines
+const POLL_INTERVAL = 123;  // Follow API guidelines
 
 class wallbox_charger extends Homey.Device {
 
