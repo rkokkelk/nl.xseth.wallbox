@@ -6,7 +6,7 @@
 			"request": "launch",
 			"cwd": "${workspaceFolder}",
 			"runtimeExecutable": "homey",
-			"args": ["app", "run"],
+			"args": ["app", "run", "--remote"],
 			"outputCapture": "std",
 			"serverReadyAction": {
 				"pattern": "Debugger listening on",
@@ -18,7 +18,7 @@
 			"name": "Attach to Homey",
 			"type": "node",
 			"request": "attach",
-			"address": "10.0.20.202",
+			"address": "10.0.20.142",
 			"port": 8080,
 			"localRoot": "${workspaceFolder}",
 			"remoteRoot": "/"
