@@ -185,8 +185,8 @@ class wallbox_charger extends Homey.Device {
       await func;
     } catch (error) {
       // 403: Car is not connected
-      if(error == 403)
-        error = this.home.__("errors.no_car");
+      if(error.message == '403')
+        error = this.homey.__("errors.no_car");
       
       throw new Error(error);
     }
