@@ -74,6 +74,22 @@
         "nl": "Laden gepauzeerd",
         "fr": "Chargement en pause"
       }
+    },
+    {
+      "id": "Discharging",
+      "title": {
+        "en": "Discharging car",
+        "nl": "Bezig met ontladen",
+        "fr": "Véhicule en décharge"
+      }
+    },
+    {
+      "id": "Updating",
+      "title": {
+        "en": "Updating firmware",
+        "nl": "Firmware bijwerken",
+        "fr": "Mise à jour"
+      }
     }
   ],
   "setable": false,

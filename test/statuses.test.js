@@ -48,3 +48,10 @@ test('every status has a charging state', () => {
   for (const status of Object.keys(statusUtil.statuses))
     assert.ok(statusUtil.getChargingState(status), status);
 });
+
+test('every status is a value of the status capability', () => {
+  const capability = require('../.homeycompose/capabilities/status.json');
+  const ids = capability.values.map(value => value.id);
+  for (const status of Object.keys(statusUtil.statuses))
+    assert.ok(ids.includes(status), status);
+});
