@@ -102,6 +102,7 @@ class wallbox_charger extends Homey.Device {
 
     // Ensure availability is correct
     if (status == 'Disconnected' || status == 'Error') {
+      this.setCapabilityValue('measure_power', 0); // Don't keep last power while unavailable
       await this.setUnavailable();
       this.log(`Device ${this._name} is unavailable (disconnected/error)`)
       return
