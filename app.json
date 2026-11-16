@@ -318,9 +318,17 @@
         {
           "id": "Locked",
           "title": {
-            "en": "Waiting to unlock",
-            "nl": "Wacht op ontgrendeling",
-            "fr": "En attente de déverrouillage"
+            "en": "Locked",
+            "nl": "Op slot",
+            "fr": "Verrouillé"
+          }
+        },
+        {
+          "id": "LockedCarConnected",
+          "title": {
+            "en": "Locked, car connected",
+            "nl": "Op slot, auto aangesloten",
+            "fr": "Verrouillé, véhicule connecté"
           }
         },
         {
