@@ -1,6 +1,7 @@
 {
     "errors": {
         "max_amperage": "L'ampère déclaré doit répondre à >= __MIN_CURRENT__ et <= __MAX_CURRENT__, ne doit pas être: __maxChargingCurrent__! »",
-        "no_car": "Aucun véhicule connecté."
+        "no_car": "Aucun véhicule connecté.",
+        "login": "Échec de la connexion Wallbox : e-mail ou mot de passe refusé."
     }
 }

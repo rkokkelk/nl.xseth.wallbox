@@ -74,6 +74,12 @@ class wallbox_charger extends Homey.Device {
      */
     let stats;
 
+    // Login rejected, nothing to poll until the app restarts
+    if (this._api.credentialsRejected) {
+      await this.setUnavailable(this.homey.__('errors.login'));
+      return
+    }
+
     try {
       stats = await this._api.getChargerStatus(this._id);
     } catch (error) {
