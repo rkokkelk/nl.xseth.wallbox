@@ -101,6 +101,61 @@
             "step": 1
           }
         ]
+      },
+      {
+        "id": "set_eco_smart",
+        "title": {
+          "en": "Set solar charging (Eco-Smart)",
+          "nl": "Zonneladen (Eco-Smart) instellen",
+          "fr": "Régler la recharge solaire (Eco-Smart)"
+        },
+        "titleFormatted": {
+          "en": "Set solar charging (Eco-Smart) to [[mode]]",
+          "nl": "Zet zonneladen (Eco-Smart) op [[mode]]",
+          "fr": "Régler la recharge solaire (Eco-Smart) sur [[mode]]"
+        },
+        "hint": {
+          "en": "Turn Eco-Smart off, or set it to Eco mode or Full solar",
+          "nl": "Zet Eco-Smart uit, of op Eco-modus of Volledig zonne-energie",
+          "fr": "Désactiver Eco-Smart, ou choisir Mode Eco ou 100 % solaire"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=wallbox"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off",
+                  "nl": "Uit",
+                  "fr": "Désactivé"
+                }
+              },
+              {
+                "id": "eco",
+                "title": {
+                  "en": "Eco mode",
+                  "nl": "Eco-modus",
+                  "fr": "Mode Eco"
+                }
+              },
+              {
+                "id": "full_solar",
+                "title": {
+                  "en": "Full solar",
+                  "nl": "Volledig zonne-energie",
+                  "fr": "100 % solaire"
+                }
+              }
+            ]
+          }
+        ]
       }
     ]
   },
