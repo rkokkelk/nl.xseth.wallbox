@@ -1,6 +1,7 @@
 {
     "errors": {
         "max_amperage": "Aangegeven ampere moet voldoen aan >= __MIN_CURRENT__ en <= __MAX_CURRENT__, mag niet zijn: __maxChargingCurrent__!",
-        "no_car": "Geen voertuig aangesloten."
+        "no_car": "Geen voertuig aangesloten.",
+        "login": "Wallbox-login mislukt: e-mail of wachtwoord geweigerd."
     }
 }
