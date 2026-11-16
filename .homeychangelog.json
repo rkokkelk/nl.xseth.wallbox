@@ -46,5 +46,8 @@
   },
   "1.2.0": {
     "en": "Add proper Wallbox scheduled states"
+  },
+  "2.0.0": {
+    "en": "Implemented target_power & eco_mode, fixes for auth and statuses"
   }
 }

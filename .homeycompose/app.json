@@ -1,6 +1,6 @@
 {
   "id": "nl.xseth.wallbox",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "compatibility": ">=12.13.0",
   "sdk": 3,
   "name": {
