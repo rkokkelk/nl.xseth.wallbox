@@ -12,8 +12,19 @@
     "meter_power.charged",
     "measure_current",
     "measure_power",
+    "target_power",
+    "target_power_mode",
     "status"
   ],
+  "capabilitiesOptions": {
+    "target_power": {
+      "min": 0,
+      "max": 22000,
+      "step": 230,
+      "excludeMin": 0,
+      "excludeMax": 1380
+    }
+  },
   "energy": {
     "evCharger": true,
     "meterPowerImportedCapability": "meter_power.charged"

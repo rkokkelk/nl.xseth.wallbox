@@ -1,7 +1,7 @@
 {
   "id": "nl.xseth.wallbox",
   "version": "1.2.0",
-  "compatibility": ">=12.4.5",
+  "compatibility": ">=12.13.0",
   "sdk": 3,
   "name": {
     "en": "Wallbox Charger",

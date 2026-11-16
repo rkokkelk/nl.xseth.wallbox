@@ -15,22 +15,16 @@ class wallbox_charger extends Homey.Device {
   async onInit() {
     this.log('Device init: ', this.getName());
 
-    if (this.hasCapability('evcharger_charging_state') === false) {
-      await this.addCapability('evcharger_charging_state');
-    }
-    if (this.hasCapability('evcharger_charging') === false) {
-      await this.addCapability('evcharger_charging');
-    }
+    // Ensure all capabilities are added to the device
+    const capabilities = [
+      'evcharger_charging_state', 'evcharger_charging', 'meter_power.charged', 'status',
+      'onoff', 'target_power', 'target_power_mode'
+    ]
 
-    if (this.hasCapability('meter_power.charged') === false) {
-      await this.addCapability('meter_power.charged');
-    }
-
-    if (this.hasCapability('status') === false) {
-      await this.addCapability('status');
-    }
-    if (this.hasCapability('onoff') === true) {
-      await this.removeCapability('onoff');
+    for (let cap of capabilities) {
+      if (this.hasCapability(cap) === false) {
+        await this.addCapability(cap);
+      }
     }
 
     let user = this.getSetting('user');
@@ -55,11 +49,12 @@ class wallbox_charger extends Homey.Device {
     this.polling = this.homey.setInterval(this.poll.bind(this), 1000 * POLL_INTERVAL);
     this.authentication = this.homey.setInterval(() => this._api.authenticate().catch(error => this.log(`Authentication failed: ${error}`)), 1000 * AUTH_INTERVAL); // Validate authentication every 10m
     await this.poll();
+    await this.updateOptions();
 
     // Register capabilities
-    //this.addCapability('measure_power')
     this.registerCapabilityListener('locked', this.turnLocked.bind(this));
     this.registerCapabilityListener('evcharger_charging', this.turnOnOff.bind(this));
+    this.registerMultipleCapabilityListener(["target_power", "target_power_mode", "evcharger_charging"], this.changePower.bind(this), 500)
   }
 
   onDeleted() {
@@ -82,6 +77,7 @@ class wallbox_charger extends Homey.Device {
 
     try {
       stats = await this._api.getChargerStatus(this._id);
+      this._max_amp = stats['config_data']['max_available_current'];
     } catch (error) {
       await this.setUnavailable();
       this.log(`Failed to get ChargerStatus: ${error}`)
@@ -167,6 +163,77 @@ class wallbox_charger extends Homey.Device {
       this.setCapabilityValue('evcharger_charging_state', 'plugged_in_charging');
     else if (newStatus == 'Disconnected' || newStatus == 'Ready' || newStatus === 'Locked')
       this.setCapabilityValue('evcharger_charging_state', 'plugged_out');
+  }
+
+  async changePower({ target_power, target_power_mode, evcharger_charging }) {
+    /**
+     * Change the charging of the device
+     *
+     * All capability changes arrive as a single debounced batch.
+     * Only the changed capabilities are present in the object.
+     */
+
+    // Handle mode switch
+    if (target_power_mode === "device") {
+      await this.enableBuiltInScheduling();
+      this.log("Switched to device mode");
+      return;
+    }
+
+    // Handle stop charging
+    if (evcharger_charging === false) {
+      await this.turnOnOff(evcharger_charging);
+      this.log("Stopped charging/discharging");
+      return;
+    }
+
+    // Handle start charging / power adjustment
+    const isCharging =
+      evcharger_charging === true ||
+      this.getCapabilityValue("evcharger_charging");
+    const power =
+      target_power ?? this.getCapabilityValue("target_power") ?? 0;
+
+    const amps = util.calcWattstoAmperage(power);
+    if (evcharger_charging === true) {
+      // Start charging at the current target power
+      if (power >= 0) {
+        await this.setAmpere(amps);
+        this.log(`Started charging at ${power}W (${amps}A)`);
+      }
+    } else if (target_power != null && isCharging) {
+      // Adjust charging rate while already charging
+      if (target_power > 0) {
+        await this.setAmpere(amps);
+        this.log(`Charging power adjusted to ${target_power}W (${amps}A)`);
+      } else {
+        await this.turnOnOff(false);
+        this.log("Power set to idle (0W)");
+      }
+    } else if (target_power !== undefined && !isCharging) {
+      this.log(
+        `Target power set to ${target_power}W, will apply when charging starts`,
+      );
+    }
+  }
+
+  async updateOptions() {
+    /**
+     * Ensure that device / capabilities options reflect the device
+     */
+    if (this._max_amp != undefined) {
+      const max_watts = util.calcAmperagetoWatts(this._max_amp);
+
+      const options = {
+        'min': 0,
+        'max': max_watts,
+        'step': 230,
+        'excludeMin': 0,
+        'excludeMax': 1380
+      }
+
+      this.setCapabilityOptions('target_power', options);
+    }
   }
 
   async turnLocked(value) {
