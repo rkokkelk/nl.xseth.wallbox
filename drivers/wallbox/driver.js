@@ -5,7 +5,7 @@ const WallboxAPI = require('../../lib/wallbox_api')
 
 class wallbox extends Homey.Driver {
   async onInit () {
-    console.log('onInit WallBox driver')
+    this.log('onInit WallBox driver')
 
     this._triggers = {}
     this.trigger_keys = [
