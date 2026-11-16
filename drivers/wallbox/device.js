@@ -102,6 +102,7 @@ class wallbox_charger extends Homey.Device {
 
     // Ensure availability is correct
     if (status == 'Disconnected' || status == 'Error') {
+      this.setCapabilityValue('measure_power', 0); // Don't keep last power while unavailable
       await this.setUnavailable();
       this.log(`Device ${this._name} is unavailable (disconnected/error)`)
       return
@@ -120,7 +121,10 @@ class wallbox_charger extends Homey.Device {
     // Set power measurements
     const amps = stats['config_data']['max_charging_current'];
     const kw = stats['charging_power'];
-    const watts = kw * 1000; // KiloWatt = Watt / 1000
+    // The API keeps reporting the last charging_power for several minutes
+    // after charging stops, so only use it while power is actually flowing
+    const flowing = status === 'Charging' || status === 'Discharging';
+    const watts = flowing ? kw * 1000 : 0; // KiloWatt = Watt / 1000
 
     if (status === 'Charging'){
       const kwhs = stats['added_energy'];
@@ -144,12 +148,14 @@ class wallbox_charger extends Homey.Device {
       return;
 
     // Triggers based on change in previous status
-    if (newStatus == 'Paused' || newStatus == 'Waiting')
+    if (newStatus == 'Waiting')
       this.setCapabilityValue('evcharger_charging_state', 'plugged_in');
+    if (newStatus === 'Paused')
+      this.setCapabilityValue('evcharger_charging_state', 'plugged_in_paused');
     // Triggers based on change in current status
     if (newStatus == 'Charging')
       this.setCapabilityValue('evcharger_charging_state', 'plugged_in_charging');
-    else if (newStatus == 'Disconnected' || newStatus == 'Ready' )
+    else if (newStatus == 'Disconnected' || newStatus == 'Ready' || newStatus === 'Locked')
       this.setCapabilityValue('evcharger_charging_state', 'plugged_out');
   }
 

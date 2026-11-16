@@ -318,9 +318,17 @@
         {
           "id": "Locked",
           "title": {
-            "en": "Waiting to unlock",
-            "nl": "Wacht op ontgrendeling",
-            "fr": "En attente de déverrouillage"
+            "en": "Locked",
+            "nl": "Op slot",
+            "fr": "Verrouillé"
+          }
+        },
+        {
+          "id": "LockedCarConnected",
+          "title": {
+            "en": "Locked, car connected",
+            "nl": "Op slot, auto aangesloten",
+            "fr": "Verrouillé, véhicule connecté"
           }
         },
         {
@@ -329,6 +337,22 @@
             "en": "Pauzed charging",
             "nl": "Laden gepauzeerd",
             "fr": "Chargement en pause"
+          }
+        },
+        {
+          "id": "Discharging",
+          "title": {
+            "en": "Discharging car",
+            "nl": "Bezig met ontladen",
+            "fr": "Véhicule en décharge"
+          }
+        },
+        {
+          "id": "Updating",
+          "title": {
+            "en": "Updating firmware",
+            "nl": "Firmware bijwerken",
+            "fr": "Mise à jour"
           }
         }
       ],
