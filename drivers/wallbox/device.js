@@ -40,8 +40,12 @@ class wallbox_charger extends Homey.Device {
     this._id = this.getData().id;
     this._api = new WallboxAPI(user, pass, this.homey, AUTH_INTERVAL);
     
-    // Perform initial authentication
-    await this._api.authenticate();
+    // Perform initial authentication, on failure the interval below retries
+    try {
+      await this._api.authenticate();
+    } catch (error) {
+      this.log(`Initial authentication failed: ${error}`);
+    }
 
     // Verify default polling frequenty is set
     if (!this.getSetting('polling'))
@@ -49,7 +53,7 @@ class wallbox_charger extends Homey.Device {
 
     // Setup polling of device
     this.polling = this.homey.setInterval(this.poll.bind(this), 1000 * POLL_INTERVAL);
-    this.authentication = this.homey.setInterval(this._api.authenticate.bind(this._api), 1000 * AUTH_INTERVAL); // Validate authentication every 10m
+    this.authentication = this.homey.setInterval(() => this._api.authenticate().catch(error => this.log(`Authentication failed: ${error}`)), 1000 * AUTH_INTERVAL); // Validate authentication every 10m
     await this.poll();
 
     // Register capabilities
