@@ -20,6 +20,8 @@ class wallboxapp extends Homey.App {
 		this.log('Setting up actions')
 		this.homey.flow.getActionCard('change_ampere')
 			.registerRunListener(args => args.device.setAmpere(args.ampere));
+		this.homey.flow.getActionCard('set_eco_smart')
+			.registerRunListener(args => args.device.setEcoSmart(args.mode));
 	}
 }
 

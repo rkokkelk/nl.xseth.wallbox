@@ -222,6 +222,21 @@ class wallbox_charger extends Homey.Device {
     // Ensure quick update of status
     await setTimeout(this.poll.bind(this), 10000)
   }
+
+  async setEcoSmart(mode) {
+    /**
+     * Change Eco-Smart (solar charging) mode
+     *
+     * @param {String} mode - off, eco or full_solar
+     */
+    if (mode === 'off')
+      await this._api.setEcoSmart(this._id, 0, 0);
+    else
+      await this._api.setEcoSmart(this._id, 1, mode === 'full_solar' ? 1 : 0);
+
+    // Ensure quick update of status
+    this.homey.setTimeout(this.poll.bind(this), 10000);
+  }
 }
 
 module.exports = wallbox_charger;
