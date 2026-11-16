@@ -176,6 +176,7 @@
         "evcharger_charging_state",
         "evcharger_charging",
         "meter_power.charged",
+        "meter_power.total",
         "measure_current",
         "measure_power",
         "target_power",
@@ -189,11 +190,32 @@
           "step": 230,
           "excludeMin": 0,
           "excludeMax": 1380
+        },
+        "meter_power.charged": {
+          "title": {
+            "en": "Energy this session",
+            "nl": "Energie deze sessie",
+            "fr": "Énergie de la session"
+          }
+        },
+        "meter_power.total": {
+          "title": {
+            "en": "Energy charged total",
+            "nl": "Totaal geladen energie",
+            "fr": "Énergie totale chargée"
+          }
+        },
+        "meter_power.green": {
+          "title": {
+            "en": "Green energy charged total",
+            "nl": "Totaal geladen groene energie",
+            "fr": "Énergie verte totale chargée"
+          }
         }
       },
       "energy": {
         "evCharger": true,
-        "meterPowerImportedCapability": "meter_power.charged"
+        "meterPowerImportedCapability": "meter_power.total"
       },
       "images": {
         "xlarge": "/drivers/wallbox/assets/images/xlarge.png",

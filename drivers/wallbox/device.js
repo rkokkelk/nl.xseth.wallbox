@@ -3,6 +3,7 @@
 const Homey = require('homey');
 const util = require('../../lib/util');
 const status_util = require('../../lib/statuses');
+const energy = require('../../lib/energy');
 const WallboxAPI = require('../../lib/wallbox_api');
 
 const statuses = status_util.statuses;
@@ -27,12 +28,26 @@ class wallbox_charger extends Homey.Device {
       }
     }
 
+    if (this.hasCapability('meter_power.total') === false) {
+      await this.addCapabilityWithOptions('meter_power.total');
+      await this.setManifestOptions('meter_power.charged'); // New title on devices paired before
+    }
+    // Was never set, lifetime energy is in meter_power.total now
+    if (this.hasCapability('meter_power') === true)
+      await this.removeCapability('meter_power');
+
     let user = this.getSetting('user');
     let pass = this.getSetting('pass');
 
     this._name = this.getName();
     this._id = this.getData().id;
     this._api = new WallboxAPI(user, pass, this.homey, AUTH_INTERVAL);
+    this._energy = new energy.EnergyMeter({
+      fetchSessions: (start, end) => this._api.getSessionsEnergy(this._id, start, end),
+      store: { get: key => this.getStoreValue(key), set: (key, value) => this.setStoreValue(key, value) },
+      log: message => this.log(message),
+      timers: { setTimeout: (fn, ms) => this.homey.setTimeout(fn, ms), clearTimeout: timer => this.homey.clearTimeout(timer) }
+    });
     
     // Perform initial authentication, on failure the interval below retries
     try {
@@ -139,6 +154,63 @@ class wallbox_charger extends Homey.Device {
 
     this.setCapabilityValue('measure_current', amps);
     this.setCapabilityValue('measure_power', watts);
+
+    // Meter problems must not break polling or device init
+    await this.updateEnergyMeter(status, stats).catch(error => this.log(`Failed to update energy meter: ${error}`));
+  }
+
+  async updateEnergyMeter(status, stats) {
+    /**
+     * Update lifetime energy (meter_power.total, meter_power.green) for Homey Energy
+     *
+     * @param {String} status - current Status
+     * @param {Object} stats - charger status from the API
+     */
+    const values = await this._energy.update(status, stats);
+    if (!values)
+      return;
+
+    await this.setMeterValue('meter_power.total', values.total);
+
+    // Green (solar) energy for chargers with Eco-Smart or green energy in their history
+    const ecoSmart = stats.config_data && stats.config_data.ecosmart;
+    if (energy.showGreen(values.green, ecoSmart) && !this.hasCapability('meter_power.green'))
+      await this.addCapabilityWithOptions('meter_power.green');
+    if (this.hasCapability('meter_power.green'))
+      await this.setMeterValue('meter_power.green', values.green);
+  }
+
+  async setMeterValue(capabilityId, kwh) {
+    /**
+     * Set a lifetime meter, never lower than the value it has now
+     *
+     * @param {String} capabilityId - meter capability
+     * @param {number} kwh - new value
+     */
+    const value = Math.max(Math.round(kwh * 1000) / 1000, this.getCapabilityValue(capabilityId) || 0);
+    if (value !== this.getCapabilityValue(capabilityId))
+      await this.setCapabilityValue(capabilityId, value);
+  }
+
+  async addCapabilityWithOptions(capabilityId) {
+    /**
+     * Add a capability after pairing, with its title from the driver manifest
+     *
+     * @param {String} capabilityId - capability to add
+     */
+    await this.addCapability(capabilityId);
+    await this.setManifestOptions(capabilityId);
+  }
+
+  async setManifestOptions(capabilityId) {
+    /**
+     * Apply capability options (title) from the driver manifest
+     *
+     * @param {String} capabilityId - capability to update
+     */
+    const options = (this.driver.manifest.capabilitiesOptions || {})[capabilityId];
+    if (options)
+      await this.setCapabilityOptions(capabilityId, options).catch(error => this.log(`Failed to set options of ${capabilityId}: ${error}`));
   }
 
   async triggerStatusChange(curStatus, newStatus){
