@@ -9,7 +9,7 @@
     "locked",
     "evcharger_charging_state",
     "evcharger_charging",
-    "meter_power",
+    "meter_power.charged",
     "measure_current",
     "measure_power",
     "status"
