@@ -9,6 +9,7 @@ const statuses = status_util.statuses;
 
 const POLL_INTERVAL = 123;  // Follow API guidelines
 const AUTH_INTERVAL = 300;  // Follow API guidelines
+const MIN_AMP = 6; // Lowest charging current
 
 class wallbox_charger extends Homey.Device {
 
@@ -187,34 +188,50 @@ class wallbox_charger extends Homey.Device {
       return;
     }
 
-    // Handle start charging / power adjustment
-    const isCharging =
-      evcharger_charging === true ||
-      this.getCapabilityValue("evcharger_charging");
-    const power =
-      target_power ?? this.getCapabilityValue("target_power") ?? 0;
+    const isCharging = this.getCapabilityValue('evcharger_charging') === true;
 
-    const amps = util.calcWattstoAmperage(power);
+    // Handle start charging
     if (evcharger_charging === true) {
-      // Start charging at the current target power
-      if (power >= 0) {
-        await this.setAmpere(amps);
-        this.log(`Started charging at ${power}W (${amps}A)`);
-      }
-    } else if (target_power != null && isCharging) {
-      // Adjust charging rate while already charging
-      if (target_power > 0) {
-        await this.setAmpere(amps);
-        this.log(`Charging power adjusted to ${target_power}W (${amps}A)`);
-      } else {
-        await this.turnOnOff(false);
-        this.log("Power set to idle (0W)");
-      }
-    } else if (target_power !== undefined && !isCharging) {
-      this.log(
-        `Target power set to ${target_power}W, will apply when charging starts`,
-      );
+      // Only a real target power changes the charging current. Without one,
+      // keep the current as set (e.g. by the "Set charging to current" card)
+      const mode = target_power_mode !== undefined ? target_power_mode : this.getCapabilityValue('target_power_mode');
+      let power = target_power;
+      if (power === undefined && mode === 'homey')
+        power = this.getCapabilityValue('target_power');
+
+      if (power > 0)
+        await this.setPower(power);
+      if (!isCharging)
+        await this.turnOnOff(true);
+
+      this.log('Started charging');
+      return;
     }
+
+    // Handle power adjustment
+    if (target_power == null)
+      return;
+
+    if (isCharging && target_power > 0)
+      await this.setPower(target_power);
+    else if (isCharging)
+      await this.turnOnOff(false);
+    else
+      this.log(`Target power set to ${target_power}W, will apply when charging starts`);
+  }
+
+  async setPower(power) {
+    /**
+     * Set the charging current for a target power, within the charger's range
+     *
+     * @param {int} power - target power in watts
+     */
+    let amps = Math.max(util.calcWattstoAmperage(power), MIN_AMP);
+    if (this._max_amp)
+      amps = Math.min(amps, this._max_amp);
+
+    await this.setAmpere(amps);
+    this.log(`Charging current set to ${amps}A for ${power}W`);
   }
 
   async updateOptions() {
