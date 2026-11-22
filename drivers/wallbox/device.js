@@ -202,14 +202,10 @@ class wallbox_charger extends Homey.Device {
      * Only the changed capabilities are present in the object.
      */
 
-    // Handle mode switch
-    if (target_power_mode === "device") {
-      // TODO: enableBuiltInScheduling() does not exist, decide what device
-      // mode should do on the Wallbox. Until then leave the charger as it is.
-      this.log("Switched to device mode");
-      if (evcharger_charging === undefined)
-        return;
-    }
+    // Device mode: Homey stops steering, the charger keeps its own settings
+    const mode = target_power_mode !== undefined ? target_power_mode : this.getCapabilityValue('target_power_mode');
+    if (target_power_mode === 'device')
+      this.log('Switched to device mode, target power ignored');
 
     // Handle stop charging
     if (evcharger_charging === false) {
@@ -224,8 +220,7 @@ class wallbox_charger extends Homey.Device {
     if (evcharger_charging === true) {
       // Only a real target power changes the charging current. Without one,
       // keep the current as set (e.g. by the "Set charging to current" card)
-      const mode = target_power_mode !== undefined ? target_power_mode : this.getCapabilityValue('target_power_mode');
-      let power = target_power;
+      let power = mode === 'device' ? undefined : target_power;
       if (power === undefined && mode === 'homey')
         power = this.getCapabilityValue('target_power');
 
@@ -239,7 +234,7 @@ class wallbox_charger extends Homey.Device {
     }
 
     // Handle power adjustment
-    if (target_power == null)
+    if (target_power == null || mode === 'device')
       return;
 
     const minPower = util.calcAmperagetoWatts(MIN_AMP, this.phases()); // 1380 W, 3 phases 4140 W

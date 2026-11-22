@@ -123,6 +123,20 @@ test('device mode: no crash, charger left as is', async () => {
   assert.deepStrictEqual(calls, []);
 });
 
+test('device mode: target power ignored', async () => {
+  let { device, calls } = setup({ ...charging, target_power_mode: 'device' });
+  await device.changePower({ target_power: 3680 });
+  assert.deepStrictEqual(calls, [], 'stored device mode');
+
+  ({ device, calls } = setup(charging));
+  await device.changePower({ target_power: 3680, target_power_mode: 'device' });
+  assert.deepStrictEqual(calls, [], 'device mode in the same batch');
+
+  ({ device, calls } = setup({ target_power_mode: 'device' }));
+  await device.changePower({ evcharger_charging: true, target_power: 3680 });
+  assert.deepStrictEqual(calls, [['resumeCharging']], 'start only resumes');
+});
+
 test('device mode with start in the same batch: still resumes', async () => {
   const { device, calls } = setup({ target_power: 7360, target_power_mode: 'homey' });
   await device.changePower({ target_power_mode: 'device', evcharger_charging: true });
