@@ -123,8 +123,25 @@ test('device mode with start in the same batch: still resumes', async () => {
   assert.deepStrictEqual(calls, [['resumeCharging']]);
 });
 
-test('target power while paused: kept for later', async () => {
+test('target power with car connected, not charging: current, then resume', async () => {
+  for (const status of ['Paused', 'Waiting']) {
+    const { device, calls } = setup({ status });
+    await device.changePower({ target_power: 7360, target_power_mode: 'homey' });
+    assert.deepStrictEqual(calls, [['setMaxChargingCurrent', 32], ['resumeCharging']], status);
+  }
+});
+
+test('target power without car: kept for later', async () => {
+  for (const status of ['Ready', 'Locked', 'LockedCarConnected']) {
+    const { device, calls } = setup({ status });
+    await device.changePower({ target_power: 7360, target_power_mode: 'homey' });
+    assert.deepStrictEqual(calls, [], status);
+  }
+});
+
+test('target power below 6 A while paused: nothing', async () => {
   const { device, calls } = setup();
-  await device.changePower({ target_power: 7360, target_power_mode: 'homey' });
+  await device.changePower({ target_power: 0 });
+  await device.changePower({ target_power: 1000 });
   assert.deepStrictEqual(calls, []);
 });

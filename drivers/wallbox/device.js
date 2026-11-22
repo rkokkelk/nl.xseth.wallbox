@@ -11,6 +11,7 @@ const POLL_INTERVAL = 123;  // Follow API guidelines
 const AUTH_INTERVAL = 300;  // Follow API guidelines
 const MIN_AMP = 6; // Lowest charging current
 const MIN_POWER = util.calcAmperagetoWatts(MIN_AMP); // 1380 W, excludeMax of target_power
+const CAR_CONNECTED = ['Paused', 'Waiting']; // Waiting includes Scheduled
 
 class wallbox_charger extends Homey.Device {
 
@@ -218,7 +219,11 @@ class wallbox_charger extends Homey.Device {
       await this.setPower(target_power);
     else if (isCharging)
       await this.turnOnOff(false); // 0 W or below the 6 A minimum
-    else
+    else if (target_power >= MIN_POWER && CAR_CONNECTED.includes(this.getCapabilityValue('status'))) {
+      // Homey: "For EV chargers, charging is automatically started or stopped."
+      await this.setPower(target_power);
+      await this.turnOnOff(true);
+    } else
       this.log(`Target power set to ${target_power}W, will apply when charging starts`);
   }
 
