@@ -4,13 +4,12 @@ const Homey = require('homey');
 const util = require('../../lib/util');
 const status_util = require('../../lib/statuses');
 const WallboxAPI = require('../../lib/wallbox_api');
+const { PhaseMeter, MIN_AMP } = require('../../lib/phases');
 
 const statuses = status_util.statuses;
 
 const POLL_INTERVAL = 123;  // Follow API guidelines
 const AUTH_INTERVAL = 300;  // Follow API guidelines
-const MIN_AMP = 6; // Lowest charging current
-const MIN_POWER = util.calcAmperagetoWatts(MIN_AMP); // 1380 W, excludeMax of target_power
 const CAR_CONNECTED = ['Paused', 'Waiting']; // Waiting includes Scheduled
 
 class wallbox_charger extends Homey.Device {
@@ -36,6 +35,7 @@ class wallbox_charger extends Homey.Device {
     this._name = this.getName();
     this._id = this.getData().id;
     this._api = new WallboxAPI(user, pass, this.homey, AUTH_INTERVAL);
+    this._phases = new PhaseMeter(this.getStoreValue('phases'));
     
     // Perform initial authentication, on failure the interval below retries
     try {
@@ -141,6 +141,33 @@ class wallbox_charger extends Homey.Device {
 
     this.setCapabilityValue('measure_current', amps);
     this.setCapabilityValue('measure_power', watts);
+
+    await this.updatePhases(status, amps, kw);
+  }
+
+  async updatePhases(status, amps, kw) {
+    /**
+     * Track the phases the car charges on, for target power
+     *
+     * @param {String} status - current status
+     * @param {Number} amps - set charging current
+     * @param {Number} kw - charging power in kW
+     */
+    const before = this.phases();
+    const last = this._phases.last;
+    this._phases.update(status, amps, kw);
+
+    if (this._phases.last !== last)
+      await this.setStoreValue('phases', this._phases.last).catch(this.error);
+
+    if (this.phases() !== before) {
+      this.log(`Phases in use: ${this.phases()}`);
+      await this.updateOptions();
+    }
+  }
+
+  phases() {
+    return this._phases ? this._phases.phases : 1;
   }
 
   async triggerStatusChange(curStatus, newStatus){
@@ -215,11 +242,12 @@ class wallbox_charger extends Homey.Device {
     if (target_power == null)
       return;
 
-    if (isCharging && target_power >= MIN_POWER)
+    const minPower = util.calcAmperagetoWatts(MIN_AMP, this.phases()); // 1380 W, 3 phases 4140 W
+    if (isCharging && target_power >= minPower)
       await this.setPower(target_power);
     else if (isCharging)
       await this.turnOnOff(false); // 0 W or below the 6 A minimum
-    else if (target_power >= MIN_POWER && CAR_CONNECTED.includes(this.getCapabilityValue('status'))) {
+    else if (target_power >= minPower && CAR_CONNECTED.includes(this.getCapabilityValue('status'))) {
       // Homey: "For EV chargers, charging is automatically started or stopped."
       await this.setPower(target_power);
       await this.turnOnOff(true);
@@ -233,12 +261,13 @@ class wallbox_charger extends Homey.Device {
      *
      * @param {int} power - target power in watts
      */
-    let amps = Math.max(util.calcWattstoAmperage(power), MIN_AMP);
+    const phases = this.phases();
+    let amps = Math.max(util.calcWattstoAmperage(power, phases), MIN_AMP);
     if (this._max_amp)
       amps = Math.min(amps, this._max_amp);
 
     await this.setAmpere(amps);
-    this.log(`Charging current set to ${amps}A for ${power}W`);
+    this.log(`Charging current set to ${amps}A for ${power}W on ${phases} phase(s)`);
   }
 
   async updateOptions() {
@@ -246,14 +275,15 @@ class wallbox_charger extends Homey.Device {
      * Ensure that device / capabilities options reflect the device
      */
     if (this._max_amp != undefined) {
-      const max_watts = util.calcAmperagetoWatts(this._max_amp);
+      const phases = this.phases();
+      const max_watts = util.calcAmperagetoWatts(this._max_amp, phases);
 
       const options = {
         'min': 0,
         'max': max_watts,
         'step': 230,
         'excludeMin': 0,
-        'excludeMax': 1380
+        'excludeMax': util.calcAmperagetoWatts(MIN_AMP, phases)
       }
 
       this.setCapabilityOptions('target_power', options);

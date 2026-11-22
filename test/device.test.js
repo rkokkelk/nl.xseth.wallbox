@@ -14,12 +14,13 @@ Module._load = function(request, ...args) {
 };
 const Device = require('../drivers/wallbox/device');
 Module._load = load;
+const { PhaseMeter } = require('../lib/phases');
 
 // No real timers for the quick status poll after a change
 test.beforeEach(t => t.mock.timers.enable({ apis: ['setTimeout'] }));
 
 // Device with a mocked Wallbox API, records API calls in order
-function setup(caps = {}, maxAmp = 32) {
+function setup(caps = {}, maxAmp = 32, phases) {
   const values = { evcharger_charging: false, status: 'Paused', target_power: null, target_power_mode: null, ...caps };
   const calls = [];
   const device = new Device();
@@ -29,6 +30,11 @@ function setup(caps = {}, maxAmp = 32) {
   device.homey = { __: key => key };
   device._id = 'charger';
   device._max_amp = maxAmp;
+  if (phases)
+    device._phases = new PhaseMeter(phases);
+  device.setStoreValue = async (key, value) => { calls.push(['setStoreValue', key, value]) };
+  device.setCapabilityOptions = (id, options) => { calls.push(['setCapabilityOptions', id, options]) };
+  device.error = () => {};
   device._api = {
     setMaxChargingCurrent: async (id, amps) => { calls.push(['setMaxChargingCurrent', amps]) },
     resumeCharging: async () => { calls.push(['resumeCharging']) },
@@ -144,4 +150,44 @@ test('target power below 6 A while paused: nothing', async () => {
   await device.changePower({ target_power: 0 });
   await device.changePower({ target_power: 1000 });
   assert.deepStrictEqual(calls, []);
+});
+
+test('3 phases: target power to current (4140 W = 6 A, 11040 W = 16 A)', async () => {
+  for (const [watts, amps] of [[4140, 6], [7360, 11], [11040, 16]]) {
+    const { device, calls } = setup(charging, 16, 3);
+    await device.changePower({ target_power: watts });
+    assert.deepStrictEqual(calls, [['setMaxChargingCurrent', amps]], `${watts} W`);
+  }
+});
+
+test('3 phases: below 4140 W while charging pauses', async () => {
+  const { device, calls } = setup(charging, 16, 3);
+  await device.changePower({ target_power: 3680 });
+  assert.deepStrictEqual(calls, [['pauseCharging']]);
+});
+
+test('3 phases: start with stored target power 7360 W (homey)', async () => {
+  const { device, calls } = setup({ target_power: 7360, target_power_mode: 'homey' }, 16, 3);
+  await device.changePower({ evcharger_charging: true });
+  assert.deepStrictEqual(calls, [['setMaxChargingCurrent', 11], ['resumeCharging']]);
+});
+
+test('poll readings: 3 phases stored, slider follows (max 11040 W, min 4140 W)', async () => {
+  const { device, calls } = setup(charging, 16, 1);
+  await device.updatePhases('Charging', 6, 4.6598);
+  assert.deepStrictEqual(calls, [], 'one poll is not enough');
+  await device.updatePhases('Charging', 6, 4.0255);
+  assert.deepStrictEqual(calls, [
+    ['setStoreValue', 'phases', 3],
+    ['setCapabilityOptions', 'target_power', { min: 0, max: 11040, step: 230, excludeMin: 0, excludeMax: 4140 }]
+  ]);
+  calls.length = 0;
+  await device.updatePhases('Charging', 6, 4.0255);
+  assert.deepStrictEqual(calls, [], 'no change, no update');
+});
+
+test('no reading yet: 1 phase, as before', async () => {
+  const { device, calls } = setup(charging, 16);
+  await device.changePower({ target_power: 3680 });
+  assert.deepStrictEqual(calls, [['setMaxChargingCurrent', 16]]);
 });
