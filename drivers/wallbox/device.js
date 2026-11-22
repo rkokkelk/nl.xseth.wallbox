@@ -53,7 +53,6 @@ class wallbox_charger extends Homey.Device {
 
     // Register capabilities
     this.registerCapabilityListener('locked', this.turnLocked.bind(this));
-    this.registerCapabilityListener('evcharger_charging', this.turnOnOff.bind(this));
     this.registerMultipleCapabilityListener(["target_power", "target_power_mode", "evcharger_charging"], this.changePower.bind(this), 500)
   }
 
@@ -175,7 +174,7 @@ class wallbox_charger extends Homey.Device {
 
     // Handle mode switch
     if (target_power_mode === "device") {
-      await this.enableBuiltInScheduling();
+      await this.setEcoSmart('eco');
       this.log("Switched to device mode");
       return;
     }
@@ -196,6 +195,9 @@ class wallbox_charger extends Homey.Device {
 
     const amps = util.calcWattstoAmperage(power);
     if (evcharger_charging === true) {
+      await this.turnOnOff(evcharger_charging);
+      this.log("Started charging/discharging");
+
       // Start charging at the current target power
       if (power >= 0) {
         await this.setAmpere(amps);
