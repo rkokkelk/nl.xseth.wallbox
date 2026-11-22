@@ -55,7 +55,6 @@ class wallbox_charger extends Homey.Device {
 
     // Register capabilities
     this.registerCapabilityListener('locked', this.turnLocked.bind(this));
-    this.registerCapabilityListener('evcharger_charging', this.turnOnOff.bind(this));
     this.registerMultipleCapabilityListener(["target_power", "target_power_mode", "evcharger_charging"], this.changePower.bind(this), 500)
   }
 
