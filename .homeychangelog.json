@@ -49,5 +49,8 @@
   },
   "2.0.0": {
     "en": "Implemented target_power & eco_mode, fixes for auth and statuses"
+  },
+  "2.0.1": {
+    "en": "Fixed bugs in v2 version & removed old capabilities"
   }
 }
