@@ -105,6 +105,12 @@ test('target power 0 while charging: pause', async () => {
   assert.deepStrictEqual(calls, [['pauseCharging']]);
 });
 
+test('target power below 6 A while charging: pause', async () => {
+  const { device, calls } = setup(charging);
+  await device.changePower({ target_power: 1000 });
+  assert.deepStrictEqual(calls, [['pauseCharging']]);
+});
+
 test('target power while paused: kept for later', async () => {
   const { device, calls } = setup();
   await device.changePower({ target_power: 7360, target_power_mode: 'homey' });
