@@ -177,9 +177,11 @@ class wallbox_charger extends Homey.Device {
 
     // Handle mode switch
     if (target_power_mode === "device") {
-      await this.enableBuiltInScheduling();
+      // TODO: enableBuiltInScheduling() does not exist, decide what device
+      // mode should do on the Wallbox. Until then leave the charger as it is.
       this.log("Switched to device mode");
-      return;
+      if (evcharger_charging === undefined)
+        return;
     }
 
     // Handle stop charging

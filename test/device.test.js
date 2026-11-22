@@ -111,6 +111,18 @@ test('target power below 6 A while charging: pause', async () => {
   assert.deepStrictEqual(calls, [['pauseCharging']]);
 });
 
+test('device mode: no crash, charger left as is', async () => {
+  const { device, calls } = setup(charging);
+  await device.changePower({ target_power_mode: 'device' });
+  assert.deepStrictEqual(calls, []);
+});
+
+test('device mode with start in the same batch: still resumes', async () => {
+  const { device, calls } = setup({ target_power: 7360, target_power_mode: 'homey' });
+  await device.changePower({ target_power_mode: 'device', evcharger_charging: true });
+  assert.deepStrictEqual(calls, [['resumeCharging']]);
+});
+
 test('target power while paused: kept for later', async () => {
   const { device, calls } = setup();
   await device.changePower({ target_power: 7360, target_power_mode: 'homey' });
