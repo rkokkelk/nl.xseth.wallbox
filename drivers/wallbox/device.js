@@ -10,7 +10,7 @@ const statuses = status_util.statuses;
 
 const POLL_INTERVAL = 123;  // Follow API guidelines
 const AUTH_INTERVAL = 300;  // Follow API guidelines
-const CAR_CONNECTED = ['Paused', 'Waiting']; // Waiting includes Scheduled
+const SWITCH_HOLD = 3 * 60 * 1000; // Own pause/resume wins until polls catch up
 
 class wallbox_charger extends Homey.Device {
 
@@ -36,6 +36,7 @@ class wallbox_charger extends Homey.Device {
     this._id = this.getData().id;
     this._api = new WallboxAPI(user, pass, this.homey, AUTH_INTERVAL);
     this._phases = new PhaseMeter(this.getStoreValue('phases'));
+    this._targetPaused = this.getStoreValue('targetPaused') === true;
     
     // Perform initial authentication, on failure the interval below retries
     try {
@@ -153,21 +154,45 @@ class wallbox_charger extends Homey.Device {
      * @param {Number} amps - set charging current
      * @param {Number} kw - charging power in kW
      */
-    const before = this.phases();
+    const before = [this.phases(), this.measuredPhases()];
     const last = this._phases.last;
     this._phases.update(status, amps, kw);
 
     if (this._phases.last !== last)
       await this.setStoreValue('phases', this._phases.last).catch(this.error);
 
-    if (this.phases() !== before) {
-      this.log(`Phases in use: ${this.phases()}`);
-      await this.updateOptions();
-    }
+    if (this.phases() === before[0] && this.measuredPhases() === before[1])
+      return;
+    this.log(`Phases in use: ${this.phases()}`);
+    await this.updateOptions();
+
+    // The current was set for the old phase count
+    const target = this.getCapabilityValue('target_power');
+    if (status === 'Charging' && target != null && this.getCapabilityValue('target_power_mode') === 'homey')
+      await this.changePower({ target_power: target }).catch(this.error);
   }
 
   phases() {
     return this._phases ? this._phases.phases : 1;
+  }
+
+  measuredPhases() {
+    // Phases measured for this car, else 1 (lowest minimum, so any car can start)
+    return (this._phases && this._phases.session) || 1;
+  }
+
+  chargeState() {
+    /**
+     * Charging state for decisions: 'charging', 'paused' or null (no car, waiting)
+     *
+     * Our own pause/resume wins until polls catch up: the status lags, and a
+     * resume passes Waiting before Charging.
+     */
+    if (this._switched && Date.now() - this._switched.at < SWITCH_HOLD)
+      return this._switched.on ? 'charging' : 'paused';
+    if (this.getCapabilityValue('evcharger_charging') === true)
+      return 'charging';
+    return this.getCapabilityValue('status') === 'Paused' ? 'paused' : null;
   }
 
   async triggerStatusChange(curStatus, newStatus){
@@ -194,18 +219,28 @@ class wallbox_charger extends Homey.Device {
       this.setCapabilityValue('evcharger_charging_state', 'plugged_out');
   }
 
-  async changePower({ target_power, target_power_mode, evcharger_charging }) {
+  async changePower(values) {
     /**
      * Change the charging of the device
      *
      * All capability changes arrive as a single debounced batch.
      * Only the changed capabilities are present in the object.
+     * Batches run one at a time: API calls can take longer than the debounce.
      */
+    const run = (this._changing || Promise.resolve()).then(() => this.applyChange(values));
+    this._changing = run.catch(() => {});
+    return run;
+  }
 
-    // Device mode: Homey stops steering, the charger keeps its own settings
+  async applyChange({ target_power, target_power_mode, evcharger_charging }) {
     const mode = target_power_mode !== undefined ? target_power_mode : this.getCapabilityValue('target_power_mode');
-    if (target_power_mode === 'device')
+
+    // Device mode: Homey stops steering, so undo a pause from target power
+    if (target_power_mode === 'device') {
       this.log('Switched to device mode, target power ignored');
+      if (this._targetPaused && evcharger_charging === undefined)
+        await this.turnOnOff(true).catch(error => this.log(`Could not resume: ${error.message}`));
+    }
 
     // Handle stop charging
     if (evcharger_charging === false) {
@@ -213,8 +248,6 @@ class wallbox_charger extends Homey.Device {
       this.log("Stopped charging/discharging");
       return;
     }
-
-    const isCharging = this.getCapabilityValue('evcharger_charging') === true;
 
     // Handle start charging
     if (evcharger_charging === true) {
@@ -226,28 +259,58 @@ class wallbox_charger extends Homey.Device {
 
       if (power > 0)
         await this.setPower(power);
-      if (!isCharging)
+      if (this.chargeState() !== 'charging')
         await this.turnOnOff(true);
 
       this.log('Started charging');
       return;
     }
 
-    // Handle power adjustment
-    if (target_power == null || mode === 'device')
-      return;
+    // Handle target power, also the stored one when switching to Homey mode
+    let target = target_power;
+    if (target === undefined && target_power_mode === 'homey')
+      target = this.getCapabilityValue('target_power');
+    if (target != null && mode !== 'device')
+      await this.applyTarget(target);
+  }
 
-    const minPower = util.calcAmperagetoWatts(MIN_AMP, this.phases()); // 1380 W, 3 phases 4140 W
-    if (isCharging && target_power >= minPower)
-      await this.setPower(target_power);
-    else if (isCharging)
+  async applyTarget(target) {
+    /**
+     * Set the current for a target power, start or pause charging
+     * Homey: "For EV chargers, charging is automatically started or stopped."
+     *
+     * @param {int} target - target power in watts
+     */
+    const minPower = util.calcAmperagetoWatts(MIN_AMP, this.measuredPhases()); // 1380 W, 3 phases 4140 W
+    const state = this.chargeState();
+
+    if (state === 'charging' && target >= minPower)
+      await this.setPower(target);
+    else if (state === 'charging') {
       await this.turnOnOff(false); // 0 W or below the 6 A minimum
-    else if (target_power >= minPower && CAR_CONNECTED.includes(this.getCapabilityValue('status'))) {
-      // Homey: "For EV chargers, charging is automatically started or stopped."
-      await this.setPower(target_power);
+      this.setTargetPaused(true);
+    } else if (state === 'paused' && target >= minPower)
+      await this.resumeFor(target); // not in Waiting: there the car or charger holds (full, queue, Eco-Smart)
+    else
+      this.log(`Target power set to ${target}W, will apply when charging starts`);
+  }
+
+  async resumeFor(target) {
+    // Start charging for a target power. A refused resume (car just gone) is only logged.
+    try {
+      await this.setPower(target);
       await this.turnOnOff(true);
-    } else
-      this.log(`Target power set to ${target_power}W, will apply when charging starts`);
+    } catch (error) {
+      this.log(`Could not start charging for ${target}W: ${error.message}`);
+    }
+  }
+
+  setTargetPaused(paused) {
+    // Remember a pause from target power (also over restarts), to undo it in device mode
+    if (Boolean(this._targetPaused) === paused)
+      return;
+    this._targetPaused = paused;
+    this.setStoreValue('targetPaused', paused).catch(this.error);
   }
 
   async setPower(power) {
@@ -278,7 +341,7 @@ class wallbox_charger extends Homey.Device {
         'max': max_watts,
         'step': 230,
         'excludeMin': 0,
-        'excludeMax': util.calcAmperagetoWatts(MIN_AMP, phases)
+        'excludeMax': util.calcAmperagetoWatts(MIN_AMP, this.measuredPhases())
       }
 
       this.setCapabilityOptions('target_power', options);
@@ -322,7 +385,9 @@ class wallbox_charger extends Homey.Device {
       
       throw new Error(error);
     }
-    
+    this._switched = { on: Boolean(value), at: Date.now() };
+    this.setTargetPaused(false);
+
     // Ensure quick update of status
     await setTimeout(this.poll.bind(this), 10000)
   }
