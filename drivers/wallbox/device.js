@@ -21,9 +21,20 @@ class wallbox_charger extends Homey.Device {
       'onoff', 'target_power', 'target_power_mode'
     ]
 
+    // Ensure older capabilities are removed from the device
+    const oldCapabilities = [
+      'meter_power'
+    ]
+
     for (let cap of capabilities) {
       if (this.hasCapability(cap) === false) {
         await this.addCapability(cap);
+      }
+    }
+
+    for (let cap of oldCapabilities) {
+      if (this.hasCapability(cap) === true) {
+        await this.removeCapability(cap);
       }
     }
 
